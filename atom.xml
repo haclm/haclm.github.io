@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>haclmker</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-08-05T03:56:51.518Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>haclmker</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>教学GitHub博客搭建</title>
+    <link href="http://example.com/2021/08/05/%E6%95%99%E5%AD%A6GitHub%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    <id>http://example.com/2021/08/05/%E6%95%99%E5%AD%A6GitHub%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</id>
+    <published>2021-08-05T01:02:59.000Z</published>
+    <updated>2021-08-05T03:56:51.518Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;GitHub博客教学&quot;&gt;&lt;a href=&quot;#GitHub博客教学&quot; class=&quot;headerlink&quot; title=&quot;GitHub博客教学&quot;&gt;&lt;/a&gt;GitHub博客教学&lt;/h1&gt;&lt;h2 id=&quot;要点如下：&quot;&gt;&lt;a href=&quot;#要点如下：&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="博客教学" scheme="http://example.com/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>我的第一个博客</title>
+    <link href="http://example.com/2021/08/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://example.com/2021/08/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2021-08-04T07:37:27.000Z</published>
+    <updated>2021-08-04T07:47:20.399Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;pre&gt;&lt;code&gt;                   我的第一个博客
+ 这是一个我用GitHub加hexo搭建的博客。嗯，由于是新手很多不懂请见谅。Markdown的语法不懂所以就只能这样了。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
