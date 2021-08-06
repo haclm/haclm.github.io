@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-08-06T10:02:41.694Z</updated>
+  <updated>2021-08-06T11:37:33.295Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://example.com/2021/080627682.html"/>
     <id>http://example.com/2021/080627682.html</id>
     <published>2021-08-06T02:36:00.000Z</published>
-    <updated>2021-08-06T10:02:41.694Z</updated>
+    <updated>2021-08-06T11:37:33.295Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="hexo-admin写博客"><a href="#hexo-admin写博客" class="headerlink" title="hexo_admin写博客"></a>hexo_admin写博客</h1><p>写博客是不是很头疼？不好实时预览。用那黑乎乎的vim编辑器，看起来很难受对吧？那么我们不用vim编辑器用什么编辑器？用hexo admin！hexo admin编辑器可以实时预览对新手很好。告诉你一个秘密本博文也是用hexo admin写的！好了废话不多说了。let’s go.本教程用linux为例子，Windows的话也差不多万变不离其宗嘛</p><h2 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h2><ul><li>有hexo的电脑//电脑上没有安装hexo可以看上一期</li><li>电脑能联网 <h2 id="安装hexo-admin"><a href="#安装hexo-admin" class="headerlink" title="安装hexo admin"></a>安装hexo admin</h2> 运行以下命令：<br><code>cd blog &amp;&amp; npm install hexo-admin --save</code><br>cd blog 是进入blog目录<h2 id="运行："><a href="#运行：" class="headerlink" title="运行："></a>运行：</h2>运行以下命令来启动hexo_admin<br><code>hexo s</code></li></ul><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>进入<a href="hocalhost:4000/amdin">自己本地的博客</a><br><img src="/images/pasted-4.png" alt="filename already exists, renamed"><br>这个是设密码，输入内容后下滑，找到生成的代码，复制到blog目录’_config.yml’中保存并重启hexo，打来hexo-admin的界面。</p><h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>在posts 里面新建一个博文，就可以写。</p><h3 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h3><p>教程<a href="http://ibruce.info/2013/11/26/markdown/">不如</a></p><h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>这期教程就到了，欢迎订阅rss和打赏。请作者喝一杯冰可乐吧！</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="hexo-admin写博客"><a href="#hexo-admin写博客" class="headerlink" title="hexo_admin写博客"></a>hexo_admin写博客</h1><p>写博客是不是很头疼？不好实时预览。用那黑乎乎的vim编辑器，看起来很头疼。那么我们不用vim编辑器用什么编辑器？用hexo admin！hexo admin编辑器可以实时预览对新手很好。告诉你一个秘密本博文也是用hexo admin写的！好了废话不多说了。let’s go.本教程用linux为例子，Windows的话也差不多万变不离其宗嘛</p><h2 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h2><ul><li>有hexo的电脑//电脑上没有安装hexo可以看上一期</li><li>电脑能联网 <h2 id="安装hexo-admin"><a href="#安装hexo-admin" class="headerlink" title="安装hexo admin"></a>安装hexo admin</h2> 运行以下命令：<br><code>cd blog &amp;&amp; npm install hexo-admin --save</code><br>cd blog 是进入blog目录<h2 id="运行："><a href="#运行：" class="headerlink" title="运行："></a>运行：</h2>运行以下命令来启动hexo_admin<br><code>hexo s</code></li></ul><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>进入<a href="hocalhost:4000/amdin">自己本地的博客</a><br><img src="/images/pasted-4.png" alt="filename already exists, renamed"><br>这个是设密码，输入内容后下滑，找到生成的代码，复制到blog目录’_config.yml’中保存并重启hexo，打来hexo-admin的界面。</p><h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>在posts 里面新建一个博文，就可以写。</p><h3 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h3><p>教程<a href="http://ibruce.info/2013/11/26/markdown/">不如</a></p><h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>这期教程就到了，欢迎订阅rss和打赏。请作者喝一杯冰可乐吧！</p>]]></content>
     
     
       
@@ -69,7 +69,7 @@
     <link href="http://example.com/2021/080457728.html"/>
     <id>http://example.com/2021/080457728.html</id>
     <published>2021-08-04T07:37:00.000Z</published>
-    <updated>2021-08-05T10:30:20.227Z</updated>
+    <updated>2021-08-06T11:26:33.035Z</updated>
     
     <content type="html"><![CDATA[<pre><code>                   我的第一个博客 这是一个我用GitHub加hexo搭建的博客。嗯，由于是新手很多不懂请见谅。Markdown的语法不懂所以就只能这样了。</code></pre><p><img src="/images/pasted-0.png" alt="upload successful"></p><pre><code> By the way,iam haclmker and you need learn hacking！</code></pre>]]></content>
     
