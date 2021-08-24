@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>linxu运行exe文件</title>
+      <link href="/2021/082452148.html"/>
+      <url>/2021/082452148.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="linux运行exe文件"><a href="#linux运行exe文件" class="headerlink" title="linux运行exe文件"></a>linux运行exe文件</h1><p>众所周知linux可执行文件与Windows不同。但是在特殊情况下要运行exe文件怎么样？难道要开虚拟机或问朋友借电脑？(linux为主力机系统下)NO，不至于。因为linux下可以借助工具来运行exe文件，它就是红酒杯<a href="https://sourceforge.net/projects/wine/">wine</a>(供参考)。</p><h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>运行以下命令，如果不行就换源。怎么换？<a href="www.baidu.com">百度</a></p><pre><code>sudo dpkg --add-architecture i386 && apt-get update && apt-get install wine-bin:i386</code></pre><h2 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h2><p>把方正粗黑宋简体.ttf的字体文件移动到～/.wine/drive_c/windows/Fonts目录下(方正粗黑宋简体.ttf<a href="https://github.com/haclm/linxu_wine_tff">下载</a>) </p><h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>以a.exe为例子</p><pre><code>wine a.exe</code></pre><h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏请作者喝一杯冰可乐吧！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+          <category> kali linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> wine </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>crunch</title>
       <link href="/2021/082022371.html"/>
       <url>/2021/082022371.html</url>
