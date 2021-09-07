@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-08-26T14:56:00.123Z</updated>
+  <updated>2021-09-07T02:14:49.704Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vim</title>
+    <link href="http://example.com/2021/090426382.html"/>
+    <id>http://example.com/2021/090426382.html</id>
+    <published>2021-09-04T03:40:00.000Z</published>
+    <updated>2021-09-07T02:14:49.704Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>vim是什么？vim是古老的编辑器。那vim都很古老了为什么要来介绍？你要记住vim编辑器很强！</p><h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>一般linux都自带vim编辑器，如果你的linux没有安装那就安装一下。</p><pre><code>sudo apt-get install vim</code></pre><h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="编辑一个文件："><a href="#编辑一个文件：" class="headerlink" title="编辑一个文件："></a>编辑一个文件：</h3><p>以a.c为例子</p><pre><code>vim a.c</code></pre><h3 id="键盘技巧："><a href="#键盘技巧：" class="headerlink" title="键盘技巧："></a>键盘技巧：</h3><p><img src="/images/pasted-21.png" alt="upload successful"><br>使用这些快捷键是在普通模式下，并不是在输入模式下。退出输入模式按键盘左上角的Esc键。</p><h3 id="“-”用法："><a href="#“-”用法：" class="headerlink" title="“:”用法："></a>“:”用法：</h3><p>保存：在普通模式输入英文的这个符号”:” ，再输入w。最后回车。(:w)<br><br>退出：在普通模式输入英文的这个符号”:”,在输入q。最后回车。(:q)<br><br>保存并退出：跟上面差不多，可以缩写。(:wq)<br><br>移动行数：在普通模式输入英文的这个符号”:”,在输入行数。最后回车。(以移动到行数1位例子:1)<br></p><h3 id="查找字符："><a href="#查找字符：" class="headerlink" title="查找字符："></a>查找字符：</h3><p>在普通模式输入英文的这个符号”?”,再输入要查找的字符。最后回车。(以查找include为例子?include)</p><h2 id="结言："><a href="#结言：" class="headerlink" title="结言："></a>结言：</h2><p>vim的功能和强大之处还有很多，本期就介绍这么多。<br>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏请作者喝一杯冰可乐吧！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;vim&quot;&gt;&lt;a href=&quot;#vim&quot; class=&quot;headerlink&quot; title=&quot;vim&quot;&gt;&lt;/a&gt;vim&lt;/h1&gt;&lt;h2 id=&quot;介绍：&quot;&gt;&lt;a href=&quot;#介绍：&quot; class=&quot;headerlink&quot; title=&quot;介绍：&quot;&gt;&lt;/a&gt;介绍：&lt;/h</summary>
+      
+    
+    
+    
+    <category term="kali linux" scheme="http://example.com/categories/kali-linux/"/>
+    
+    <category term="linux" scheme="http://example.com/categories/kali-linux/linux/"/>
+    
+    
+    <category term="编辑器" scheme="http://example.com/tags/%E7%BC%96%E8%BE%91%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Honeypot</title>
