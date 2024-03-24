@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="标签, blog,haclmker,hacking">
+    <meta name="keywords" content="分类: FreeRTOS, blog,haclmker,hacking">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>标签 | haclmker</title>
+    <title>分类: FreeRTOS | haclmker</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -255,109 +255,130 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
     
 
-<div id="tags" class="container chip-container">
+<div id="category-cloud" class="container chip-container">
     <div class="card">
         <div class="card-content">
             <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
             </div>
             <div class="tag-chips">
                 
                 
-                <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/" title="网络渗透: 2">
+                
+                <a href="/categories/kali-linux/" title="kali linux: 4">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="网络渗透" style="background-color: #F9EBEA;">网络渗透
+                            style="background-color: #F9EBEA;">kali linux
+                        <span class="tag-length">4</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/" title="博客教学: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #F5EEF8;">博客教学
                         <span class="tag-length">2</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/pentbox/" title="pentbox: 1">
+                <a href="/categories/kali-linux/linux/" title="linux: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="pentbox" style="background-color: #F5EEF8;">pentbox
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/hexo/" title="hexo: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="hexo" style="background-color: #D5F5E3;">hexo
+                            style="background-color: #D5F5E3;">linux
                         <span class="tag-length">2</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/wine/" title="wine: 1">
+                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" title="嵌入式: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="wine" style="background-color: #E8F8F5;">wine
+                            style="background-color: #E8F8F5;">嵌入式
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/" title="编辑器: 1">
+                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/FreeRTOS/" title="FreeRTOS: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="编辑器" style="background-color: #FEF9E7;">编辑器
+                             chip-active "
+                            style="background-color: #FEF9E7;">FreeRTOS
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
-                
-                <a href="/tags/netcat/" title="netcat: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="netcat" style="background-color: #F8F9F9;">netcat
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/STM32/" title="STM32: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="STM32" style="background-color: #82E0AA;">STM32
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
                 
             </div>
         </div>
     </div>
 </div>
 
-    
-    <link rel="stylesheet" type="text/css" href="/libs/jqcloud/jqcloud.css">
-<style type="text/css">
-    #tag-wordcloud {
-        width: 100%;
-        height: 300px;
-    }
-</style>
-
-<div class="container" data-aos="fade-up">
-    <div class="card">
-        <div id="tag-wordcloud" class="card-content"></div>
-    </div>
-</div>
-
-<script type="text/javascript" src="/libs/jqcloud/jqcloud-1.0.4.min.js"></script>
-<script type="text/javascript">
-    
-
-    $('#tag-wordcloud').jQCloud([{"text":"网络渗透","weight":2,"link":"/tags/网络渗透/"},{"text":"pentbox","weight":1,"link":"/tags/pentbox/"},{"text":"hexo","weight":2,"link":"/tags/hexo/"},{"text":"wine","weight":1,"link":"/tags/wine/"},{"text":"编辑器","weight":1,"link":"/tags/编辑器/"},{"text":"netcat","weight":1,"link":"/tags/netcat/"},{"text":"STM32","weight":1,"link":"/tags/STM32/"}], {
-        autoResize: true
-    });
-</script>
 
     
 
+    <article id="articles" class="container articles">
+        <div class="row tags-posts">
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2024/03243229.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="/images/STM32twotask.png" class="responsive-img" alt="初识FreeRTOS">
+                            
+                            <span class="card-title">初识FreeRTOS</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                介绍FreeRTOS 是市场领先的面向微控制器和小型微处理器的实时操作系统。
+官网
+示例软件介绍本教程软件用的时STM32CubeIDE并且用的是HAL库函数和
+流程1.打开STM32CubeIDE软件
+2.点击File 然后new 接着S
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-24
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-category">
+                                    嵌入式
+                                </a>
+                                
+                                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/FreeRTOS/" class="post-category">
+                                    FreeRTOS
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/STM32/">
+                            <span class="chip bg-color">STM32</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
 </main>
+
+
 
 
     <footer class="page-footer bg-color">
