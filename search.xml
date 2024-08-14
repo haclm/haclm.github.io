@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>浅谈费曼学习法</title>
+      <link href="/2024/081444064.html"/>
+      <url>/2024/081444064.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h1><p>费曼学习法的核心就是把被动学习改变为主动学习。以教代学。</p><h1 id="具体的步骤"><a href="#具体的步骤" class="headerlink" title="具体的步骤"></a>具体的步骤</h1><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>学习的大前提是得有知识的输入。先确定要学习的概念或知识点，然后就去找资料等方式去了解理解这个概念或知识点。</p><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>如果觉得自己已经掌握这个概念或知识点了，可以设想自己为老师在教一位10岁左右的儿童。因为10岁的儿童没有办法理解太复杂抽象的概念和知识，要求用简单的话语解释。当然啦~，不一定非得是小孩，普通人也行。主要就是输入把复杂的知识概念用通俗易懂的话语描述出来，如果不能就要回到第一步去输入。如此循环直到自己能把知识说明白且通俗易懂，那才是自己掌握了知识。</p><h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>方法虽好，但贵在坚持。如果不能去坚持使用费曼学习法，就算此方法很好却也发挥不了太大用处。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 个人提升 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 高效学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>stm32搭配freertos移植letter</title>
       <link href="/2024/06178348.html"/>
       <url>/2024/06178348.html</url>
@@ -73,33 +98,6 @@
         <tags>
             
             <tag> 编辑器 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Honeypot</title>
-      <link href="/2021/082618155.html"/>
-      <url>/2021/082618155.html</url>
-      
-        <content type="html"><![CDATA[<h1 id="Honeypot"><a href="#Honeypot" class="headerlink" title="Honeypot"></a>Honeypot</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>什么 Honeypot， Honeypot是一种蜜罐工具。什么是蜜罐？在以前，蜜罐是用来抓熊的。通过伪装成“食物”引诱熊前来享用，最后猎人再将熊一举拿下。到了今天，蜜罐技术已经成为网络安全中的一种入侵诱饵，目的是引诱黑客前来攻击，并收集黑客相关的证据和信息。</p><h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>蜜罐一般用于linux系统，所以就介绍linux系统下的安装。<br>下载pentbox-1.8。</p><pre><code>wget http://downloads.sourceforge.net/project/pentbox18realised/pentbox-1.8.tar.gz</code></pre><p>解压：</p><pre><code>tar -zxvf pentbox-1.8.tar.gz</code></pre><p>进入pentbox-1.8目录：</p><pre><code>cd pentbox-1.8</code></pre><p>安装ruby:</p><pre><code>sudo apt-get install ruby</code></pre><h2 id="启动-amp-使用："><a href="#启动-amp-使用：" class="headerlink" title="启动&amp;使用："></a>启动&amp;使用：</h2><pre><code>sudo ./pentbox.rb</code></pre><p><img src="/images/pasted-10.png" alt="filename already exists, renamed"><br>选择2<br><img src="/images/pasted-11.png" alt="filename already exists, renamed"><br>选择3<br><img src="/images/pasted-12.png" alt="filename already exists, renamed"></p><h3 id="选项1"><a href="#选项1" class="headerlink" title="选项1"></a>选项1</h3><p>如果第一次用，选一<br><img src="/images/pasted-13.png" alt="filename already exists, renamed"><br>访问<a href="127.0.0.1">127.0.0.1</a><br><img src="/images/pasted-14.png" alt="filename already exists, renamed"><br>回看终端<br><img src="/images/pasted-15.png" alt="filename already exists, renamed"><br>这里就能看到访问者的信息了</p><h3 id="选项2"><a href="#选项2" class="headerlink" title="选项2"></a>选项2</h3><p>选二<br><img src="/images/pasted-16.png" alt="filename already exists, renamed"><br>这里填要开启的端口，本次测试以80端口为例子。<br><img src="/images/pasted-17.png" alt="filename already exists, renamed"><br>这里填要展示的信息<br><img src="/images/pasted-18.png" alt="filename already exists, renamed"><br>选y开启日志，主意要再次回车<br><img src="/images/pasted-19.png" alt="filename already exists, renamed"><br>选y开启警报</p><hr><p>用浏览器访问本地地址，就能看到你所设置展示的内容。记录信息如上。</p><h1 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h1><p>如果你喜欢我博文的话，就订阅我的srr吧！欢迎打赏请作者喝一杯冰可乐吧！</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> kali linux </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 网络渗透 </tag>
-            
-            <tag> pentbox </tag>
             
         </tags>
       
