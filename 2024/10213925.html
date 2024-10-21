@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="hexo admin写博客, blog,haclm">
+    <meta name="keywords" content="hexo 博客备份, blog,haclm">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>hexo admin写博客 | haclm</title>
+    <title>hexo 博客备份 | haclm</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -211,12 +211,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/images/pasted-5.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">hexo admin写博客</h1>
+                    <h1 class="description center-align post-title">hexo 博客备份</h1>
                 </div>
             </div>
         </div>
@@ -344,8 +344,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/" class="post-category">
-                                博客教学
+                            <a href="/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
+                                博客
                             </a>
                         
                     </div>
@@ -357,14 +357,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-06
+                    2024-10-21
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-01
+                    2024-10-21
                 </div>
                 
 
@@ -398,17 +398,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="hexo-admin写博客"><a href="#hexo-admin写博客" class="headerlink" title="hexo_admin写博客"></a>hexo_admin写博客</h1><p>写博客是不是很头疼？不好实时预览。用那黑乎乎的vim编辑器，看起来很头疼。那么我们不用vim编辑器用什么编辑器？用hexo admin！hexo admin编辑器可以实时预览对新手很好。告诉你一个秘密本博文也是用hexo admin写的！好了废话不多说了。let’s go.本教程用linux为例子，Windows的话也差不多万变不离其宗嘛</p>
-<h2 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h2><ul>
-<li>有hexo的电脑//电脑上没有安装hexo可以看上一期</li>
-<li>电脑能联网 <h2 id="安装hexo-admin"><a href="#安装hexo-admin" class="headerlink" title="安装hexo admin"></a>安装hexo admin</h2> 运行以下命令：<pre><code>cd blog && npm install hexo-admin --save</code></pre>    cd blog 是进入blog目录</li>
-</ul>
-<h2 id="运行："><a href="#运行：" class="headerlink" title="运行："></a>运行：</h2><p>运行以下命令来启动hexo_admin</p>
-<pre><code>hexo s</code></pre>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>进入<a href="hocalhost:4000/amdin">自己本地的博客</a><br><img src="/images/pasted-4.png" alt="filename already exists, renamed"><br>这个是设密码，输入内容后下滑，找到生成的代码，复制到blog目录’_config.yml’中保存并重启hexo，打来hexo-admin的界面。</p>
-<h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>在posts 里面新建一个博文，就可以写。</p>
-<h3 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h3><p>教程<a target="_blank" rel="noopener" href="http://ibruce.info/2013/11/26/markdown/">不如</a></p>
-<h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>这期教程就到了，欢迎订阅rss和打赏。请作者喝一杯冰可乐吧！</p>
+                <h1 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h1><p>废话少说之间上教程：</p>
+<h2 id="创建-GitHub-私密仓库："><a href="#创建-GitHub-私密仓库：" class="headerlink" title="创建 GitHub 私密仓库："></a>创建 GitHub 私密仓库：</h2><p>登录你的 GitHub 账户，点击右上角的 “+” 按钮，选择 “New repository”。<br>输入仓库名称，选择 “Private” 选项，点击 “Create repository”。<br>安装 Git（如果尚未安装）：</p>
+<p>在你的系统上安装 Git。可以从 Git 官网 下载并按照说明进行安装。</p>
+<h2 id="在本地初始化-Git："><a href="#在本地初始化-Git：" class="headerlink" title="在本地初始化 Git："></a>在本地初始化 Git：</h2><p>打开终端（或命令提示符），导航到你的 Hexo 博客根目录：<br>复制代码</p>
+<pre class="line-numbers language-shell"><code class="language-shell">git init
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="添加远程仓库："><a href="#添加远程仓库：" class="headerlink" title="添加远程仓库："></a>添加远程仓库：</h2><p>运行命令，将你刚创建的私密仓库添加为远程：<br>复制代码</p>
+<pre class="line-numbers language-shell"><code class="language-shell">git remote add origin https://github.com/你的用户名/你的仓库名.git
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>添加文件并提交：</p>
+<h2 id="将所有文件添加到-Git："><a href="#将所有文件添加到-Git：" class="headerlink" title="将所有文件添加到 Git："></a>将所有文件添加到 Git：</h2><p>复制代码</p>
+<pre class="line-numbers language-shell"><code class="language-shell">git add .
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="提交更改："><a href="#提交更改：" class="headerlink" title="提交更改："></a>提交更改：</h2><p>复制代码</p>
+<pre class="line-numbers language-shell"><code class="language-shell">git commit -m "备份 Hexo 博客"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="推送到远程仓库："><a href="#推送到远程仓库：" class="headerlink" title="推送到远程仓库："></a>推送到远程仓库：</h2><p>将本地的内容推送到 GitHub：<br>复制代码</p>
+<pre class="line-numbers language-shell"><code class="language-shell">git push -u origin master
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果是首次推送，可能会要求输入 GitHub 的用户名和密码（或使用 token）。<br>后续更新：</p>
+<p>每当你对博客进行更新后，重复第 5 步和第 6 步来提交和推送更改。</p>
 
                 
             </div>
@@ -425,7 +435,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">haclmker</a>
+                    <a href="/about" rel="external nofollow noreferrer">haclm</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -435,7 +445,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://haclm.github.io/2021/080627682.html">https://haclm.github.io/2021/080627682.html</a>
+                    <a href="https://haclm.github.io/2024/10213925.html">https://haclm.github.io/2024/10213925.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -448,7 +458,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">haclmker</a>
+                    <a href="/about" target="_blank">haclm</a>
                     !
                 </span>
             </div>
@@ -646,16 +656,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/080857223.html">
+                <a href="/2024/10213925.html">
                     <div class="card-image">
                         
-                        <img src="/images/pasted-7.png" class="responsive-img" alt="netcat">
                         
-                        <span class="card-title">netcat</span>
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="hexo 博客备份">
+                        
+                        <span class="card-title">hexo 博客备份</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -665,30 +677,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/kali-linux/" class="post-category">
-                                    kali linux
+                            <a href="/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
+                                    博客
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
-                        <span class="chip bg-color">网络渗透</span>
-                    </a>
-                    
-                    <a href="/tags/netcat/">
-                        <span class="chip bg-color">netcat</span>
+                    <a href="/tags/hexo/">
+                        <span class="chip bg-color">hexo</span>
                     </a>
                     
                 </div>
@@ -702,12 +711,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/080511190.html">
+                <a href="/2024/100955011.html">
                     <div class="card-image">
                         
-                        <img src="/images/pasted-6.png" class="responsive-img" alt="教学GitHub博客搭建">
                         
-                        <span class="card-title">教学GitHub博客搭建</span>
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="纳瓦尔宝典阅读摘抄">
+                        
+                        <span class="card-title">纳瓦尔宝典阅读摘抄</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -718,14 +728,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-09
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/" class="post-category">
-                                    博客教学
+                            <a href="/categories/%E9%98%85%E8%AF%BB/" class="post-category">
+                                    阅读
                                 </a>
                             
                             
@@ -735,8 +745,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
+                    <a href="/tags/%E6%91%98%E6%8A%84/">
+                        <span class="chip bg-color">摘抄</span>
                     </a>
                     
                 </div>
