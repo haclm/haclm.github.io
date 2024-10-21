@@ -211,7 +211,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/linux.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -364,7 +364,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-10-08
+                    2024-10-21
                 </div>
                 
 
@@ -410,6 +410,7 @@ xterm ncurses-dev lzop
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ol>
 <li>可以自己下载源码自己编译（可以自己百度）</li>
 <li>可以之间使用/usr/src理的文件</li>
+<li>一键小白模式：sudo apt-get install linux-headers-$(uname -r)</li>
 </ol>
 <h2 id="源码结构"><a href="#源码结构" class="headerlink" title="源码结构"></a>源码结构</h2><ul>
 <li>arch 支持的体系结构</li>
@@ -463,6 +464,22 @@ xterm ncurses-dev lzop
 <span class="token symbol">clean</span><span class="token punctuation">:</span>
         make -C /lib/modules/6.1.0-25-amd64/build M<span class="token operator">=</span><span class="token punctuation">(</span>PWD<span class="token punctuation">)</span> clean
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>或者</p>
+<pre class="line-numbers language-makefile"><code class="language-makefile">ARCH<span class="token operator">=</span>x86
+CROSS_COMPILE<span class="token operator">=</span>
+
+KVERSION <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token keyword">shell</span> uname -r<span class="token punctuation">)</span>
+KERN_DIR <span class="token operator">=</span>  /lib/modules/<span class="token variable">$</span><span class="token punctuation">(</span>KVERSION<span class="token punctuation">)</span>/build 
+
+<span class="token symbol">all</span><span class="token punctuation">:</span>
+    make -C <span class="token variable">$</span><span class="token punctuation">(</span>KERN_DIR<span class="token punctuation">)</span> M<span class="token operator">=</span>`pwd` modules 
+
+<span class="token symbol">clean</span><span class="token punctuation">:</span>
+    make -C <span class="token variable">$</span><span class="token punctuation">(</span>KERN_DIR<span class="token punctuation">)</span> M<span class="token operator">=</span>`pwd` modules clean
+    rm -rf modules.order
+
+obj-m    <span class="token operator">+=</span> helloworld.o
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>编译命令</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">make</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
