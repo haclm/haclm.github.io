@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="hexo admin写博客, blog,haclm">
+    <meta name="keywords" content="浅谈CMOS其一, blog,haclm">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>hexo admin写博客 | haclm</title>
+    <title>浅谈CMOS其一 | haclm</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -211,12 +211,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/images/pasted-5.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">hexo admin写博客</h1>
+                    <h1 class="description center-align post-title">浅谈CMOS其一</h1>
                 </div>
             </div>
         </div>
@@ -332,8 +332,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/hexo/">
-                                <span class="chip bg-color">hexo</span>
+                            <a href="/tags/CMOS/">
+                                <span class="chip bg-color">CMOS</span>
                             </a>
                         
                     </div>
@@ -344,8 +344,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/" class="post-category">
-                                博客教学
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                电子
                             </a>
                         
                     </div>
@@ -357,14 +357,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-06
+                    2024-10-21
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-01
+                    2024-10-22
                 </div>
                 
 
@@ -398,18 +398,21 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="hexo-admin写博客"><a href="#hexo-admin写博客" class="headerlink" title="hexo_admin写博客"></a>hexo_admin写博客</h1><p>写博客是不是很头疼？不好实时预览。用那黑乎乎的vim编辑器，看起来很头疼。那么我们不用vim编辑器用什么编辑器？用hexo admin！hexo admin编辑器可以实时预览对新手很好。告诉你一个秘密本博文也是用hexo admin写的！好了废话不多说了。let’s go.本教程用linux为例子，Windows的话也差不多万变不离其宗嘛</p>
-<h2 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h2><ul>
-<li>有hexo的电脑//电脑上没有安装hexo可以看上一期</li>
-<li>电脑能联网 <h2 id="安装hexo-admin"><a href="#安装hexo-admin" class="headerlink" title="安装hexo admin"></a>安装hexo admin</h2> 运行以下命令：<pre><code>cd blog && npm install hexo-admin --save</code></pre>    cd blog 是进入blog目录</li>
-</ul>
-<h2 id="运行："><a href="#运行：" class="headerlink" title="运行："></a>运行：</h2><p>运行以下命令来启动hexo_admin</p>
-<pre><code>hexo s</code></pre>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>进入<a href="hocalhost:4000/amdin">自己本地的博客</a><br><img src="/images/pasted-4.png" alt="filename already exists, renamed"><br>这个是设密码，输入内容后下滑，找到生成的代码，复制到blog目录’_config.yml’中保存并重启hexo，打来hexo-admin的界面。</p>
-<h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>在posts 里面新建一个博文，就可以写。</p>
-<h3 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h3><p>教程<a target="_blank" rel="noopener" href="http://ibruce.info/2013/11/26/markdown/">不如</a></p>
-<h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>这期教程就到了，欢迎订阅rss和打赏。请作者喝一杯冰可乐吧！</p>
-
+                <h1 id="跨导"><a href="#跨导" class="headerlink" title="跨导"></a>跨导</h1><p>源漏之间的线性电阻可以表示为</p>
+<script type="math/tex; mode=display">
+R_{on}=\frac{1}{\mu _n C_{ox}\frac{W}{L}(V_{GS}-V_{TH})}</script><p>也可以看为阻值由驱动电压控制的电阻。$\frac{W}{L}$是宽长比。<br>当 </p>
+<script type="math/tex; mode=display">
+V_{DS}<2(V_{GS}-V_{TH})</script><p>时器件工作在深三极管区，相反当 </p>
+<script type="math/tex; mode=display">
+V_{DS}>V_{GS}-V_{TH}</script><p>时，漏极并不遵行抛物线特性且工作在饱和区。<br>漏极电压必须大于或等于驱动电压（由公式可以看出）<br>跨导为$R_{on}$的倒数通常定义在饱和区</p>
+<script type="math/tex; mode=display">
+g_m=\mu _n C_{ox}\frac{W}{L}(V_{GS}-V_{TH})</script><p>同时也可以表示为</p>
+<script type="math/tex; mode=display">
+g_m = \sqrt{2\mu C_{ox}\frac{W}{L}I_D}</script><h1 id="沟道长度调制"><a href="#沟道长度调制" class="headerlink" title="沟道长度调制"></a>沟道长度调制</h1><p>当G与D之间的电压差增大时，实际上的反型沟道长度在逐渐减少。<br>定义沟道长度为$L$减少后的长度为$L \prime$则 $L=L \prime -\Delta L$<br>定义$\frac{\delta L}{L}=\lambda V_{DS}$<br>则可以通过简单运算得到如下：</p>
+<script type="math/tex; mode=display">
+\frac{1}{L'} = \frac{1}{L - \Delta L} = \frac{L + \Delta L}{L^2 {\Delta L}^2}</script><p>$\Delta L$可以省略则可以得到<br>$\frac{L + \Delta L}{L^2} =\frac{1 + \frac{\Delta L}{L}}{L}$<br>$\frac{1}{L’}=\frac{1+\lambda V_{DS}}{L}$<br>将上述带入公式则可以得到</p>
+<script type="math/tex; mode=display">
+I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</script>
                 
             </div>
             <hr/>
@@ -435,7 +438,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://haclm.github.io/2021/080627682.html">https://haclm.github.io/2021/080627682.html</a>
+                    <a href="https://haclm.github.io/2024/102125833.html">https://haclm.github.io/2024/102125833.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -473,8 +476,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/hexo/">
-                                    <span class="chip bg-color">hexo</span>
+                                <a href="/tags/CMOS/">
+                                    <span class="chip bg-color">CMOS</span>
                                 </a>
                             
                         </div>
@@ -646,16 +649,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/080857223.html">
+                <a href="/2024/102125833.html">
                     <div class="card-image">
                         
-                        <img src="/images/pasted-7.png" class="responsive-img" alt="netcat">
                         
-                        <span class="card-title">netcat</span>
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="浅谈CMOS其一">
+                        
+                        <span class="card-title">浅谈CMOS其一</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -665,30 +670,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/kali-linux/" class="post-category">
-                                    kali linux
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                    电子
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
-                        <span class="chip bg-color">网络渗透</span>
-                    </a>
-                    
-                    <a href="/tags/netcat/">
-                        <span class="chip bg-color">netcat</span>
+                    <a href="/tags/CMOS/">
+                        <span class="chip bg-color">CMOS</span>
                     </a>
                     
                 </div>
@@ -702,12 +704,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/080511190.html">
+                <a href="/2024/10213925.html">
                     <div class="card-image">
                         
-                        <img src="/images/pasted-6.png" class="responsive-img" alt="教学GitHub博客搭建">
                         
-                        <span class="card-title">教学GitHub博客搭建</span>
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="hexo 博客备份">
+                        
+                        <span class="card-title">hexo 博客备份</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -718,14 +721,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-21
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/" class="post-category">
-                                    博客教学
+                            <a href="/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
+                                    博客
                                 </a>
                             
                             
@@ -904,6 +907,13 @@
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
 
