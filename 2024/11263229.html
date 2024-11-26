@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="浅谈CMOS其一, blog,haclm">
+    <meta name="keywords" content="使用Ltspice仿真ne555电路产生2Hz占空比为20%方波, blog,haclm">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅谈CMOS其一 | haclm</title>
+    <title>使用Ltspice仿真ne555电路产生2Hz占空比为20%方波 | haclm</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -211,12 +211,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅谈CMOS其一</h1>
+                    <h1 class="description center-align post-title">使用Ltspice仿真ne555电路产生2Hz占空比为20%方波</h1>
                 </div>
             </div>
         </div>
@@ -332,8 +332,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CMOS/">
-                                <span class="chip bg-color">CMOS</span>
+                            <a href="/tags/electron/">
+                                <span class="chip bg-color">electron</span>
                             </a>
                         
                     </div>
@@ -344,8 +344,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
-                                电子
+                            <a href="/categories/LTspice/" class="post-category">
+                                LTspice
                             </a>
                         
                     </div>
@@ -357,14 +357,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-10-21
+                    2024-11-26
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-10-22
+                    2024-11-26
                 </div>
                 
 
@@ -398,21 +398,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="跨导"><a href="#跨导" class="headerlink" title="跨导"></a>跨导</h1><p>源漏之间的线性电阻可以表示为</p>
+                <h1 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h1><p>这是某个比赛的题目，觉得好玩写成博客。</p>
+<h1 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h1><p>材料有：NE555 、 与非门 、分频器，要求产生信号频率为2Hz高电平占空比为20%。且分配为1Hz。</p>
+<h1 id="思路-amp-计算"><a href="#思路-amp-计算" class="headerlink" title="思路&amp;计算"></a>思路&amp;计算</h1><p>NE555工作在无稳态模式（Astable Mode）时，其占空比通常不能低于50%。所以我们可以换个思路，先产生80%的占空比的信号再反相则能得到20%的占空比。</p>
 <script type="math/tex; mode=display">
-R_{on}=\frac{1}{\mu _n C_{ox}\frac{W}{L}(V_{GS}-V_{TH})}</script><p>也可以看为阻值由驱动电压控制的电阻。$\frac{W}{L}$是宽长比。<br>当 </p>
+D = \frac{R_1+R_2}{R_1+2\times R_2} = 0.2</script><p>得</p>
 <script type="math/tex; mode=display">
-V_{DS}<2(V_{GS}-V_{TH})</script><p>时器件工作在深三极管区，相反当 </p>
-<script type="math/tex; mode=display">
-V_{DS}>V_{GS}-V_{TH}</script><p>时，漏极并不遵行抛物线特性且工作在饱和区。<br>漏极电压必须大于或等于驱动电压（由公式可以看出）<br>跨导为$R_{on}$的倒数通常定义在饱和区</p>
-<script type="math/tex; mode=display">
-g_m=\mu _n C_{ox}\frac{W}{L}(V_{GS}-V_{TH})</script><p>同时也可以表示为</p>
-<script type="math/tex; mode=display">
-g_m = \sqrt{2\mu C_{ox}\frac{W}{L}I_D}</script><h1 id="沟道长度调制"><a href="#沟道长度调制" class="headerlink" title="沟道长度调制"></a>沟道长度调制</h1><p>当G与D之间的电压差增大时，实际上的反型沟道长度在逐渐减少。<br>定义沟道长度为$L$减少后的长度为$L \prime$则 $L=L \prime -\Delta L$<br>定义$\frac{\delta L}{L}=\lambda V_{DS}$<br>则可以通过简单运算得到如下：</p>
-<script type="math/tex; mode=display">
-\frac{1}{L'} = \frac{1}{L - \Delta L} = \frac{L + \Delta L}{L^2 {\Delta L}^2}</script><p>$\Delta L$可以省略则可以得到<br>$\frac{L + \Delta L}{L^2} =\frac{1 + \frac{\Delta L}{L}}{L}$<br>$\frac{1}{L’}=\frac{1+\lambda V_{DS}}{L}$<br>将上述带入公式则可以得到</p>
-<script type="math/tex; mode=display">
-I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</script>
+R_1 = 3 \times R_2</script><script type="math/tex; mode=display">
+T = 0.693 \times (R_1 + 2 \times R_2) \times C = 0.5</script><p>得R1 = 4329(ohm), R2 = 1443(ohm), C = 100uf</p>
+<h1 id="电路"><a href="#电路" class="headerlink" title="电路"></a>电路</h1><p><img src="/images/11_26_c.png" alt="电路"><br>ltspice的逻辑门模型<a target="_blank" rel="noopener" href="https://www.digikey.cn/zh/forum/t/topic/1349">下载</a><br>ltspice的D触发器模型<a target="_blank" rel="noopener" href="https://github.com/Andre-EE/LTSpice_Logic">下载</a><br><img src="/images/11_26_fan.png" alt="反相后"><br><img src="/images/11_26_f.png" alt="分频后"></p>
+
                 
             </div>
             <hr/>
@@ -438,7 +433,7 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://haclm.github.io/2024/102125833.html">https://haclm.github.io/2024/102125833.html</a>
+                    <a href="https://haclm.github.io/2024/11263229.html">https://haclm.github.io/2024/11263229.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -476,8 +471,8 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CMOS/">
-                                    <span class="chip bg-color">CMOS</span>
+                                <a href="/tags/electron/">
+                                    <span class="chip bg-color">electron</span>
                                 </a>
                             
                         </div>
@@ -649,9 +644,10 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2024/11263229.html">
                     <div class="card-image">
@@ -669,9 +665,9 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-11-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -684,6 +680,7 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -702,13 +699,13 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/10213925.html">
+                <a href="/2024/102125833.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="hexo 博客备份">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="浅谈CMOS其一">
                         
-                        <span class="card-title">hexo 博客备份</span>
+                        <span class="card-title">浅谈CMOS其一</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -725,8 +722,8 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
-                                    博客
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                    电子
                                 </a>
                             
                             
@@ -736,8 +733,8 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
+                    <a href="/tags/CMOS/">
+                        <span class="chip bg-color">CMOS</span>
                     </a>
                     
                 </div>

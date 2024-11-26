@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>使用Ltspice仿真ne555电路产生2Hz占空比为20%方波</title>
+      <link href="/2024/11263229.html"/>
+      <url>/2024/11263229.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h1><p>这是某个比赛的题目，觉得好玩写成博客。</p><h1 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h1><p>材料有：NE555 、 与非门 、分频器，要求产生信号频率为2Hz高电平占空比为20%。且分配为1Hz。</p><h1 id="思路-amp-计算"><a href="#思路-amp-计算" class="headerlink" title="思路&amp;计算"></a>思路&amp;计算</h1><p>NE555工作在无稳态模式（Astable Mode）时，其占空比通常不能低于50%。所以我们可以换个思路，先产生80%的占空比的信号再反相则能得到20%的占空比。</p><script type="math/tex; mode=display">D = \frac{R_1+R_2}{R_1+2\times R_2} = 0.2</script><p>得</p><script type="math/tex; mode=display">R_1 = 3 \times R_2</script><script type="math/tex; mode=display">T = 0.693 \times (R_1 + 2 \times R_2) \times C = 0.5</script><p>得R1 = 4329(ohm), R2 = 1443(ohm), C = 100uf</p><h1 id="电路"><a href="#电路" class="headerlink" title="电路"></a>电路</h1><p><img src="/images/11_26_c.png" alt="电路"><br>ltspice的逻辑门模型<a href="https://www.digikey.cn/zh/forum/t/topic/1349">下载</a><br>ltspice的D触发器模型<a href="https://github.com/Andre-EE/LTSpice_Logic">下载</a><br><img src="/images/11_26_fan.png" alt="反相后"><br><img src="/images/11_26_f.png" alt="分频后"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> LTspice </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> electron </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>浅谈CMOS其一</title>
       <link href="/2024/102125833.html"/>
       <url>/2024/102125833.html</url>
