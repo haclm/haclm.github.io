@@ -412,60 +412,60 @@
 <p>5.配置</p>
 <p><img src="/images/STM32RTOS_Config.png" alt="upload successful"><br>先配置时钟点击Clock Configuration这点用过Cube的都知道就不赘述了。</p>
 <p>配置GPIO 本教程用两个GPIO输出分别是PA5与PA6。通过示波器观察GPIO的信号更能直观的看到任务执行。</p>
-<p>配置FreeRTOS  点击Middleware and Software Packs 后选择 FREERTOS<br>因为本教程用的是CMSIS_V1所有interface选择CMSIS_V1。下面的Configuration可以设置一些基本参数。</p>
+<p>配置FreeRTOS  点击Middleware and Software Packs 后选择 FREERTOS<br>因为本教程用的是CMSIS_V1所有interface选择CMSIS_V1。下面的Configuration可以设置一些基本参数。</p>
 <p>6.项目配置<br>点击Project Manage后选择Code Generator 勾选 Generate peripheral initalization as a pair of ‘.c/.h’file per peripheral</p>
 <p>7.项目代码生成</p>
 <p><img src="/images/STM32build.png" alt="upload successful"><br>点击第一个小灯泡即可生成代码</p>
 <h2 id="代码修改"><a href="#代码修改" class="headerlink" title="代码修改"></a>代码修改</h2><p>首先阅览main.c文件看一下程序流程</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN 1 */</span>
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">int main(void)
+&#123;
+  /* USER CODE BEGIN 1 */
 
-  <span class="token comment" spellcheck="true">/* USER CODE END 1 */</span>
+  /* USER CODE END 1 */
 
-  <span class="token comment" spellcheck="true">/* MCU Configuration--------------------------------------------------------*/</span>
+  /* MCU Configuration--------------------------------------------------------*/
 
-  <span class="token comment" spellcheck="true">/* Reset of all peripherals, Initializes the Flash interface and the Systick. */</span>
-  <span class="token function">HAL_Init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN Init */</span>
+  /* USER CODE BEGIN Init */
 
-  <span class="token comment" spellcheck="true">/* USER CODE END Init */</span>
+  /* USER CODE END Init */
 
-  <span class="token comment" spellcheck="true">/* Configure the system clock */</span>
-  <span class="token function">SystemClock_Config</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  /* Configure the system clock */
+  SystemClock_Config();
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN SysInit */</span>
+  /* USER CODE BEGIN SysInit */
 
-  <span class="token comment" spellcheck="true">/* USER CODE END SysInit */</span>
+  /* USER CODE END SysInit */
 
-  <span class="token comment" spellcheck="true">/* Initialize all configured peripherals */</span>
-  <span class="token function">MX_GPIO_Init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN 2 */</span>
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  /* USER CODE BEGIN 2 */
 
-  <span class="token comment" spellcheck="true">/* USER CODE END 2 */</span>
+  /* USER CODE END 2 */
 
-  <span class="token comment" spellcheck="true">/* Call init function for freertos objects (in freertos.c) */</span>
-  <span class="token function">MX_FREERTOS_Init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
 
-  <span class="token comment" spellcheck="true">/* Start scheduler */</span>
-  <span class="token function">osKernelStart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  /* Start scheduler */
+  osKernelStart();
 
-  <span class="token comment" spellcheck="true">/* We should never get here as control is now taken by the scheduler */</span>
-  <span class="token comment" spellcheck="true">/* Infinite loop */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN WHILE */</span>
-  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">/* USER CODE END WHILE */</span>
+  /* We should never get here as control is now taken by the scheduler */
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  &#123;
+    /* USER CODE END WHILE */
 
-    <span class="token comment" spellcheck="true">/* USER CODE BEGIN 3 */</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END 3 */</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    /* USER CODE BEGIN 3 */
+  &#125;
+  /* USER CODE END 3 */
+&#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>里面有一个名为MX_FREERTOS_Init();的函数，可以鼠标选中F3进去看看</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* USER CODE BEGIN Header */</span>
-<span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">/* USER CODE BEGIN Header */
+/**
   ******************************************************************************
   * File Name          : freertos.c
   * Description        : Code for freertos applications
@@ -480,130 +480,129 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  */</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Header */</span>
+  */
+/* USER CODE END Header */
 
-<span class="token comment" spellcheck="true">/* Includes ------------------------------------------------------------------*/</span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"FreeRTOS.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"task.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"main.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"cmsis_os.h"</span></span>
+/* Includes ------------------------------------------------------------------*/
+#include "FreeRTOS.h"
+#include "task.h"
+#include "main.h"
+#include "cmsis_os.h"
 
-<span class="token comment" spellcheck="true">/* Private includes ----------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Includes */</span>
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
-<span class="token comment" spellcheck="true">/* USER CODE END Includes */</span>
+/* USER CODE END Includes */
 
-<span class="token comment" spellcheck="true">/* Private typedef -----------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PTD */</span>
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
 
-<span class="token comment" spellcheck="true">/* USER CODE END PTD */</span>
+/* USER CODE END PTD */
 
-<span class="token comment" spellcheck="true">/* Private define ------------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PD */</span>
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
 
-<span class="token comment" spellcheck="true">/* USER CODE END PD */</span>
+/* USER CODE END PD */
 
-<span class="token comment" spellcheck="true">/* Private macro -------------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PM */</span>
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
 
-<span class="token comment" spellcheck="true">/* USER CODE END PM */</span>
+/* USER CODE END PM */
 
-<span class="token comment" spellcheck="true">/* Private variables ---------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Variables */</span>
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN Variables */
 
-<span class="token comment" spellcheck="true">/* USER CODE END Variables */</span>
-osThreadId defaultTaskHandle<span class="token punctuation">;</span>
+/* USER CODE END Variables */
+osThreadId defaultTaskHandle;
 
-<span class="token comment" spellcheck="true">/* Private function prototypes -----------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN FunctionPrototypes */</span>
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN FunctionPrototypes */
 
-<span class="token comment" spellcheck="true">/* USER CODE END FunctionPrototypes */</span>
+/* USER CODE END FunctionPrototypes */
 
-<span class="token keyword">void</span> <span class="token function">StartDefaultTask</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token keyword">const</span> <span class="token operator">*</span> argument<span class="token punctuation">)</span><span class="token punctuation">;</span>
+void StartDefaultTask(void const * argument);
 
-<span class="token keyword">void</span> <span class="token function">MX_FREERTOS_Init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* (MISRA C 2004 rule 8.1) */</span>
+void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
-<span class="token comment" spellcheck="true">/* GetIdleTaskMemory prototype (linked to static allocation support) */</span>
-<span class="token keyword">void</span> <span class="token function">vApplicationGetIdleTaskMemory</span><span class="token punctuation">(</span> StaticTask_t <span class="token operator">*</span><span class="token operator">*</span>ppxIdleTaskTCBBuffer<span class="token punctuation">,</span> StackType_t <span class="token operator">*</span><span class="token operator">*</span>ppxIdleTaskStackBuffer<span class="token punctuation">,</span> uint32_t <span class="token operator">*</span>pulIdleTaskStackSize <span class="token punctuation">)</span><span class="token punctuation">;</span>
+/* GetIdleTaskMemory prototype (linked to static allocation support) */
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
 
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN GET_IDLE_TASK_MEMORY */</span>
-<span class="token keyword">static</span> StaticTask_t xIdleTaskTCBBuffer<span class="token punctuation">;</span>
-<span class="token keyword">static</span> StackType_t xIdleStack<span class="token punctuation">[</span>configMINIMAL_STACK_SIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+/* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
+static StaticTask_t xIdleTaskTCBBuffer;
+static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
 
-<span class="token keyword">void</span> <span class="token function">vApplicationGetIdleTaskMemory</span><span class="token punctuation">(</span> StaticTask_t <span class="token operator">*</span><span class="token operator">*</span>ppxIdleTaskTCBBuffer<span class="token punctuation">,</span> StackType_t <span class="token operator">*</span><span class="token operator">*</span>ppxIdleTaskStackBuffer<span class="token punctuation">,</span> uint32_t <span class="token operator">*</span>pulIdleTaskStackSize <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token operator">*</span>ppxIdleTaskTCBBuffer <span class="token operator">=</span> <span class="token operator">&amp;</span>xIdleTaskTCBBuffer<span class="token punctuation">;</span>
-  <span class="token operator">*</span>ppxIdleTaskStackBuffer <span class="token operator">=</span> <span class="token operator">&amp;</span>xIdleStack<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-  <span class="token operator">*</span>pulIdleTaskStackSize <span class="token operator">=</span> configMINIMAL_STACK_SIZE<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* place for user code */</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* USER CODE END GET_IDLE_TASK_MEMORY */</span>
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
+&#123;
+  *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+  *ppxIdleTaskStackBuffer = &xIdleStack[0];
+  *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+  /* place for user code */
+&#125;
+/* USER CODE END GET_IDLE_TASK_MEMORY */
 
-<span class="token comment" spellcheck="true">/**
+/**
   * @brief  FreeRTOS initialization
   * @param  None
   * @retval None
-  */</span>
-<span class="token keyword">void</span> <span class="token function">MX_FREERTOS_Init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN Init */</span>
+  */
+void MX_FREERTOS_Init(void) &#123;
+  /* USER CODE BEGIN Init */
 
-  <span class="token comment" spellcheck="true">/* USER CODE END Init */</span>
+  /* USER CODE END Init */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_MUTEX */</span>
-  <span class="token comment" spellcheck="true">/* add mutexes, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_MUTEX */</span>
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_SEMAPHORES */</span>
-  <span class="token comment" spellcheck="true">/* add semaphores, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_SEMAPHORES */</span>
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_TIMERS */</span>
-  <span class="token comment" spellcheck="true">/* start timers, add new ones, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_TIMERS */</span>
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_QUEUES */</span>
-  <span class="token comment" spellcheck="true">/* add queues, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_QUEUES */</span>
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
 
-  <span class="token comment" spellcheck="true">/* Create the thread(s) */</span>
-  <span class="token comment" spellcheck="true">/* definition and creation of defaultTask */</span>
-  <span class="token function">osThreadDef</span><span class="token punctuation">(</span>defaultTask<span class="token punctuation">,</span> StartDefaultTask<span class="token punctuation">,</span> osPriorityNormal<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  defaultTaskHandle <span class="token operator">=</span> <span class="token function">osThreadCreate</span><span class="token punctuation">(</span><span class="token function">osThread</span><span class="token punctuation">(</span>defaultTask<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  /* Create the thread(s) */
+  /* definition and creation of defaultTask */
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_THREADS */</span>
-  <span class="token comment" spellcheck="true">/* add threads, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_THREADS */</span>
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+&#125;
 
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Header_StartDefaultTask */</span>
-<span class="token comment" spellcheck="true">/**
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
   * @retval None
-  */</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Header_StartDefaultTask */</span>
-<span class="token keyword">void</span> <span class="token function">StartDefaultTask</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token keyword">const</span> <span class="token operator">*</span> argument<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN StartDefaultTask */</span>
-  <span class="token comment" spellcheck="true">/* Infinite loop */</span>
-  <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token function">osDelay</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END StartDefaultTask */</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  */
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void const * argument)
+&#123;
+  /* USER CODE BEGIN StartDefaultTask */
+  /* Infinite loop */
+  for(;;)
+  &#123;
+    osDelay(1);
+  &#125;
+  /* USER CODE END StartDefaultTask */
+&#125;
 
-<span class="token comment" spellcheck="true">/* Private application code --------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Application */</span>
+/* Private application code --------------------------------------------------*/
+/* USER CODE BEGIN Application */
 
-<span class="token comment" spellcheck="true">/* USER CODE END Application */</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+/* USER CODE END Application */
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>里面函数执行了两个语句。</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token function">osThreadDef</span><span class="token punctuation">(</span>defaultTask<span class="token punctuation">,</span> StartDefaultTask<span class="token punctuation">,</span> osPriorityNormal<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-defaultTaskHandle <span class="token operator">=</span> <span class="token function">osThreadCreate</span><span class="token punctuation">(</span><span class="token function">osThread</span><span class="token punctuation">(</span>defaultTask<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>一个是任务的定义一个是任务的创立。<br>后有一个名为StartDefulatTask函数里面的语句就是该任务执行的语句功能。所以修改它就可以改变该任务的功能<br>往上看创建一个任务先要用osThreadId 定义一个任务的handle</p>
 <p>创建要实现对应功能的函数</p>
@@ -611,8 +610,8 @@ defaultTaskHandle <span class="token operator">=</span> <span class="token funct
 <p>后用osThreadCreat()函数创建任务并用任务Handle接受返回值</p>
 <p>了解这些就可以实现俩个任务”同时”运行了</p>
 <p>修改后代码如下</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* USER CODE BEGIN Header */</span>
-<span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">/* USER CODE BEGIN Header */
+/**
   ******************************************************************************
   * File Name          : freertos.c
   * Description        : Code for freertos applications
@@ -627,138 +626,137 @@ defaultTaskHandle <span class="token operator">=</span> <span class="token funct
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  */</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Header */</span>
+  */
+/* USER CODE END Header */
 
-<span class="token comment" spellcheck="true">/* Includes ------------------------------------------------------------------*/</span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"FreeRTOS.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"task.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"main.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"cmsis_os.h"</span></span>
+/* Includes ------------------------------------------------------------------*/
+#include "FreeRTOS.h"
+#include "task.h"
+#include "main.h"
+#include "cmsis_os.h"
 
-<span class="token comment" spellcheck="true">/* Private includes ----------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Includes */</span>
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
-<span class="token comment" spellcheck="true">/* USER CODE END Includes */</span>
+/* USER CODE END Includes */
 
-<span class="token comment" spellcheck="true">/* Private typedef -----------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PTD */</span>
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
 
-<span class="token comment" spellcheck="true">/* USER CODE END PTD */</span>
+/* USER CODE END PTD */
 
-<span class="token comment" spellcheck="true">/* Private define ------------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PD */</span>
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
 
-<span class="token comment" spellcheck="true">/* USER CODE END PD */</span>
+/* USER CODE END PD */
 
-<span class="token comment" spellcheck="true">/* Private macro -------------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PM */</span>
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
 
-<span class="token comment" spellcheck="true">/* USER CODE END PM */</span>
+/* USER CODE END PM */
 
-<span class="token comment" spellcheck="true">/* Private variables ---------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Variables */</span>
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN Variables */
 
-<span class="token comment" spellcheck="true">/* USER CODE END Variables */</span>
-osThreadId defaultTaskHandle<span class="token punctuation">;</span>
-osThreadId LEDTaskHandle<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* Private function prototypes -----------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN FunctionPrototypes */</span>
+/* USER CODE END Variables */
+osThreadId defaultTaskHandle;
+osThreadId LEDTaskHandle;
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN FunctionPrototypes */
 
-<span class="token comment" spellcheck="true">/* USER CODE END FunctionPrototypes */</span>
+/* USER CODE END FunctionPrototypes */
 
-<span class="token keyword">void</span> <span class="token function">StartDefaultTask</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token keyword">const</span> <span class="token operator">*</span> argument<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">StartLEDTask</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token keyword">const</span> <span class="token operator">*</span> argument<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">MX_FREERTOS_Init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* (MISRA C 2004 rule 8.1) */</span>
+void StartDefaultTask(void const * argument);
+void StartLEDTask(void const * argument);
+void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
-<span class="token comment" spellcheck="true">/* GetIdleTaskMemory prototype (linked to static allocation support) */</span>
-<span class="token keyword">void</span> <span class="token function">vApplicationGetIdleTaskMemory</span><span class="token punctuation">(</span> StaticTask_t <span class="token operator">*</span><span class="token operator">*</span>ppxIdleTaskTCBBuffer<span class="token punctuation">,</span> StackType_t <span class="token operator">*</span><span class="token operator">*</span>ppxIdleTaskStackBuffer<span class="token punctuation">,</span> uint32_t <span class="token operator">*</span>pulIdleTaskStackSize <span class="token punctuation">)</span><span class="token punctuation">;</span>
+/* GetIdleTaskMemory prototype (linked to static allocation support) */
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
 
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN GET_IDLE_TASK_MEMORY */</span>
-<span class="token keyword">static</span> StaticTask_t xIdleTaskTCBBuffer<span class="token punctuation">;</span>
-<span class="token keyword">static</span> StackType_t xIdleStack<span class="token punctuation">[</span>configMINIMAL_STACK_SIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+/* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
+static StaticTask_t xIdleTaskTCBBuffer;
+static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
 
-<span class="token keyword">void</span> <span class="token function">vApplicationGetIdleTaskMemory</span><span class="token punctuation">(</span> StaticTask_t <span class="token operator">*</span><span class="token operator">*</span>ppxIdleTaskTCBBuffer<span class="token punctuation">,</span> StackType_t <span class="token operator">*</span><span class="token operator">*</span>ppxIdleTaskStackBuffer<span class="token punctuation">,</span> uint32_t <span class="token operator">*</span>pulIdleTaskStackSize <span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token operator">*</span>ppxIdleTaskTCBBuffer <span class="token operator">=</span> <span class="token operator">&amp;</span>xIdleTaskTCBBuffer<span class="token punctuation">;</span>
-  <span class="token operator">*</span>ppxIdleTaskStackBuffer <span class="token operator">=</span> <span class="token operator">&amp;</span>xIdleStack<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-  <span class="token operator">*</span>pulIdleTaskStackSize <span class="token operator">=</span> configMINIMAL_STACK_SIZE<span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* place for user code */</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* USER CODE END GET_IDLE_TASK_MEMORY */</span>
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
+&#123;
+  *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+  *ppxIdleTaskStackBuffer = &xIdleStack[0];
+  *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+  /* place for user code */
+&#125;
+/* USER CODE END GET_IDLE_TASK_MEMORY */
 
-<span class="token comment" spellcheck="true">/**
+/**
   * @brief  FreeRTOS initialization
   * @param  None
   * @retval None
-  */</span>
-<span class="token keyword">void</span> <span class="token function">MX_FREERTOS_Init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN Init */</span>
+  */
+void MX_FREERTOS_Init(void) &#123;
+  /* USER CODE BEGIN Init */
 
-  <span class="token comment" spellcheck="true">/* USER CODE END Init */</span>
+  /* USER CODE END Init */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_MUTEX */</span>
-  <span class="token comment" spellcheck="true">/* add mutexes, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_MUTEX */</span>
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_SEMAPHORES */</span>
-  <span class="token comment" spellcheck="true">/* add semaphores, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_SEMAPHORES */</span>
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_TIMERS */</span>
-  <span class="token comment" spellcheck="true">/* start timers, add new ones, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_TIMERS */</span>
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_QUEUES */</span>
-  <span class="token comment" spellcheck="true">/* add queues, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_QUEUES */</span>
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
 
-  <span class="token comment" spellcheck="true">/* Create the thread(s) */</span>
-  <span class="token comment" spellcheck="true">/* definition and creation of defaultTask */</span>
-  <span class="token function">osThreadDef</span><span class="token punctuation">(</span>defaultTask<span class="token punctuation">,</span> StartDefaultTask<span class="token punctuation">,</span> osPriorityNormal<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  defaultTaskHandle <span class="token operator">=</span> <span class="token function">osThreadCreate</span><span class="token punctuation">(</span><span class="token function">osThread</span><span class="token punctuation">(</span>defaultTask<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  /* Create the thread(s) */
+  /* definition and creation of defaultTask */
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-  <span class="token function">osThreadDef</span><span class="token punctuation">(</span>LEDTask<span class="token punctuation">,</span> StartLEDTask<span class="token punctuation">,</span>osPriorityNormal<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  LEDTaskHandle <span class="token operator">=</span> <span class="token function">osThreadCreate</span><span class="token punctuation">(</span><span class="token function">osThread</span><span class="token punctuation">(</span>LEDTask<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_THREADS */</span>
-  <span class="token comment" spellcheck="true">/* add threads, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_THREADS */</span>
+  osThreadDef(LEDTask, StartLEDTask,osPriorityNormal,0,128);
+  LEDTaskHandle = osThreadCreate(osThread(LEDTask), NULL);
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+&#125;
 
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Header_StartDefaultTask */</span>
-<span class="token comment" spellcheck="true">/**
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
   * @retval None
-  */</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Header_StartDefaultTask */</span>
-<span class="token keyword">void</span> <span class="token function">StartDefaultTask</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token keyword">const</span> <span class="token operator">*</span> argument<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN StartDefaultTask */</span>
-  <span class="token comment" spellcheck="true">/* Infinite loop */</span>
-  <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-      <span class="token function">HAL_GPIO_TogglePin</span><span class="token punctuation">(</span>LED1_GPIO_Port<span class="token punctuation">,</span> LED1_Pin<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">osDelay</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END StartDefaultTask */</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  */
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void const * argument)
+&#123;
+  /* USER CODE BEGIN StartDefaultTask */
+  /* Infinite loop */
+  for(;;)
+  &#123;
+      HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    osDelay(100);
+  &#125;
+  /* USER CODE END StartDefaultTask */
+&#125;
 
-<span class="token keyword">void</span> <span class="token function">StartLEDTask</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token keyword">const</span> <span class="token operator">*</span> argument<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token function">HAL_GPIO_TogglePin</span><span class="token punctuation">(</span>LED2_GPIO_Port<span class="token punctuation">,</span> LED2_Pin<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">osDelay</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* Private application code --------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Application */</span>
+void StartLEDTask(void const * argument)
+&#123;
+    for(;;)
+    &#123;
+        HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+        osDelay(100);
+    &#125;
+&#125;
+/* Private application code --------------------------------------------------*/
+/* USER CODE BEGIN Application */
 
-<span class="token comment" spellcheck="true">/* USER CODE END Application */</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+/* USER CODE END Application */
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>效果如下</p>
 <p><img src="/images/STM32twotaskb.png" alt="upload successful"><br><img src="/images/STM32twotask.png" alt="upload successful"><br>可以看出两个任务在”同时”运行</p>
 
@@ -1271,7 +1269,7 @@ osThreadId LEDTaskHandle<span class="token punctuation">;</span>
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2024</span>
+                <span id="year">2021-2025</span>
             
             <span id="year">2021</span>
             <a href="/about" target="_blank">haclm</a>

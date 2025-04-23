@@ -399,9 +399,9 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <hr>
-<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="安装必要的软件"><a href="#安装必要的软件" class="headerlink" title="安装必要的软件"></a>安装必要的软件</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update  
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="安装必要的软件"><a href="#安装必要的软件" class="headerlink" title="安装必要的软件"></a>安装必要的软件</h2><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">sudo apt-get update  
 
-<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">gawk</span> <span class="token function">wget</span> <span class="token function">git</span> diffstat 
+sudo apt-get install gawk wget git diffstat 
 unzip texinfo \  
 gcc-multilib build-essential chrpath socat 
 libsdl1.2-dev \  
@@ -435,56 +435,56 @@ xterm ncurses-dev lzop
 <li>内核空间：内核驻留和运行的地址空间。内核内存（或内核空间）时由内核拥有的内存范围，受访问标志保护，防止任何用户程序有意或无意于内核搞混。另一方面，内核可以访问整个系统内存，因为它在系统上以更高的优先权运行。在内核模式下，CPU可以访问整个内存（内核空间和用户空间）</li>
 <li>用户空间：正常程序（如gedit等）被限制运行（地址）空间。可以将其视为沙盒或监狱，以便用户程序不能混用其他程序拥有的内存或任何其他资源。在用户模式下，CPU只能访问标有用户空间访问权限的内存。用户应用程序运行到内核空间唯一方法时通过系统调用，其中一些调用是read、write、open、close和mmap等。用户空间代码以较低的优先级运行。当进程系统调用是，软件中断被发送到内核，这将打开特权模式，以便该进程在内核空间中运行。系统调用返回时，内核关闭特权模式，进程再次受限。</li>
 </ul>
-<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="手动加载"><a href="#手动加载" class="headerlink" title="手动加载"></a>手动加载</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> insmod project.ko
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="手动加载"><a href="#手动加载" class="headerlink" title="手动加载"></a>手动加载</h3><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">sudo insmod project.ko
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="手动卸载"><a href="#手动卸载" class="headerlink" title="手动卸载"></a>手动卸载</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> rmmod project.ko
+<h3 id="手动卸载"><a href="#手动卸载" class="headerlink" title="手动卸载"></a>手动卸载</h3><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">sudo rmmod project.ko
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;linux/init.h></span>  </span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;linux/module.h></span>  </span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;linux/kernel.h></span>  </span>
-  
-<span class="token keyword">static</span> <span class="token keyword">int</span> __init <span class="token function">helloworld_init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>  
-    <span class="token function">pr_info</span><span class="token punctuation">(</span><span class="token string">"Hello world!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>  
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token keyword">static</span> <span class="token keyword">void</span> __exit <span class="token function">helloworld_exit</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>  
-    <span class="token function">pr_info</span><span class="token punctuation">(</span><span class="token string">"End of the world\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>   
-  
-<span class="token function">module_init</span><span class="token punctuation">(</span>helloworld_init<span class="token punctuation">)</span><span class="token punctuation">;</span>  
-<span class="token function">module_exit</span><span class="token punctuation">(</span>helloworld_exit<span class="token punctuation">)</span><span class="token punctuation">;</span>  
-<span class="token function">MODULE_AUTHOR</span><span class="token punctuation">(</span><span class="token string">"haclm"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
-<span class="token function">MODULE_LICENSE</span><span class="token punctuation">(</span><span class="token string">"GPL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">#include <linux/init.h>  
+#include <linux/module.h>  
+#include <linux/kernel.h>  
+
+static int __init helloworld_init(void) &#123;  
+    pr_info("Hello world!\n");  
+    return 0;  
+&#125;
+static void __exit helloworld_exit(void) &#123;  
+    pr_info("End of the world\n");  
+&#125;   
+
+module_init(helloworld_init);  
+module_exit(helloworld_exit);  
+MODULE_AUTHOR("haclm");  
+MODULE_LICENSE("GPL");
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>使用make工具进行编译</p>
-<pre class="line-numbers language-makefile"><code class="language-makefile">obj-m <span class="token operator">=</span> project_name.o
-<span class="token symbol">all</span><span class="token punctuation">:</span>
-        make -C /lib/modules/6.1.0-25-amd64/build M<span class="token operator">=</span><span class="token variable">$</span><span class="token punctuation">(</span>PWD<span class="token punctuation">)</span> modules
+<pre class="line-numbers language-lang-makefile"><code class="language-lang-makefile">obj-m = project_name.o
+all:
+        make -C /lib/modules/6.1.0-25-amd64/build M=$(PWD) modules
 
-<span class="token symbol">clean</span><span class="token punctuation">:</span>
-        make -C /lib/modules/6.1.0-25-amd64/build M<span class="token operator">=</span><span class="token punctuation">(</span>PWD<span class="token punctuation">)</span> clean
+clean:
+        make -C /lib/modules/6.1.0-25-amd64/build M=(PWD) clean
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>或者</p>
-<pre class="line-numbers language-makefile"><code class="language-makefile">ARCH<span class="token operator">=</span>x86
-CROSS_COMPILE<span class="token operator">=</span>
+<pre class="line-numbers language-lang-makefile"><code class="language-lang-makefile">ARCH=x86
+CROSS_COMPILE=
 
-KVERSION <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token keyword">shell</span> uname -r<span class="token punctuation">)</span>
-KERN_DIR <span class="token operator">=</span>  /lib/modules/<span class="token variable">$</span><span class="token punctuation">(</span>KVERSION<span class="token punctuation">)</span>/build 
+KVERSION = $(shell uname -r)
+KERN_DIR =  /lib/modules/$(KVERSION)/build 
 
-<span class="token symbol">all</span><span class="token punctuation">:</span>
-    make -C <span class="token variable">$</span><span class="token punctuation">(</span>KERN_DIR<span class="token punctuation">)</span> M<span class="token operator">=</span>`pwd` modules 
+all:
+    make -C $(KERN_DIR) M=`pwd` modules 
 
-<span class="token symbol">clean</span><span class="token punctuation">:</span>
-    make -C <span class="token variable">$</span><span class="token punctuation">(</span>KERN_DIR<span class="token punctuation">)</span> M<span class="token operator">=</span>`pwd` modules clean
+clean:
+    make -C $(KERN_DIR) M=`pwd` modules clean
     rm -rf modules.order
 
-obj-m    <span class="token operator">+=</span> helloworld.o
+obj-m    += helloworld.o
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>编译命令</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">make</span>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">make
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>编译好后将模块手动加载，使用下列命令可以看到现象</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">dmesg</span>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">sudo dmesg
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
                 
@@ -990,7 +990,7 @@ obj-m    <span class="token operator">+=</span> helloworld.o
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2024</span>
+                <span id="year">2021-2025</span>
             
             <span id="year">2021</span>
             <a href="/about" target="_blank">haclm</a>

