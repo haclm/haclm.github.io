@@ -364,7 +364,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-04-23
+                    2025-05-07
                 </div>
                 
 
@@ -500,6 +500,44 @@ endmodule
 
 endmodule
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Mux9to1v"><a href="#Mux9to1v" class="headerlink" title="Mux9to1v"></a>Mux9to1v</h2><p>Create a 16-bit wide, 9-to-1 multiplexer. sel=0 chooses a, sel=1 chooses b, etc. For the unused cases (sel=9 to 15), set all output bits to ‘1’.<br>Expected solution length: Around 15 lines.</p>
+<h3 id="Module-Declaration-5"><a href="#Module-Declaration-5" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+    input [15:0] a, b, c, d, e, f, g, h, i,
+    input [3:0] sel,
+    output [15:0] out );
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Mux9to1v">link</a></p>
+<h3 id="answer-5"><a href="#answer-5" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+    input [15:0] a, b, c, d, e, f, g, h, i,
+    input [3:0] sel,
+    output [15:0] out );
+
+     assign out = (sel == 0) ? a :
+                 (sel == 1) ? b :
+                 (sel == 2) ? c :
+                 (sel == 3) ? d :
+                 (sel == 4) ? e :
+                 (sel == 5) ? f :
+                 (sel == 6) ? g :
+                 (sel == 7) ? h :
+                   (sel == 8) ? i : 16'hFFFF;
+endmodule
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Mux254to1"><a href="#Mux254to1" class="headerlink" title="Mux254to1"></a>Mux254to1</h2><p>Create a 1-bit wide, 256-to-1 multiplexer. The 256 inputs are all packed into a single 256-bit input vector. sel=0 should select in[0], sel=1 selects bits in[1], sel=2 selects bits in[2], etc.</p>
+<p>Expected solution length: Around 1 line.</p>
+<h3 id="Module-Declaration-6"><a href="#Module-Declaration-6" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+    input [255:0] in,
+    input [7:0] sel,
+    output out );
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Mux256to1">link</a></p>
+<h3 id="answer-6"><a href="#answer-6" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+    input [255:0] in,
+    input [7:0] sel,
+    output out );
+    assign out = in[sel];
+endmodule
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
