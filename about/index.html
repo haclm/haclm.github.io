@@ -39,6 +39,16 @@
 
 
 
+   <style>
+    body{
+       background-image: url(https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=1920&q=80);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
 
 <body>
 
@@ -449,7 +459,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         },
         xAxis: {
             type: 'category',
-            data: ["2024-05","2024-06","2024-07","2024-08","2024-09","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05"]
+            data: ["2024-07","2024-08","2024-09","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07"]
         },
         yAxis: {
             type: 'value',
@@ -459,7 +469,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,1,0,1,0,4,1,0,0,0,0,1,0],
+                data: [0,1,0,4,1,0,0,0,0,1,0,0,0],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -696,48 +706,6 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 </div>
 
                 
-
-                
-                
-<div id="myGallery" class="my-gallery">
-    <div class="title center-align" data-aos="zoom-in-up">
-        <i class="far fa-image"></i>&nbsp;&nbsp;相册
-    </div>
-    <div class="row">
-        
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/0.jpg">
-                <img src="/medias/featureimages/0.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/1.jpg">
-                <img src="/medias/featureimages/1.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/2.jpg">
-                <img src="/medias/featureimages/2.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-<script>
-    $(function () {
-        let animateClass = 'animated pulse';
-        $('#myGallery .photo').hover(function () {
-            $(this).addClass(animateClass);
-        }, function () {
-            $(this).removeClass(animateClass);
-        });
-    });
-</script>
 
                 
                 
