@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>haclm</title>
+  <title>D.riven</title>
   
-  <subtitle>haclm</subtitle>
+  <subtitle>D.riven</subtitle>
   <link href="https://haclm.github.io/atom.xml" rel="self"/>
   
   <link href="https://haclm.github.io/"/>
@@ -10,7 +10,7 @@
   <id>https://haclm.github.io/</id>
   
   <author>
-    <name>haclm</name>
+    <name>D.riven</name>
     
   </author>
   
