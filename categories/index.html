@@ -254,9 +254,7 @@
 
 
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+    $('.bg-cover').css('background-image', 'url(/medias/banner/0.jpg)');
 </script>
 
 <script>
@@ -288,64 +286,28 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </a>
                 
                 
-                <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/" title="博客教学: 2">
+                <a href="/categories/%E6%95%99%E5%AD%A6/" title="教学: 5">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">博客教学
-                        <span class="tag-length">2</span>
+                            style="background-color: #F5EEF8;">教学
+                        <span class="tag-length">5</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/%E5%8D%9A%E5%AE%A2/" title="博客: 1">
+                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" title="嵌入式: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D5F5E3;">博客
-                        <span class="tag-length">1</span>
+                            style="background-color: #D5F5E3;">嵌入式
+                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" title="嵌入式: 2">
+                <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="网络安全: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #E8F8F5;">嵌入式
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/kali-linux/" title="kali linux: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #FEF9E7;">kali linux
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/LTspice/" title="LTspice: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F8F9F9;">LTspice
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/kali-linux/linux/" title="linux: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #82E0AA;">linux
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/FreeRTOS/" title="FreeRTOS: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D7BDE2;">FreeRTOS
+                            style="background-color: #E8F8F5;">网络安全
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -354,26 +316,17 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 <a href="/categories/%E7%94%B5%E5%AD%90/" title="电子: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #A3E4D7;">电子
+                            style="background-color: #FEF9E7;">电子
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/" title="个人提升: 1">
+                <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/" title="个人提升: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #85C1E9;">个人提升
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E9%98%85%E8%AF%BB/" title="阅读: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F8C471;">阅读
-                        <span class="tag-length">1</span>
+                            style="background-color: #F8F9F9;">个人提升
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
@@ -420,7 +373,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"随笔","max":3},{"name":"博客教学","max":3},{"name":"博客","max":3},{"name":"嵌入式","max":3},{"name":"kali linux","max":3},{"name":"LTspice","max":3},{"name":"linux","max":3},{"name":"FreeRTOS","max":3},{"name":"电子","max":3},{"name":"个人提升","max":3},{"name":"阅读","max":3}],
+            indicator: [{"name":"随笔","max":6},{"name":"教学","max":6},{"name":"嵌入式","max":6},{"name":"网络安全","max":6},{"name":"电子","max":6},{"name":"个人提升","max":6}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -431,7 +384,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [1,2,1,2,2,1,1,1,1,1,1],
+                    value : [1,5,3,1,1,2],
                     name : '文章分类数量'
                 }
             ]

@@ -254,9 +254,7 @@
 
 
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+    $('.bg-cover').css('background-image', 'url(/medias/banner/0.jpg)');
 </script>
 
 <script>
@@ -288,64 +286,28 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </a>
                 
                 
-                <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%95%99%E5%AD%A6/" title="博客教学: 2">
+                <a href="/categories/%E6%95%99%E5%AD%A6/" title="教学: 5">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">博客教学
-                        <span class="tag-length">2</span>
+                            style="background-color: #F5EEF8;">教学
+                        <span class="tag-length">5</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/%E5%8D%9A%E5%AE%A2/" title="博客: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D5F5E3;">博客
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" title="嵌入式: 2">
+                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" title="嵌入式: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-active "
-                            style="background-color: #E8F8F5;">嵌入式
-                        <span class="tag-length">2</span>
+                            style="background-color: #D5F5E3;">嵌入式
+                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/kali-linux/" title="kali linux: 2">
+                <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="网络安全: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #FEF9E7;">kali linux
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/LTspice/" title="LTspice: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F8F9F9;">LTspice
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/kali-linux/linux/" title="linux: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #82E0AA;">linux
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/FreeRTOS/" title="FreeRTOS: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D7BDE2;">FreeRTOS
+                            style="background-color: #E8F8F5;">网络安全
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -354,26 +316,17 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 <a href="/categories/%E7%94%B5%E5%AD%90/" title="电子: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #A3E4D7;">电子
+                            style="background-color: #FEF9E7;">电子
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/" title="个人提升: 1">
+                <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/" title="个人提升: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #85C1E9;">个人提升
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E9%98%85%E8%AF%BB/" title="阅读: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F8C471;">阅读
-                        <span class="tag-length">1</span>
+                            style="background-color: #F8F9F9;">个人提升
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
@@ -441,6 +394,60 @@ gcc-multilib build-ess
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2024/06178348.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="/images/lettershell.png" class="responsive-img" alt="stm32搭配freertos移植letter">
+                            
+                            <span class="card-title">stm32搭配freertos移植letter</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                前言一个功能强大的嵌入式shell，您可以查看它的GitHub
+letter_shell是一个C语言编写的，可以嵌入在程序中的嵌入式shell，主要面向嵌入式设备，以C语言函数为运行单位，可以通过命令行调用，运行程序中的函数。通过移植这个工
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-17
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-category">
+                                    嵌入式
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/STM32/">
+                            <span class="chip bg-color">STM32</span>
+                        </a>
+                        
+                        <a href="/tags/FreeRTOS/">
+                            <span class="chip bg-color">FreeRTOS</span>
+                        </a>
+                        
+                        <a href="/tags/LetterShell/">
+                            <span class="chip bg-color">LetterShell</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2024/03243229.html">
                         <div class="card-image tag-image">
                             
@@ -469,10 +476,6 @@ gcc-multilib build-ess
                                 
                                 <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-category">
                                     嵌入式
-                                </a>
-                                
-                                <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/FreeRTOS/" class="post-category">
-                                    FreeRTOS
                                 </a>
                                 
                                 

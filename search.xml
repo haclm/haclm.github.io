@@ -38,7 +38,7 @@
       
       <categories>
           
-          <category> LTspice </category>
+          <category> 教学 </category>
           
       </categories>
       
@@ -46,6 +46,8 @@
         <tags>
             
             <tag> electron </tag>
+            
+            <tag> Ltspice </tag>
             
         </tags>
       
@@ -88,7 +90,7 @@
       
       <categories>
           
-          <category> 博客 </category>
+          <category> 教学 </category>
           
       </categories>
       
@@ -113,7 +115,7 @@
       
       <categories>
           
-          <category> 阅读 </category>
+          <category> 个人提升 </category>
           
       </categories>
       
@@ -186,6 +188,12 @@
         <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一个功能强大的嵌入式shell，您可以查看它的<a href="https://github.com/NevermindZZT/letter-shell">GitHub</a></p><p>letter_shell是一个C语言编写的，可以嵌入在程序中的嵌入式shell，主要面向嵌入式设备，以C语言函数为运行单位，可以通过命令行调用，运行程序中的函数。通过移植这个工具，方便我们进行模块的单元测试。</p><h1 id="移植"><a href="#移植" class="headerlink" title="移植"></a>移植</h1><p>我们得先下载的文件，可以通过下载ZIP文件或者通过git clone命令克隆它。<br>这里不在赘述。</p><p>关于Freertos移植这里也不在赘述，可以看往期博客。</p><ul><li>1.要配置好UART和中断(不在赘述)</li><li>2.配置一个GPIO进行点亮LED(可选)</li></ul><p>首先先将src文件夹里的文件导入到项目里。在dome文件夹里找到stm32-freertos并把里面的文件导入工程里。并把它们配置好Incldue Path 和 Source Path。</p><p>打开shell_port.c文件并修改一些代码</p><ul><li>1.#include “serial.h”（注释掉） #include “cevent.h” #include “log.h”（可选择注释掉）</li><li>2.改userShellWrite函数和userShellRead函数，可以参考入校</li></ul><pre class="line-numbers language-lang-c"><code class="language-lang-c">short userShellWrite(char *data, unsigned short len)&#123;//   serialTransmit(&debugSerial, (uint8_t *)data, len, 0x1FF);     HAL_UART_Transmit(&huart1, (uint8_t *)data, len, 0x1FF);    return len;&#125;</code></pre><pre><code>short userShellRead(char *data, unsigned short len)&#123; //   return serialReceive(&debugSerial, (uint8_t *)data, len, 0);    if(HAL_UART_Receive(&huart1, (uint8_t*)data, len, 0xFFFF) != HAL_OK)    &#123;        return 0;    &#125;    else    &#123;        return 1;    &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ul><li>3.修改下述函数</li></ul><pre class="line-numbers language-lang-c"><code class="language-lang-c">/** * @brief 用户shell上锁 *  * @param shell shell *  * @return int 0 */int userShellLock(Shell *shell)&#123;//    xSemaphoreTakeRecursive(shellMutex, portMAX_DELAY);    xSemaphoreTake(shellMutex, portMAX_DELAY);    return 0;&#125;/** * @brief 用户shell解锁 *  * @param shell shell *  * @return int 0 */int userShellUnlock(Shell *shell)&#123;//    xSemaphoreGiveRecursive(shellMutex);    xSemaphoreGive(shellMutex);    return 0;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-lang-c"><code class="language-lang-c">void userShellInit(void)&#123;    shellMutex = xSemaphoreCreateMutex();    shell.write = userShellWrite;    shell.read = userShellRead;    shell.lock = userShellLock;    shell.unlock = userShellUnlock;    shellInit(&shell, shellBuffer, 512);    xTaskCreate(shellTask, "shell", 256, &shell, 5, NULL);&#125;CEVENT_EXPORT(EVENT_INIT_STAGE2, userShellInit);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ul><li>4.在freertos.c里导入shell_port.h头文件</li><li>5.配置中断回调函数和调用userShellInit()函数，整体文件代码如下</li></ul><pre class="line-numbers language-lang-c"><code class="language-lang-c">/* USER CODE BEGIN Header *//**  ******************************************************************************  * File Name          : freertos.c  * Description        : Code for freertos applications  ******************************************************************************  * @attention  *  * Copyright (c) 2024 STMicroelectronics.  * All rights reserved.  *  * This software is licensed under terms that can be found in the LICENSE file  * in the root directory of this software component.  * If no LICENSE file comes with this software, it is provided AS-IS.  *  ******************************************************************************  *//* USER CODE END Header *//* Includes ------------------------------------------------------------------*/#include "FreeRTOS.h"#include "task.h"#include "main.h"#include "cmsis_os.h"/* Private includes ----------------------------------------------------------*//* USER CODE BEGIN Includes */#include "shell_port.h"#include "usart.h"/* USER CODE END Includes *//* Private typedef -----------------------------------------------------------*//* USER CODE BEGIN PTD */uint8_t recv_buf = 0;/* USER CODE END PTD *//* Private define ------------------------------------------------------------*//* USER CODE BEGIN PD */int LED_ON(int Time);/* USER CODE END PD *//* Private macro -------------------------------------------------------------*//* USER CODE BEGIN PM *//* USER CODE END PM *//* Private variables ---------------------------------------------------------*//* USER CODE BEGIN Variables *//* USER CODE END Variables *//* Definitions for defaultTask */osThreadId_t defaultTaskHandle;const osThreadAttr_t defaultTask_attributes = &#123;  .name = "defaultTask",  .stack_size = 128 * 4,  .priority = (osPriority_t) osPriorityNormal,&#125;;/* Definitions for myTask02 */osThreadId_t myTask02Handle;const osThreadAttr_t myTask02_attributes = &#123;  .name = "myTask02",  .stack_size = 128 * 4,  .priority = (osPriority_t) osPriorityNormal,&#125;;/* Private function prototypes -----------------------------------------------*//* USER CODE BEGIN FunctionPrototypes *//* USER CODE END FunctionPrototypes */void StartDefaultTask(void *argument);void StartTask02(void *argument);void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) *//**  * @brief  FreeRTOS initialization  * @param  None  * @retval None  */void MX_FREERTOS_Init(void) &#123;  /* USER CODE BEGIN Init */  /* USER CODE END Init */  /* USER CODE BEGIN RTOS_MUTEX */  /* add mutexes, ... */  /* USER CODE END RTOS_MUTEX */  /* USER CODE BEGIN RTOS_SEMAPHORES */  /* add semaphores, ... */  /* USER CODE END RTOS_SEMAPHORES */  /* USER CODE BEGIN RTOS_TIMERS */  /* start timers, add new ones, ... */  /* USER CODE END RTOS_TIMERS */  /* USER CODE BEGIN RTOS_QUEUES */  /* add queues, ... */  /* USER CODE END RTOS_QUEUES */  /* Create the thread(s) */  /* creation of defaultTask */  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);  /* creation of myTask02 */  myTask02Handle = osThreadNew(StartTask02, NULL, &myTask02_attributes);  /* USER CODE BEGIN RTOS_THREADS */  /* add threads, ... */  /* USER CODE END RTOS_THREADS */  /* USER CODE BEGIN RTOS_EVENTS */  /* add events, ... */  /* USER CODE END RTOS_EVENTS */&#125;/* USER CODE BEGIN Header_StartDefaultTask *//**  * @brief  Function implementing the defaultTask thread.  * @param  argument: Not used  * @retval None  *//* USER CODE END Header_StartDefaultTask */void StartDefaultTask(void *argument)&#123;  /* USER CODE BEGIN StartDefaultTask */    userShellInit();    HAL_UART_Receive_IT(&huart1, (uint8_t*)&recv_buf, 1);    while(1)    &#123;    &#125;  /* USER CODE END StartDefaultTask */&#125;/* USER CODE BEGIN Header_StartTask02 *//*** @brief Function implementing the myTask02 thread.* @param argument: Not used* @retval None*//* USER CODE END Header_StartTask02 */void StartTask02(void *argument)&#123;  /* USER CODE BEGIN StartTask02 */    while(1)    &#123;    &#125;  /* USER CODE END StartTask02 */&#125;/* Private application code --------------------------------------------------*//* USER CODE BEGIN Application */int LED_ON(int Time)&#123;    HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);    HAL_Delay(Time);    HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);    return 0;&#125;SHELL_EXPORT_CMD(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_CMD_FUNC), LED_ON, LED_ON, LED_ON);void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)&#123;    /* 判断是哪个串口触发的中断 */    if(huart ->Instance == USART1)    &#123;        //调用shell处理数据的接收              shellHandler(&shell, recv_buf);        //使能串口中断接收              HAL_UART_Receive_IT(&huart1, (uint8_t*)&recv_buf, 1);    &#125;&#125;/* USER CODE END Application */<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>1.在实现LED闪烁会调用HAL_Delay()函数要注意它的中断优先级。防止延迟函数卡死。</p><p>2.头文件的导入</p><p>3.配置uart中断回调函数</p><h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>本教程由于时间问题所以比较粗略，请谅解。您可以在我的<a href="https://github.com/haclm/STM32_lettershell_FreeRTOS">GitHub</a>上找到完整代码。感谢您的观看！谢谢！</p>]]></content>
       
       
+      <categories>
+          
+          <category> 嵌入式 </category>
+          
+      </categories>
+      
       
         <tags>
             
@@ -213,8 +221,6 @@
           
           <category> 嵌入式 </category>
           
-          <category> FreeRTOS </category>
-          
       </categories>
       
       
@@ -229,7 +235,7 @@
     
     
     <entry>
-      <title>vim</title>
+      <title>D.riven</title>
       <link href="/2021/090426382.html"/>
       <url>/2021/090426382.html</url>
       
@@ -238,9 +244,7 @@
       
       <categories>
           
-          <category> kali linux </category>
-          
-          <category> linux </category>
+          <category> 教学 </category>
           
       </categories>
       
@@ -265,7 +269,7 @@
       
       <categories>
           
-          <category> kali linux </category>
+          <category> 网络安全 </category>
           
       </categories>
       
@@ -292,7 +296,7 @@
       
       <categories>
           
-          <category> 博客教学 </category>
+          <category> 教学 </category>
           
       </categories>
       
@@ -317,7 +321,7 @@
       
       <categories>
           
-          <category> 博客教学 </category>
+          <category> 教学 </category>
           
       </categories>
       
