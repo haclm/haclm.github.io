@@ -6,7 +6,7 @@
   <link href="https://haclm.github.io/atom.xml" rel="self"/>
   
   <link href="https://haclm.github.io/"/>
-  <updated>2025-07-21T13:20:26.870Z</updated>
+  <updated>2025-07-26T12:32:06.731Z</updated>
   <id>https://haclm.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FreeRTOS的讲解</title>
+    <link href="https://haclm.github.io/2025/07248727.html"/>
+    <id>https://haclm.github.io/2025/07248727.html</id>
+    <published>2025-07-24T00:41:00.000Z</published>
+    <updated>2025-07-26T12:32:06.731Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><h2 id="通用端口的源文件"><a href="#通用端口的源文件" class="headerlink" title="通用端口的源文件"></a>通用端口的源文件</h2><ul><li>quenue.c 同时提供队列和信号量的服务</li><li>timers.c 提供软件定时器功能</li><li>event_groups.c 提供事件组件功能</li><li><p>crountine.c 实现FreeRTOS的协同列程过程</p><h2 id="特殊端口的源文件"><a href="#特殊端口的源文件" class="headerlink" title="特殊端口的源文件"></a>特殊端口的源文件</h2><p>在FreeRTOS/Source/portable目录下包含了编译器和处理器的系统结构堆内存管理器：只有在FreeRTOSConfig.h中将<code>configSUPPORT_DYNAMIC_ALLOCATION</code> 设置为一，或未定义时才需要使用堆内存管理器。</p><h2 id="FreeRTOS演示"><a href="#FreeRTOS演示" class="headerlink" title="FreeRTOS演示"></a>FreeRTOS演示</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">int main(void)&#123;  prvSetupHardware();  vTaskStartScheduler();  for(;;);  return 0;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="从头创建一个FreeRTOS项目"><a href="#从头创建一个FreeRTOS项目" class="headerlink" title="从头创建一个FreeRTOS项目"></a>从头创建一个FreeRTOS项目</h2><p>1.使用工具创建一个没有任何RTOS文件的项目<br>2.确保可以成功编译并执行<br>3.按照如下表格添加FreeRTOS的源文件</p></li></ul><div class="table-container"><table><thead><tr><th style="text-align:center">File</th><th style="text-align:center">Location</th></tr></thead><tbody><tr><td style="text-align:center">tasks.c</td><td style="text-align:center">FreeRTOS/Source</td></tr><tr><td style="text-align:center">queue.c</td><td style="text-align:center">FreeRTOS/Source</td></tr><tr><td style="text-align:center">list.c</td><td style="text-align:center">FreeRTOS/Source</td></tr><tr><td style="text-align:center">timers.c</td><td style="text-align:center">FreeRTOS/Source</td></tr><tr><td style="text-align:center">event_groups.c</td><td style="text-align:center">FreeRTOS/Source</td></tr><tr><td style="text-align:center">All C and assembler file</td><td style="text-align:center">FreeRTOS/Source/portable/[compiler]/[architecture]</td></tr><tr><td style="text-align:center">heap_n.c</td><td style="text-align:center">FreeRTOS/Source/portable/MemMang</td></tr></tbody></table></div><p>4.将FreeRTOSConfig.h头文件复制到项目中<br>5.将以下内容添加到头文件路径中</p><ul><li><code>FreeRTOS/Source/include</code></li><li><code>FreeRTOS/Source/portable/[compiler]/[architecture]</code></li><li><code>The directory containing the FreeRTOSConfig.h header file</code><br>6.复制相关例子的编译器设置<br>7.安装FreeRTOS的中断处理程序</li></ul><h1 id="堆内存管理"><a href="#堆内存管理" class="headerlink" title="堆内存管理"></a>堆内存管理</h1><p>当FreeRTOS需要RAM时，它调用的不是<code>malloc()</code>而是<code>pvPortMalloc()</code>释放调用的是<code>vPortFree()</code></p><h2 id="Heap-1"><a href="#Heap-1" class="headerlink" title="Heap_1"></a>Heap_1</h2><p>通常专用于小的嵌入式系统。只创建任务和其他内核项目在工作计划之前，内核才会动态分布内存。并且在应用程序的整个生命周期都会存在。<br>所选择的分配计划不必考虑任何复杂的内存分配问题，例如决定论与碎片化。<br>实施一个非常基础版本的<code>pvPortMalloc()</code>但从不实施<code>vPortFree()</code>从不删除任务和其他内核对象。</p><h2 id="Heap-2"><a href="#Heap-2" class="headerlink" title="Heap_2"></a>Heap_2</h2><p>为了向后兼容，在FreeRTOS发行版中保留了Heap_2，但不建议在新设计中使用。<br>与Heap_1一样通过细分<code>configTOTAL_Heap_SIZE</code>确定大小数来组合工作</p><h2 id="Heap-3"><a href="#Heap-3" class="headerlink" title="Heap_3"></a>Heap_3</h2><p>使用标准库的<code>malloc()</code>和<code>free()</code>函数，所以堆的大小是由链接器定义的。并且<code>configTOTAL_HEAP_SIZE</code>的设置没有任何影响<br>它通过暂停<code>FreeRTOS调度程序</code>来实现<code>malloc()</code>和<code>free()</code>线程安全</p><h2 id="Heap-4"><a href="#Heap-4" class="headerlink" title="Heap_4"></a>Heap_4</h2><p>首次使用拟合算法来分配内存。不同于Heap_2,Heap_4将相邻的空闲内存组合成一个更大的块，从而最大限度地降低内存碎片的风险。</p><h2 id="Heap-5"><a href="#Heap-5" class="headerlink" title="Heap_5"></a>Heap_5</h2><p>所使用的分配和释放内存算法与heap_4的算法相同。<br>不同的是，Heap_5不仅限于从单个静态声明的数组分配内存;heap_5可以从多个单独的内存空间分配内存。</p><h2 id="堆相关的程序函数"><a href="#堆相关的程序函数" class="headerlink" title="堆相关的程序函数"></a>堆相关的程序函数</h2><h3 id="xPortGetFreeHeapSize-API函数"><a href="#xPortGetFreeHeapSize-API函数" class="headerlink" title="xPortGetFreeHeapSize() API函数"></a><code>xPortGetFreeHeapSize()</code> API函数</h3><p>这个API函数返回调用函数中的可用字节数。<br>它可以用于优化堆大小。例子如下：<br>使用<code>xPortGetFreeHeapSize()</code>函数在创建所有内核对象之后返回2000，后来将<code>configTOTAL_HEAP_SIZE</code>的值减少2000.</p><h3 id="xPortGetMinimumEverFreeHeapSize-API函数"><a href="#xPortGetMinimumEverFreeHeapSize-API函数" class="headerlink" title="xPortGetMinimumEverFreeHeapSize()API函数"></a><code>xPortGetMinimumEverFreeHeapSize()</code>API函数</h3><p>返回自FreeRTOS应用开始后堆中存在的最小未分配字节数。<br>也表示离堆空间耗尽的距离。</p><h3 id="Malloc失败钩子函数"><a href="#Malloc失败钩子函数" class="headerlink" title="Malloc失败钩子函数"></a><code>Malloc</code>失败钩子函数</h3><p><code>pvPortMalloc</code>可以直接从应用中调用。<br>同样的FreeRTOS会在源文件中调用，在每次内核项目被创建时。<br>与标准库<code>Malloc</code>函数一样，当<code>pvPortMalloc()</code>无法返回内存块时，则表示请求的大小的内存块不存在。返回<code>NULL</code>且并不会创建。<br>如果调用<code>pvPortMalloc()</code>返回<code>NULL</code>，则所有示例堆分配方案都可以配置为调用钩子（或回调）函数<br>如果FreeRTOSConfig.h中将<code>configUSE_MALLOC FAILED_HOOK</code>设置为1，则应用程序必须提供一个名为和原型如清单所示的MALLOC失败挂钩函数。<br>该功能可以采用任何适合于应用的方式实现。<br>malloc悬挂的钩子函数名和原型，如下：<br><code>void vApplicationMallocFailedHook( void );</code><br>什么意思呢？就是在FreeRTOSConfig.h定义<code>configUSE_MALLOC_FAILD_HOOK</code>为1时，当调用<code>pvPortMalloc()</code>失败会执行malloc悬挂的钩子函数<code>void vApplicationMallocFailedHook( void );</code>进行一些“补救”措施或错误处理。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;h2 id=&quot;通用端口的源文件&quot;&gt;&lt;a href=&quot;#通用端口的源文件&quot; class=&quot;headerlink&quot; title=&quot;通用端口的源文件&quot;</summary>
+      
+    
+    
+    
+    <category term="嵌入式" scheme="https://haclm.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+    <category term="FreeRTOS" scheme="https://haclm.github.io/tags/FreeRTOS/"/>
+    
+  </entry>
   
   <entry>
     <title>HDLBits随笔</title>
@@ -72,7 +96,7 @@
     <link href="https://haclm.github.io/2024/102125833.html"/>
     <id>https://haclm.github.io/2024/102125833.html</id>
     <published>2024-10-21T15:27:00.000Z</published>
-    <updated>2025-07-21T13:19:17.405Z</updated>
+    <updated>2025-07-24T00:40:04.509Z</updated>
     
     <content type="html"><![CDATA[<h1 id="跨导"><a href="#跨导" class="headerlink" title="跨导"></a>跨导</h1><p>源漏之间的线性电阻可以表示为</p><script type="math/tex; mode=display">R_{on}=\frac{1}{\mu _n C_{ox}\frac{W}{L}(V_{GS}-V_{TH})}</script><p>也可以看为阻值由驱动电压控制的电阻。$\frac{W}{L}$是宽长比。<br>当 </p><script type="math/tex; mode=display">V_{DS}<2(V_{GS}-V_{TH})</script><p>时器件工作在深三极管区，相反当 </p><script type="math/tex; mode=display">V_{DS}>V_{GS}-V_{TH}</script><p>时，漏极并不遵行抛物线特性且工作在饱和区。<br>漏极电压必须大于或等于驱动电压（由公式可以看出）<br>跨导为$R_{on}$的倒数通常定义在饱和区</p><script type="math/tex; mode=display">g_m=\mu _n C_{ox}\frac{W}{L}(V_{GS}-V_{TH})</script><p>同时也可以表示为</p><script type="math/tex; mode=display">g_m = \sqrt{2\mu C_{ox}\frac{W}{L}I_D}</script><h1 id="沟道长度调制"><a href="#沟道长度调制" class="headerlink" title="沟道长度调制"></a>沟道长度调制</h1><p>当G与D之间的电压差增大时，实际上的反型沟道长度在逐渐减少。<br>定义沟道长度为$L$减少后的长度为$L \prime$则 $L=L \prime -\Delta L$<br>定义$\frac{\delta L}{L}=\lambda V_{DS}$<br>则可以通过简单运算得到如下：</p><script type="math/tex; mode=display">\frac{1}{L'} = \frac{1}{L - \Delta L} = \frac{L + \Delta L}{L^2 {\Delta L}^2}</script><p>$\Delta L$可以省略则可以得到<br>$\frac{L + \Delta L}{L^2} =\frac{1 + \frac{\Delta L}{L}}{L}$<br>$\frac{1}{L’}=\frac{1+\lambda V_{DS}}{L}$<br>将上述带入公式则可以得到</p><script type="math/tex; mode=display">I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</script>]]></content>
     

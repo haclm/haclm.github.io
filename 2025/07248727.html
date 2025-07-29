@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="hexo admin写博客, blog,D.riven">
+    <meta name="keywords" content="FreeRTOS的讲解, blog,D.riven">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>hexo admin写博客 | D.riven</title>
+    <title>FreeRTOS的讲解 | D.riven</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -221,12 +221,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/images/pasted-5.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">hexo admin写博客</h1>
+                    <h1 class="description center-align post-title">FreeRTOS的讲解</h1>
                 </div>
             </div>
         </div>
@@ -342,8 +342,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/hexo/">
-                                <span class="chip bg-color">hexo</span>
+                            <a href="/tags/FreeRTOS/">
+                                <span class="chip bg-color">FreeRTOS</span>
                             </a>
                         
                     </div>
@@ -354,8 +354,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%95%99%E5%AD%A6/" class="post-category">
-                                教学
+                            <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-category">
+                                嵌入式
                             </a>
                         
                     </div>
@@ -367,28 +367,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-06
+                    2025-07-24
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-07-21
+                    2025-07-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    289
+                    995
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -413,18 +413,80 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="hexo-admin写博客"><a href="#hexo-admin写博客" class="headerlink" title="hexo_admin写博客"></a>hexo_admin写博客</h1><p>写博客是不是很头疼？不好实时预览。用那黑乎乎的vim编辑器，看起来很头疼。那么我们不用vim编辑器用什么编辑器？用hexo admin！hexo admin编辑器可以实时预览对新手很好。告诉你一个秘密本博文也是用hexo admin写的！好了废话不多说了。let’s go.本教程用linux为例子，Windows的话也差不多万变不离其宗嘛</p>
-<h2 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h2><ul>
-<li>有hexo的电脑//电脑上没有安装hexo可以看上一期</li>
-<li>电脑能联网 <h2 id="安装hexo-admin"><a href="#安装hexo-admin" class="headerlink" title="安装hexo admin"></a>安装hexo admin</h2>运行以下命令：<br><pre><code>cd blog && npm install hexo-admin --save</code></pre>    cd blog 是进入blog目录</li>
-</ul>
-<h2 id="运行："><a href="#运行：" class="headerlink" title="运行："></a>运行：</h2><p>运行以下命令来启动hexo_admin</p>
-<pre><code>hexo s</code></pre>
+                <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><h2 id="通用端口的源文件"><a href="#通用端口的源文件" class="headerlink" title="通用端口的源文件"></a>通用端口的源文件</h2><ul>
+<li>quenue.c 同时提供队列和信号量的服务</li>
+<li>timers.c 提供软件定时器功能</li>
+<li>event_groups.c 提供事件组件功能</li>
+<li><p>crountine.c 实现FreeRTOS的协同列程过程</p>
+<h2 id="特殊端口的源文件"><a href="#特殊端口的源文件" class="headerlink" title="特殊端口的源文件"></a>特殊端口的源文件</h2><p>在FreeRTOS/Source/portable目录下包含了编译器和处理器的系统结构堆内存管理器：只有在FreeRTOSConfig.h中将<code>configSUPPORT_DYNAMIC_ALLOCATION</code> 设置为一，或未定义时才需要使用堆内存管理器。</p>
+<h2 id="FreeRTOS演示"><a href="#FreeRTOS演示" class="headerlink" title="FreeRTOS演示"></a>FreeRTOS演示</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">int main(void)
+&#123;
+  prvSetupHardware();
 
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>进入<a href="hocalhost:4000/amdin">自己本地的博客</a><br><img src="/images/pasted-4.png" alt="filename already exists, renamed"><br>这个是设密码，输入内容后下滑，找到生成的代码，复制到blog目录’_config.yml’中保存并重启hexo，打来hexo-admin的界面。</p>
-<h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>在posts 里面新建一个博文，就可以写。</p>
-<h3 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h3><p>教程<a target="_blank" rel="noopener" href="http://ibruce.info/2013/11/26/markdown/">不如</a></p>
-<h2 id="结言"><a href="#结言" class="headerlink" title="结言"></a>结言</h2><p>这期教程就到了，欢迎订阅rss和打赏。请作者喝一杯冰可乐吧！</p>
+  vTaskStartScheduler();
+
+  for(;;);
+  return 0;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="从头创建一个FreeRTOS项目"><a href="#从头创建一个FreeRTOS项目" class="headerlink" title="从头创建一个FreeRTOS项目"></a>从头创建一个FreeRTOS项目</h2><p>1.使用工具创建一个没有任何RTOS文件的项目<br>2.确保可以成功编译并执行<br>3.按照如下表格添加FreeRTOS的源文件</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">File</th>
+<th style="text-align:center">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">tasks.c</td>
+<td style="text-align:center">FreeRTOS/Source</td>
+</tr>
+<tr>
+<td style="text-align:center">queue.c</td>
+<td style="text-align:center">FreeRTOS/Source</td>
+</tr>
+<tr>
+<td style="text-align:center">list.c</td>
+<td style="text-align:center">FreeRTOS/Source</td>
+</tr>
+<tr>
+<td style="text-align:center">timers.c</td>
+<td style="text-align:center">FreeRTOS/Source</td>
+</tr>
+<tr>
+<td style="text-align:center">event_groups.c</td>
+<td style="text-align:center">FreeRTOS/Source</td>
+</tr>
+<tr>
+<td style="text-align:center">All C and assembler file</td>
+<td style="text-align:center">FreeRTOS/Source/portable/[compiler]/[architecture]</td>
+</tr>
+<tr>
+<td style="text-align:center">heap_n.c</td>
+<td style="text-align:center">FreeRTOS/Source/portable/MemMang</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>4.将FreeRTOSConfig.h头文件复制到项目中<br>5.将以下内容添加到头文件路径中</p>
+<ul>
+<li><code>FreeRTOS/Source/include</code></li>
+<li><code>FreeRTOS/Source/portable/[compiler]/[architecture]</code></li>
+<li><code>The directory containing the FreeRTOSConfig.h header file</code><br>6.复制相关例子的编译器设置<br>7.安装FreeRTOS的中断处理程序</li>
+</ul>
+<h1 id="堆内存管理"><a href="#堆内存管理" class="headerlink" title="堆内存管理"></a>堆内存管理</h1><p>当FreeRTOS需要RAM时，它调用的不是<code>malloc()</code>而是<code>pvPortMalloc()</code>释放调用的是<code>vPortFree()</code></p>
+<h2 id="Heap-1"><a href="#Heap-1" class="headerlink" title="Heap_1"></a>Heap_1</h2><p>通常专用于小的嵌入式系统。只创建任务和其他内核项目在工作计划之前，内核才会动态分布内存。并且在应用程序的整个生命周期都会存在。<br>所选择的分配计划不必考虑任何复杂的内存分配问题，例如决定论与碎片化。<br>实施一个非常基础版本的<code>pvPortMalloc()</code>但从不实施<code>vPortFree()</code>从不删除任务和其他内核对象。</p>
+<h2 id="Heap-2"><a href="#Heap-2" class="headerlink" title="Heap_2"></a>Heap_2</h2><p>为了向后兼容，在FreeRTOS发行版中保留了Heap_2，但不建议在新设计中使用。<br>与Heap_1一样通过细分<code>configTOTAL_Heap_SIZE</code>确定大小数来组合工作</p>
+<h2 id="Heap-3"><a href="#Heap-3" class="headerlink" title="Heap_3"></a>Heap_3</h2><p>使用标准库的<code>malloc()</code>和<code>free()</code>函数，所以堆的大小是由链接器定义的。并且<code>configTOTAL_HEAP_SIZE</code>的设置没有任何影响<br>它通过暂停<code>FreeRTOS调度程序</code>来实现<code>malloc()</code>和<code>free()</code>线程安全</p>
+<h2 id="Heap-4"><a href="#Heap-4" class="headerlink" title="Heap_4"></a>Heap_4</h2><p>首次使用拟合算法来分配内存。不同于Heap_2,Heap_4将相邻的空闲内存组合成一个更大的块，从而最大限度地降低内存碎片的风险。</p>
+<h2 id="Heap-5"><a href="#Heap-5" class="headerlink" title="Heap_5"></a>Heap_5</h2><p>所使用的分配和释放内存算法与heap_4的算法相同。<br>不同的是，Heap_5不仅限于从单个静态声明的数组分配内存;heap_5可以从多个单独的内存空间分配内存。</p>
+<h2 id="堆相关的程序函数"><a href="#堆相关的程序函数" class="headerlink" title="堆相关的程序函数"></a>堆相关的程序函数</h2><h3 id="xPortGetFreeHeapSize-API函数"><a href="#xPortGetFreeHeapSize-API函数" class="headerlink" title="xPortGetFreeHeapSize() API函数"></a><code>xPortGetFreeHeapSize()</code> API函数</h3><p>这个API函数返回调用函数中的可用字节数。<br>它可以用于优化堆大小。例子如下：<br>使用<code>xPortGetFreeHeapSize()</code>函数在创建所有内核对象之后返回2000，后来将<code>configTOTAL_HEAP_SIZE</code>的值减少2000.</p>
+<h3 id="xPortGetMinimumEverFreeHeapSize-API函数"><a href="#xPortGetMinimumEverFreeHeapSize-API函数" class="headerlink" title="xPortGetMinimumEverFreeHeapSize()API函数"></a><code>xPortGetMinimumEverFreeHeapSize()</code>API函数</h3><p>返回自FreeRTOS应用开始后堆中存在的最小未分配字节数。<br>也表示离堆空间耗尽的距离。</p>
+<h3 id="Malloc失败钩子函数"><a href="#Malloc失败钩子函数" class="headerlink" title="Malloc失败钩子函数"></a><code>Malloc</code>失败钩子函数</h3><p><code>pvPortMalloc</code>可以直接从应用中调用。<br>同样的FreeRTOS会在源文件中调用，在每次内核项目被创建时。<br>与标准库<code>Malloc</code>函数一样，当<code>pvPortMalloc()</code>无法返回内存块时，则表示请求的大小的内存块不存在。返回<code>NULL</code>且并不会创建。<br>如果调用<code>pvPortMalloc()</code>返回<code>NULL</code>，则所有示例堆分配方案都可以配置为调用钩子（或回调）函数<br>如果FreeRTOSConfig.h中将<code>configUSE_MALLOC FAILED_HOOK</code>设置为1，则应用程序必须提供一个名为和原型如清单所示的MALLOC失败挂钩函数。<br>该功能可以采用任何适合于应用的方式实现。<br>malloc悬挂的钩子函数名和原型，如下：<br><code>void vApplicationMallocFailedHook( void );</code><br>什么意思呢？就是在FreeRTOSConfig.h定义<code>configUSE_MALLOC_FAILD_HOOK</code>为1时，当调用<code>pvPortMalloc()</code>失败会执行malloc悬挂的钩子函数<code>void vApplicationMallocFailedHook( void );</code>进行一些“补救”措施或错误处理。</p>
 
                 
             </div>
@@ -451,7 +513,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://haclm.github.io/2021/080627682.html">https://haclm.github.io/2021/080627682.html</a>
+                    <a href="https://haclm.github.io/2025/07248727.html">https://haclm.github.io/2025/07248727.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -489,8 +551,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/hexo/">
-                                    <span class="chip bg-color">hexo</span>
+                                <a href="/tags/FreeRTOS/">
+                                    <span class="chip bg-color">FreeRTOS</span>
                                 </a>
                             
                         </div>
@@ -662,16 +724,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/080857223.html">
+                <a href="/2025/07248727.html">
                     <div class="card-image">
                         
-                        <img src="/images/pasted-7.png" class="responsive-img" alt="netcat">
                         
-                        <span class="card-title">netcat</span>
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="FreeRTOS的讲解">
+                        
+                        <span class="card-title">FreeRTOS的讲解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -681,30 +745,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category">
-                                    网络安全
+                            <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-category">
+                                    嵌入式
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/netcat/">
-                        <span class="chip bg-color">netcat</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F/">
-                        <span class="chip bg-color">网络渗透</span>
+                    <a href="/tags/FreeRTOS/">
+                        <span class="chip bg-color">FreeRTOS</span>
                     </a>
                     
                 </div>
@@ -718,12 +779,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/080511190.html">
+                <a href="/2025/04237414.html">
                     <div class="card-image">
                         
-                        <img src="/images/pasted-6.png" class="responsive-img" alt="教学GitHub博客搭建">
+                        <img src="/images/HDLBits_background.png" class="responsive-img" alt="HDLBits随笔">
                         
-                        <span class="card-title">教学GitHub博客搭建</span>
+                        <span class="card-title">HDLBits随笔</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -734,14 +795,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-23
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%99%E5%AD%A6/" class="post-category">
-                                    教学
+                            <a href="/categories/%E9%9A%8F%E7%AC%94/" class="post-category">
+                                    随笔
                                 </a>
                             
                             
@@ -751,8 +812,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
+                    <a href="/tags/verilog/">
+                        <span class="chip bg-color">verilog</span>
                     </a>
                     
                 </div>
@@ -920,6 +981,13 @@
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
 
