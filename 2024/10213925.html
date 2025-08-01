@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -417,21 +417,21 @@
 <h2 id="1-创建-GitHub-私密仓库："><a href="#1-创建-GitHub-私密仓库：" class="headerlink" title="1.创建 GitHub 私密仓库："></a>1.创建 GitHub 私密仓库：</h2><p>登录你的 GitHub 账户，点击右上角的 “+” 按钮，选择 “New repository”。<br>输入仓库名称，选择 “Private” 选项，点击 “Create repository”。</p>
 <h2 id="2-安装-Git（如果尚未安装）："><a href="#2-安装-Git（如果尚未安装）：" class="headerlink" title="2.安装 Git（如果尚未安装）："></a>2.安装 Git（如果尚未安装）：</h2><p>在你的系统上安装 Git。可以从 Git 官网 下载并按照说明进行安装。</p>
 <h2 id="3-在本地初始化-Git："><a href="#3-在本地初始化-Git：" class="headerlink" title="3.在本地初始化 Git："></a>3.在本地初始化 Git：</h2><p> 打开终端（或命令提示符），导航到你的 Hexo 博客根目录：<br>复制代码</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">git init
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">git init
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="4-添加远程仓库："><a href="#4-添加远程仓库：" class="headerlink" title="4.添加远程仓库："></a>4.添加远程仓库：</h2><p>运行命令，将你刚创建的私密仓库添加为远程：<br>复制代码</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">git remote add origin https://github.com/你的用户名/你的仓库名.git
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">git remote add origin https://github.com/你的用户名/你的仓库名.git
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>添加文件并提交：</p>
 <h2 id="5-将所有文件添加到-Git："><a href="#5-将所有文件添加到-Git：" class="headerlink" title="5.将所有文件添加到 Git："></a>5.将所有文件添加到 Git：</h2><p>复制代码</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">git add .
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">git add .
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>提交更改：</p>
 <p>复制代码</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">git commit -m "备份 Hexo 博客"
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">git commit -m "备份 Hexo 博客"
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="6-推送到远程仓库："><a href="#6-推送到远程仓库：" class="headerlink" title="6.推送到远程仓库："></a>6.推送到远程仓库：</h2><p>将本地的内容推送到 GitHub：<br>复制代码</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">git push -u origin master
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">git push -u origin master
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果是首次推送，可能会要求输入 GitHub 的用户名和密码（或使用 token）。<br>后续更新：</p>
 <p>每当你对博客进行更新后，重复第 5 步和第 6 步来提交和推送更改。</p>
@@ -813,7 +813,7 @@
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFunction.js"></script>
 
 <!-- 代码语言 -->
 
@@ -828,6 +828,9 @@
 <!-- 代码块收缩 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
 
 
     </div>
@@ -948,7 +951,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.7k</span>
+                        class="white-color">11.1k</span>
             
             
             

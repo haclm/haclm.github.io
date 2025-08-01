@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -423,12 +423,12 @@
 <p>5.配置</p>
 <p><img src="/images/STM32RTOS_Config.png" alt="upload successful"><br>先配置时钟点击Clock Configuration这点用过Cube的都知道就不赘述了。</p>
 <p>配置GPIO 本教程用两个GPIO输出分别是PA5与PA6。通过示波器观察GPIO的信号更能直观的看到任务执行。</p>
-<p>配置FreeRTOS  点击Middleware and Software Packs 后选择 FREERTOS<br>因为本教程用的是CMSIS_V1所有interface选择CMSIS_V1。下面的Configuration可以设置一些基本参数。</p>
-<p>6.项目配置<br>点击Project Manage后选择Code Generator 勾选 Generate peripheral initalization as a pair of ‘.c/.h’file per peripheral</p>
+<p>配置FreeRTOS  点击Middleware and Software Packs 后选择 FREERTOS<br>因为本教程用的是CMSIS_V1所有interface选择CMSIS_V1。下面的Configuration可以设置一些基本参数。</p>
+<p>6.项目配置<br>点击Project Manage后选择Code Generator 勾选 Generate peripheral initalization as a pair of ‘.c&#x2F;.h’file per peripheral</p>
 <p>7.项目代码生成</p>
 <p><img src="/images/STM32build.png" alt="upload successful"><br>点击第一个小灯泡即可生成代码</p>
 <h2 id="代码修改"><a href="#代码修改" class="headerlink" title="代码修改"></a>代码修改</h2><p>首先阅览main.c文件看一下程序流程</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">int main(void)
+<pre class="line-numbers language-language-c"><code class="language-language-c">int main(void)
 &#123;
   /* USER CODE BEGIN 1 */
 
@@ -475,7 +475,7 @@
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>里面有一个名为MX_FREERTOS_Init();的函数，可以鼠标选中F3进去看看</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">/* USER CODE BEGIN Header */
+<pre class="line-numbers language-language-c"><code class="language-language-c">/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * File Name          : freertos.c
@@ -610,9 +610,10 @@ void StartDefaultTask(void const * argument)
 /* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>里面函数执行了两个语句。</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+<pre class="line-numbers language-language-c"><code class="language-language-c">osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
 defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>一个是任务的定义一个是任务的创立。<br>后有一个名为StartDefulatTask函数里面的语句就是该任务执行的语句功能。所以修改它就可以改变该任务的功能<br>往上看创建一个任务先要用osThreadId 定义一个任务的handle</p>
@@ -621,7 +622,7 @@ defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 <p>后用osThreadCreat()函数创建任务并用任务Handle接受返回值</p>
 <p>了解这些就可以实现俩个任务”同时”运行了</p>
 <p>修改后代码如下</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">/* USER CODE BEGIN Header */
+<pre class="line-numbers language-language-c"><code class="language-language-c">/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * File Name          : freertos.c
@@ -749,7 +750,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   &#123;
-      HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+	  HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
     osDelay(100);
   &#125;
   /* USER CODE END StartDefaultTask */
@@ -757,17 +758,18 @@ void StartDefaultTask(void const * argument)
 
 void StartLEDTask(void const * argument)
 &#123;
-    for(;;)
-    &#123;
-        HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-        osDelay(100);
-    &#125;
+	for(;;)
+	&#123;
+		HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+		osDelay(100);
+	&#125;
 &#125;
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>效果如下</p>
 <p><img src="/images/STM32twotaskb.png" alt="upload successful"><br><img src="/images/STM32twotask.png" alt="upload successful"><br>可以看出两个任务在”同时”运行</p>
 
@@ -1044,12 +1046,12 @@ void StartLEDTask(void const * argument)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/STM32/">
-                        <span class="chip bg-color">STM32</span>
-                    </a>
-                    
                     <a href="/tags/FreeRTOS/">
                         <span class="chip bg-color">FreeRTOS</span>
+                    </a>
+                    
+                    <a href="/tags/STM32/">
+                        <span class="chip bg-color">STM32</span>
                     </a>
                     
                     <a href="/tags/LetterShell/">
@@ -1154,7 +1156,7 @@ void StartLEDTask(void const * argument)
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFunction.js"></script>
 
 <!-- 代码语言 -->
 
@@ -1169,6 +1171,9 @@ void StartLEDTask(void const * argument)
 <!-- 代码块收缩 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
 
 
     </div>
@@ -1289,7 +1294,7 @@ void StartLEDTask(void const * argument)
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.7k</span>
+                        class="white-color">11.1k</span>
             
             
             

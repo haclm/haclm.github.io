@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -414,11 +414,11 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="Popcount3"><a href="#Popcount3" class="headerlink" title="Popcount3"></a>Popcount3</h2><p>A “population count” circuit counts the number of ‘1’s in an input vector. Build a population count circuit for a 3-bit input vector.</p>
-<h3 id="Module-Declaration"><a href="#Module-Declaration" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="Module-Declaration"><a href="#Module-Declaration" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [2:0] in,
     output [1:0] out );
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="answer"><a href="#answer" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="answer"><a href="#answer" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [2:0] in,
     output [1:0] out );
 
@@ -427,20 +427,20 @@ endmodule
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="Gatesv"><a href="#Gatesv" class="headerlink" title="Gatesv"></a>Gatesv</h2><p>You are given a four-bit input vector in[3:0]. We want to know some relationships between each bit and its neighbour:</p>
 <p>out_both: Each bit of this output vector should indicate whether both the corresponding input bit and its neighbour to the left (higher index) are ‘1’. For example, out_both[2] should indicate if in[2] and in[3] are both 1. Since in[3] has no neighbour to the left, the answer is obvious so we don’t need to know out_both[3].<br>out_any: Each bit of this output vector should indicate whether any of the corresponding input bit and its neighbour to the right are ‘1’. For example, out_any[2] should indicate if either in[2] or in[1] are 1. Since in[0] has no neighbour to the right, the answer is obvious so we don’t need to know out_any[0].<br>out_different: Each bit of this output vector should indicate whether the corresponding input bit is different from its neighbour to the left. For example, out_different[2] should indicate if in[2] is different from in[3]. For this part, treat the vector as wrapping around, so in[3]’s neighbour to the left is in[0].</p>
-<h3 id="Module-Declaration-1"><a href="#Module-Declaration-1" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="Module-Declaration-1"><a href="#Module-Declaration-1" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [3:0] in,
     output [2:0] out_both,
     output [3:1] out_any,
     output [3:0] out_different );
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Gatesv">link</a></p>
-<h3 id="answer-1"><a href="#answer-1" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="answer-1"><a href="#answer-1" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [3:0] in,
     output [2:0] out_both,
     output [3:1] out_any,
     output [3:0] out_different );
-
-     integer i;
+    
+	 integer i;
     always@(*)
         begin
             for(i=0;i<3;i=i+1)
@@ -455,14 +455,14 @@ endmodule
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="Gatesv100"><a href="#Gatesv100" class="headerlink" title="Gatesv100"></a>Gatesv100</h2><p>You are given a 100-bit input vector in[99:0]. We want to know some relationships between each bit and its neighbour:</p>
 <p>out_both: Each bit of this output vector should indicate whether both the corresponding input bit and its neighbour to the left are ‘1’. For example, out_both[98] should indicate if in[98] and in[99] are both 1. Since in[99] has no neighbour to the left, the answer is obvious so we don’t need to know out_both[99].<br>out_any: Each bit of this output vector should indicate whether any of the corresponding input bit and its neighbour to the right are ‘1’. For example, out_any[2] should indicate if either in[2] or in[1] are 1. Since in[0] has no neighbour to the right, the answer is obvious so we don’t need to know out_any[0].<br>out_different: Each bit of this output vector should indicate whether the corresponding input bit is different from its neighbour to the left. For example, out_different[98] should indicate if in[98] is different from in[99]. For this part, treat the vector as wrapping around, so in[99]’s neighbour to the left is in[0].</p>
-<h3 id="Module-Declaration-2"><a href="#Module-Declaration-2" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="Module-Declaration-2"><a href="#Module-Declaration-2" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [99:0] in,
     output [98:0] out_both,
     output [99:1] out_any,
     output [99:0] out_different );
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Gatesv100">link</a></p>
-<h3 id="answer-2"><a href="#answer-2" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">    module top_module( 
+<h3 id="answer-2"><a href="#answer-2" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">    module top_module( 
     input [99:0] in,
     output [98:0] out_both,
     output [99:1] out_any,
@@ -481,71 +481,71 @@ endmodule
     assign out_different[99] = in[99]^in[0];
 endmodule
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Mux2to1"><a href="#Mux2to1" class="headerlink" title="Mux2to1"></a>Mux2to1</h2><p>Create a one-bit wide, 2-to-1 multiplexer. When sel=0, choose a. When sel=1, choose b.</p>
+<h2 id="Mux2to1"><a href="#Mux2to1" class="headerlink" title="Mux2to1"></a>Mux2to1</h2><p>Create a one-bit wide, 2-to-1 multiplexer. When sel&#x3D;0, choose a. When sel&#x3D;1, choose b.</p>
 <p>Expected solution length: Around 1 line.</p>
-<h3 id="Module-Declaration-3"><a href="#Module-Declaration-3" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="Module-Declaration-3"><a href="#Module-Declaration-3" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input a, b, sel,
     output out );
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Mux2to1">link</a></p>
-<h3 id="answer-3"><a href="#answer-3" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="answer-3"><a href="#answer-3" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input a, b, sel,
     output out ); 
     assign out = (sel == 0 ? a : b);
 endmodule
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Mux2to1v"><a href="#Mux2to1v" class="headerlink" title="Mux2to1v"></a>Mux2to1v</h2><p>Create a 100-bit wide, 2-to-1 multiplexer. When sel=0, choose a. When sel=1, choose b.</p>
+<h2 id="Mux2to1v"><a href="#Mux2to1v" class="headerlink" title="Mux2to1v"></a>Mux2to1v</h2><p>Create a 100-bit wide, 2-to-1 multiplexer. When sel&#x3D;0, choose a. When sel&#x3D;1, choose b.</p>
 <p>Expected solution length: Around 1 line.</p>
-<h3 id="Module-Declaration-4"><a href="#Module-Declaration-4" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="Module-Declaration-4"><a href="#Module-Declaration-4" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [99:0] a, b,
     input sel,
     output [99:0] out );
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Mux2to1v">link</a></p>
-<h3 id="answer-4"><a href="#answer-4" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="answer-4"><a href="#answer-4" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [99:0] a, b,
     input sel,
     output [99:0] out );
-    assign out = (sel == 0 ? a : b);
-
+	assign out = (sel == 0 ? a : b);
+      
 endmodule
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Mux9to1v"><a href="#Mux9to1v" class="headerlink" title="Mux9to1v"></a>Mux9to1v</h2><p>Create a 16-bit wide, 9-to-1 multiplexer. sel=0 chooses a, sel=1 chooses b, etc. For the unused cases (sel=9 to 15), set all output bits to ‘1’.<br>Expected solution length: Around 15 lines.</p>
-<h3 id="Module-Declaration-5"><a href="#Module-Declaration-5" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h2 id="Mux9to1v"><a href="#Mux9to1v" class="headerlink" title="Mux9to1v"></a>Mux9to1v</h2><p>Create a 16-bit wide, 9-to-1 multiplexer. sel&#x3D;0 chooses a, sel&#x3D;1 chooses b, etc. For the unused cases (sel&#x3D;9 to 15), set all output bits to ‘1’.<br>Expected solution length: Around 15 lines.</p>
+<h3 id="Module-Declaration-5"><a href="#Module-Declaration-5" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [15:0] a, b, c, d, e, f, g, h, i,
     input [3:0] sel,
     output [15:0] out );
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Mux9to1v">link</a></p>
-<h3 id="answer-5"><a href="#answer-5" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="answer-5"><a href="#answer-5" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [15:0] a, b, c, d, e, f, g, h, i,
     input [3:0] sel,
     output [15:0] out );
-
-     assign out = (sel == 0) ? a :
-                 (sel == 1) ? b :
-                 (sel == 2) ? c :
-                 (sel == 3) ? d :
-                 (sel == 4) ? e :
-                 (sel == 5) ? f :
-                 (sel == 6) ? g :
-                 (sel == 7) ? h :
-                   (sel == 8) ? i : 16'hFFFF;
+    
+ 	assign out = (sel == 0) ? a :
+             	(sel == 1) ? b :
+             	(sel == 2) ? c :
+             	(sel == 3) ? d :
+             	(sel == 4) ? e :
+             	(sel == 5) ? f :
+             	(sel == 6) ? g :
+             	(sel == 7) ? h :
+       			(sel == 8) ? i : 16'hFFFF;
 endmodule
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Mux254to1"><a href="#Mux254to1" class="headerlink" title="Mux254to1"></a>Mux254to1</h2><p>Create a 1-bit wide, 256-to-1 multiplexer. The 256 inputs are all packed into a single 256-bit input vector. sel=0 should select in[0], sel=1 selects bits in[1], sel=2 selects bits in[2], etc.</p>
+<h2 id="Mux254to1"><a href="#Mux254to1" class="headerlink" title="Mux254to1"></a>Mux254to1</h2><p>Create a 1-bit wide, 256-to-1 multiplexer. The 256 inputs are all packed into a single 256-bit input vector. sel&#x3D;0 should select in[0], sel&#x3D;1 selects bits in[1], sel&#x3D;2 selects bits in[2], etc.</p>
 <p>Expected solution length: Around 1 line.</p>
-<h3 id="Module-Declaration-6"><a href="#Module-Declaration-6" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="Module-Declaration-6"><a href="#Module-Declaration-6" class="headerlink" title="Module Declaration"></a>Module Declaration</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [255:0] in,
     input [7:0] sel,
     output out );
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a target="_blank" rel="noopener" href="https://hdlbits.01xz.net/wiki/Mux256to1">link</a></p>
-<h3 id="answer-6"><a href="#answer-6" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-lang-verilog"><code class="language-lang-verilog">module top_module( 
+<h3 id="answer-6"><a href="#answer-6" class="headerlink" title="answer"></a>answer</h3><pre class="line-numbers language-language-verilog"><code class="language-language-verilog">module top_module( 
     input [255:0] in,
     input [7:0] sel,
     output out );
-    assign out = in[sel];
+	assign out = in[sel];
 endmodule
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
@@ -789,13 +789,13 @@ endmodule
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/07248727.html">
+                <a href="/2025/073036205.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="FreeRTOS的讲解">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="晶体管电路设计与制作">
                         
-                        <span class="card-title">FreeRTOS的讲解</span>
+                        <span class="card-title">晶体管电路设计与制作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -806,14 +806,14 @@ endmodule
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-24
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-30
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-category">
-                                    嵌入式
+                            <a href="/categories/%E6%95%99%E5%AD%A6/" class="post-category">
+                                    教学
                                 </a>
                             
                             
@@ -823,8 +823,12 @@ endmodule
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/FreeRTOS/">
-                        <span class="chip bg-color">FreeRTOS</span>
+                    <a href="/tags/electron/">
+                        <span class="chip bg-color">electron</span>
+                    </a>
+                    
+                    <a href="/tags/Ltspice/">
+                        <span class="chip bg-color">Ltspice</span>
                     </a>
                     
                 </div>
@@ -930,7 +934,7 @@ endmodule
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFunction.js"></script>
 
 <!-- 代码语言 -->
 
@@ -945,6 +949,9 @@ endmodule
 <!-- 代码块收缩 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
 
 
     </div>
@@ -1065,7 +1072,7 @@ endmodule
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.7k</span>
+                        class="white-color">11.1k</span>
             
             
             

@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -381,7 +381,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    861
+                    863
                 </div>
                 
 
@@ -414,7 +414,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <hr>
-<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="安装必要的软件"><a href="#安装必要的软件" class="headerlink" title="安装必要的软件"></a>安装必要的软件</h2><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">sudo apt-get update  
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="安装必要的软件"><a href="#安装必要的软件" class="headerlink" title="安装必要的软件"></a>安装必要的软件</h2><pre class="line-numbers language-language-bash"><code class="language-language-bash">sudo apt-get update  
 
 sudo apt-get install gawk wget git diffstat 
 unzip texinfo \  
@@ -424,7 +424,7 @@ xterm ncurses-dev lzop
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ol>
 <li>可以自己下载源码自己编译（可以自己百度）</li>
-<li>可以之间使用/usr/src理的文件</li>
+<li>可以之间使用&#x2F;usr&#x2F;src理的文件</li>
 <li>一键小白模式：sudo apt-get install linux-headers-$(uname -r)</li>
 </ol>
 <h2 id="源码结构"><a href="#源码结构" class="headerlink" title="源码结构"></a>源码结构</h2><ul>
@@ -450,14 +450,14 @@ xterm ncurses-dev lzop
 <li>内核空间：内核驻留和运行的地址空间。内核内存（或内核空间）时由内核拥有的内存范围，受访问标志保护，防止任何用户程序有意或无意于内核搞混。另一方面，内核可以访问整个系统内存，因为它在系统上以更高的优先权运行。在内核模式下，CPU可以访问整个内存（内核空间和用户空间）</li>
 <li>用户空间：正常程序（如gedit等）被限制运行（地址）空间。可以将其视为沙盒或监狱，以便用户程序不能混用其他程序拥有的内存或任何其他资源。在用户模式下，CPU只能访问标有用户空间访问权限的内存。用户应用程序运行到内核空间唯一方法时通过系统调用，其中一些调用是read、write、open、close和mmap等。用户空间代码以较低的优先级运行。当进程系统调用是，软件中断被发送到内核，这将打开特权模式，以便该进程在内核空间中运行。系统调用返回时，内核关闭特权模式，进程再次受限。</li>
 </ul>
-<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="手动加载"><a href="#手动加载" class="headerlink" title="手动加载"></a>手动加载</h3><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">sudo insmod project.ko
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="手动加载"><a href="#手动加载" class="headerlink" title="手动加载"></a>手动加载</h3><pre class="line-numbers language-language-bash"><code class="language-language-bash">sudo insmod project.ko
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="手动卸载"><a href="#手动卸载" class="headerlink" title="手动卸载"></a>手动卸载</h3><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">sudo rmmod project.ko
+<h3 id="手动卸载"><a href="#手动卸载" class="headerlink" title="手动卸载"></a>手动卸载</h3><pre class="line-numbers language-language-bash"><code class="language-language-bash">sudo rmmod project.ko
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">#include <linux/init.h>  
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre class="line-numbers language-language-c"><code class="language-language-c">#include <linux/init.h>  
 #include <linux/module.h>  
 #include <linux/kernel.h>  
-
+  
 static int __init helloworld_init(void) &#123;  
     pr_info("Hello world!\n");  
     return 0;  
@@ -465,41 +465,41 @@ static int __init helloworld_init(void) &#123;
 static void __exit helloworld_exit(void) &#123;  
     pr_info("End of the world\n");  
 &#125;   
-
+  
 module_init(helloworld_init);  
 module_exit(helloworld_exit);  
 MODULE_AUTHOR("haclm");  
 MODULE_LICENSE("GPL");
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>使用make工具进行编译</p>
-<pre class="line-numbers language-lang-makefile"><code class="language-lang-makefile">obj-m = project_name.o
+<pre class="line-numbers language-language-makefile"><code class="language-language-makefile">obj-m = project_name.o
 all:
-        make -C /lib/modules/6.1.0-25-amd64/build M=$(PWD) modules
+		make -C /lib/modules/6.1.0-25-amd64/build M=$(PWD) modules
 
 clean:
-        make -C /lib/modules/6.1.0-25-amd64/build M=(PWD) clean
+		make -C /lib/modules/6.1.0-25-amd64/build M=(PWD) clean
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>或者</p>
-<pre class="line-numbers language-lang-makefile"><code class="language-lang-makefile">ARCH=x86
+<pre class="line-numbers language-language-makefile"><code class="language-language-makefile">ARCH=x86
 CROSS_COMPILE=
 
 KVERSION = $(shell uname -r)
 KERN_DIR =  /lib/modules/$(KVERSION)/build 
 
 all:
-    make -C $(KERN_DIR) M=`pwd` modules 
+	make -C $(KERN_DIR) M=`pwd` modules 
 
 clean:
-    make -C $(KERN_DIR) M=`pwd` modules clean
-    rm -rf modules.order
+	make -C $(KERN_DIR) M=`pwd` modules clean
+	rm -rf modules.order
 
-obj-m    += helloworld.o
+obj-m	+= helloworld.o
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>编译命令</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">make
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">make
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>编译好后将模块手动加载，使用下列命令可以看到现象</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">sudo dmesg
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">sudo dmesg
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
                 
@@ -879,7 +879,7 @@ obj-m    += helloworld.o
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFunction.js"></script>
 
 <!-- 代码语言 -->
 
@@ -894,6 +894,9 @@ obj-m    += helloworld.o
 <!-- 代码块收缩 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
 
 
     </div>
@@ -1014,7 +1017,7 @@ obj-m    += helloworld.o
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.7k</span>
+                        class="white-color">11.1k</span>
             
             
             

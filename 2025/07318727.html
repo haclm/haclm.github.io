@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="浅谈费曼学习法, blog,D.riven">
+    <meta name="keywords" content="FreeRTOS的讲解, blog,D.riven">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅谈费曼学习法 | D.riven</title>
+    <title>FreeRTOS的讲解 | D.riven</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -226,7 +226,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅谈费曼学习法</h1>
+                    <h1 class="description center-align post-title">FreeRTOS的讲解</h1>
                 </div>
             </div>
         </div>
@@ -342,8 +342,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0/">
-                                <span class="chip bg-color">高效学习</span>
+                            <a href="/tags/FreeRTOS/">
+                                <span class="chip bg-color">FreeRTOS</span>
                             </a>
                         
                     </div>
@@ -354,8 +354,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/" class="post-category">
-                                个人提升
+                            <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-category">
+                                嵌入式
                             </a>
                         
                     </div>
@@ -367,28 +367,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-08-14
+                    2025-07-31
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-07-21
+                    2025-08-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    290
+                    2.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    8 分
                 </div>
                 
 
@@ -413,10 +413,135 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h1><p>费曼学习法的核心就是把被动学习改变为主动学习。以教代学。</p>
-<h1 id="具体的步骤"><a href="#具体的步骤" class="headerlink" title="具体的步骤"></a>具体的步骤</h1><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>学习的大前提是得有知识的输入。先确定要学习的概念或知识点，然后就去找资料等方式去了解理解这个概念或知识点。</p>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>如果觉得自己已经掌握这个概念或知识点了，可以设想自己为老师在教一位10岁左右的儿童。因为10岁的儿童没有办法理解太复杂抽象的概念和知识，要求用简单的话语解释。当然啦~，不一定非得是小孩，普通人也行。主要就是输入把复杂的知识概念用通俗易懂的话语描述出来，如果不能就要回到第一步去输入。如此循环直到自己能把知识说明白且通俗易懂，那才是自己掌握了知识。</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>方法虽好，但贵在坚持。如果不能去坚持使用费曼学习法，就算此方法很好却也发挥不了太大用处。</p>
+                <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><h2 id="通用端口的源文件"><a href="#通用端口的源文件" class="headerlink" title="通用端口的源文件"></a>通用端口的源文件</h2><ul>
+<li>quenue.c 同时提供队列和信号量的服务</li>
+<li>timers.c 提供软件定时器功能</li>
+<li>event_groups.c 提供事件组件功能</li>
+<li>crountine.c 实现FreeRTOS的协同列程过程</li>
+</ul>
+<h2 id="特殊端口的源文件"><a href="#特殊端口的源文件" class="headerlink" title="特殊端口的源文件"></a>特殊端口的源文件</h2><p>在FreeRTOS&#x2F;Source&#x2F;portable目录下包含了编译器和处理器的系统结构堆内存管理器：只有在FreeRTOSConfig.h中将<code>configSUPPORT_DYNAMIC_ALLOCATION</code> 设置为一，或未定义时才需要使用堆内存管理器。</p>
+<h2 id="FreeRTOS演示"><a href="#FreeRTOS演示" class="headerlink" title="FreeRTOS演示"></a>FreeRTOS演示</h2><pre class="line-numbers language-language-C++"><code class="language-language-C++">int main(void)
+&#123;
+    prvSetupHardware();
+
+    vTaskStartScheduler();
+
+    for(;;);
+    return 0;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="从头创建一个FreeRTOS项目"><a href="#从头创建一个FreeRTOS项目" class="headerlink" title="从头创建一个FreeRTOS项目"></a>从头创建一个FreeRTOS项目</h2><p>1.使用工具创建一个没有任何RTOS文件的项目<br>2.确保可以成功编译并执行<br>3.按照如下表格添加FreeRTOS的源文件</p>
+<table>
+<thead>
+<tr>
+<th align="center">File</th>
+<th align="center">Location</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">tasks.c</td>
+<td align="center">FreeRTOS&#x2F;Source</td>
+</tr>
+<tr>
+<td align="center">queue.c</td>
+<td align="center">FreeRTOS&#x2F;Source</td>
+</tr>
+<tr>
+<td align="center">list.c</td>
+<td align="center">FreeRTOS&#x2F;Source</td>
+</tr>
+<tr>
+<td align="center">timers.c</td>
+<td align="center">FreeRTOS&#x2F;Source</td>
+</tr>
+<tr>
+<td align="center">event_groups.c</td>
+<td align="center">FreeRTOS&#x2F;Source</td>
+</tr>
+<tr>
+<td align="center">All C and assembler file</td>
+<td align="center">FreeRTOS&#x2F;Source&#x2F;portable&#x2F;[compiler]&#x2F;[architecture]</td>
+</tr>
+<tr>
+<td align="center">heap_n.c</td>
+<td align="center">FreeRTOS&#x2F;Source&#x2F;portable&#x2F;MemMang</td>
+</tr>
+<tr>
+<td align="center">4.将FreeRTOSConfig.h头文件复制到项目中</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">5.将以下内容添加到头文件路径中</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>FreeRTOS/Source/include</code></li>
+<li><code>FreeRTOS/Source/portable/[compiler]/[architecture]</code></li>
+<li><code>The directory containing the FreeRTOSConfig.h header file</code><br>6.复制相关例子的编译器设置<br>7.安装FreeRTOS的中断处理程序</li>
+</ul>
+<h1 id="堆内存管理"><a href="#堆内存管理" class="headerlink" title="堆内存管理"></a>堆内存管理</h1><p>当FreeRTOS需要RAM时，它调用的不是<code>malloc()</code>而是<code>pvPortMalloc()</code>释放调用的是<code>vPortFree()</code></p>
+<h2 id="Heap-1"><a href="#Heap-1" class="headerlink" title="Heap_1"></a>Heap_1</h2><p>通常专用于小的嵌入式系统。只创建任务和其他内核项目在工作计划之前，内核才会动态分布内存。并且在应用程序的整个生命周期都会存在。<br>所选择的分配计划不必考虑任何复杂的内存分配问题，例如决定论与碎片化。<br>实施一个非常基础版本的<code>pvPortMalloc()</code>但从不实施<code>vPortFree()</code>从不删除任务和其他内核对象。</p>
+<h2 id="Heap-2"><a href="#Heap-2" class="headerlink" title="Heap_2"></a>Heap_2</h2><p>为了向后兼容，在FreeRTOS发行版中保留了Heap_2，但不建议在新设计中使用。<br>与Heap_1一样通过细分<code>configTOTAL_Heap_SIZE</code>确定大小数来组合工作</p>
+<h2 id="Heap-3"><a href="#Heap-3" class="headerlink" title="Heap_3"></a>Heap_3</h2><p>使用标准库的<code>malloc()</code>和<code>free()</code>函数，所以堆的大小是由链接器定义的。并且<code>configTOTAL_HEAP_SIZE</code>的设置没有任何影响<br>它通过暂停<code>FreeRTOS调度程序</code>来实现<code>malloc()</code>和<code>free()</code>线程安全</p>
+<h2 id="Heap-4"><a href="#Heap-4" class="headerlink" title="Heap_4"></a>Heap_4</h2><p>首次使用拟合算法来分配内存。不同于Heap_2,Heap_4将相邻的空闲内存组合成一个更大的块，从而最大限度地降低内存碎片的风险。</p>
+<h2 id="Heap-5"><a href="#Heap-5" class="headerlink" title="Heap_5"></a>Heap_5</h2><p>所使用的分配和释放内存算法与heap_4的算法相同。<br>不同的是，Heap_5不仅限于从单个静态声明的数组分配内存;heap_5可以从多个单独的内存空间分配内存。</p>
+<h2 id="堆相关的程序函数"><a href="#堆相关的程序函数" class="headerlink" title="堆相关的程序函数"></a>堆相关的程序函数</h2><h3 id="xPortGetFreeHeapSize-API函数"><a href="#xPortGetFreeHeapSize-API函数" class="headerlink" title="xPortGetFreeHeapSize() API函数"></a><code>xPortGetFreeHeapSize()</code> API函数</h3><p>这个API函数返回调用函数中的可用字节数。<br>它可以用于优化堆大小。例子如下：<br>使用<code>xPortGetFreeHeapSize()</code>函数在创建所有内核对象之后返回2000，后来将<code>configTOTAL_HEAP_SIZE</code>的值减少2000.</p>
+<h3 id="xPortGetMinimumEverFreeHeapSize-API函数"><a href="#xPortGetMinimumEverFreeHeapSize-API函数" class="headerlink" title="xPortGetMinimumEverFreeHeapSize()API函数"></a><code>xPortGetMinimumEverFreeHeapSize()</code>API函数</h3><p>返回自FreeRTOS应用开始后堆中存在的最小未分配字节数。<br>也表示离堆空间耗尽的距离。</p>
+<h3 id="Malloc失败钩子函数"><a href="#Malloc失败钩子函数" class="headerlink" title="Malloc失败钩子函数"></a><code>Malloc</code>失败钩子函数</h3><p><code>pvPortMalloc</code>可以直接从应用中调用。<br>同样的FreeRTOS会在源文件中调用，在每次内核项目被创建时。<br>与标准库<code>Malloc</code>函数一样，当<code>pvPortMalloc()</code>无法返回内存块时，则表示请求的大小的内存块不存在。返回<code>NULL</code>且并不会创建。<br>如果调用<code>pvPortMalloc()</code>返回<code>NULL</code>，则所有示例堆分配方案都可以配置为调用钩子（或回调）函数<br>如果FreeRTOSConfig.h中将<code>configUSE_MALLOC FAILED_HOOK</code>设置为1，则应用程序必须提供一个名为和原型如清单所示的MALLOC失败挂钩函数。<br>该功能可以采用任何适合于应用的方式实现。<br>malloc悬挂的钩子函数名和原型，如下：<br><code>void vApplicationMallocFailedHook( void );</code><br>什么意思呢？就是在FreeRTOSConfig.h定义<code>configUSE_MALLOC_FAILD_HOOK</code>为1时，当调用<code>pvPortMalloc()</code>失败会执行malloc悬挂的钩子函数<code>void vApplicationMallocFailedHook( void );</code>进行一些“补救”措施或错误处理。</p>
+<h1 id="任务管理"><a href="#任务管理" class="headerlink" title="任务管理"></a>任务管理</h1><h2 id="任务函数"><a href="#任务函数" class="headerlink" title="任务函数"></a>任务函数</h2><p>每个任务其实就是一个小程序。它有一个入口点，通常会无限期的运行不退出。FreeRTOS任务必须不允许以任何方式从其实现函数返回。不能包含<code>return</code>语句。<br>可以使用单个任务函数定义创建任意数量的任务，且都是独立的执行体，具有自己的堆栈和变量副本。<br>典型的任务函数结构：来源于FreeRTOS官方手册。</p>
+<pre class="line-numbers language-language-c"><code class="language-language-c">void ATaskFunction( void *pvParameters ) 
+&#123; 
+/* Variables can be declared just as per a normal function.  Each instance of a task 
+created using this example function will have its own copy of the lVariableExample 
+variable.  This would not be true if the variable was declared static – in which case 
+only one copy of the variable would exist, and this copy would be shared by each 
+created instance of the task. (The prefixes added to variable names are described in 
+section 1.5, Data Types and Coding Style Guide.) */ 
+int32_t lVariableExample = 0; 
+ 
+    /* A task will normally be implemented as an infinite loop. */ 
+    for( ;; ) 
+    &#123; 
+        /* The code to implement the task functionality will go here. */ 
+    &#125; 
+ 
+    /* Should the task implementation ever break out of the above loop, then the task  
+    must be deleted before reaching the end of its implementing function.  The NULL  
+    parameter passed to the vTaskDelete() API function indicates that the task to be  
+    deleted is the calling (this) task.  The convention used to name API functions is  
+    described in section 0, Projects that use a FreeRTOS version older than V9.0.0 
+must build one of the heap_n.c files.  From FreeRTOS V9.0.0 a heap_n.c file is only 
+required if configSUPPORT_DYNAMIC_ALLOCATION is set to 1 in FreeRTOSConfig.h or if 
+configSUPPORT_DYNAMIC_ALLOCATION is left undefined.  Refer to Chapter 2, Heap Memory 
+Management, for more information. 
+Data Types and Coding Style Guide. */ 
+    vTaskDelete( NULL ); 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="顶级任务状态"><a href="#顶级任务状态" class="headerlink" title="顶级任务状态"></a>顶级任务状态</h2><p>通过之前的描述我们知道一个应用程序可以包含很多任务。这时候就得看硬件参数了，如果MCU（等其他）的处理器是单核，则在任何给定的时间只能执行一个任务。<br>众所周知啊，任务可以有两种状态：</p>
+<ul>
+<li>运行</li>
+<li>未运行<br>有点废话，哈哈哈哈哈哈。（简化过了）其实非运行状态包含了许多子状态这个后面再讨论。<br>任务在运行时，处理器会执行该任务的代码。<br>若任务在非运行时，则处于休眠模式。其状态被保存，等待调度器的唤醒。重新启动时，它会继续完成未处理的指令。（这里就有点像中断）</li>
+</ul>
+<h2 id="创建任务"><a href="#创建任务" class="headerlink" title="创建任务"></a>创建任务</h2><h3 id="xTaskCreate-接口函数"><a href="#xTaskCreate-接口函数" class="headerlink" title="xTaskCreate()接口函数"></a><code>xTaskCreate()</code>接口函数</h3><p>任务创建就是使用这个API函数。这个API函数时所以中最重要的，也是最复杂的。<br>函数原型如下</p>
+<pre class="line-numbers language-language-c"><code class="language-language-c">BaseType_t xTaskCreate( TaskFunction_t pvTaskCode,  
+                        const char * const pcName,  
+                        uint16_t usStackDepth,  
+                        void *pvParameters,  
+                        UBaseType_t uxPriority,  
+                        TaskHandle_t *pxCreatedTask );
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参数与返回值</p>
+<ul>
+<li>pvTaskCode 任务只是永远不会退出的C函数，因此通常实现无限循环。这个参数只是一个指向实现任务函数的指针（实际上直接传入函数名）。</li>
+<li>pcName  任务的描述性名称。FreeRTOS不以任何方式使用该功能。纯属用于debug，方便开发者阅读。通过定义<code>configMAX_TASK_NAME_LEN</code>了任务名称的最大长度。当提供的字符串很长超过最大值，则会被系统默认截断。</li>
+<li>usStackDepth 之前说过每个任务都有独特的堆栈，该堆栈在内核创建任务时分配给任务。这个参数告诉内核堆栈的大小。<br>这个值指定的是堆栈可以容纳的“字数”（<code>StackType_t 得看时多少位的MCU</code>）的数量，而不是字节数（<code>bytes</code>）。如果你设置 <code>usStackDepth = 100</code>，那么任务栈实际大小是 <code>100 * sizeof(StackType_t)</code> 字节。你传入的栈深度<code>usStackDepth</code>乘以每个栈单元的宽度不能大于<code>uint16_t</code><br>空闲(Idle)任务使用的堆栈大小由应用程序定义的常量 <code>configMINIMAL_STACK_SIZE</code>来决定的。<br>什么是(Idle task)空闲任务？<br>它是系统自动创建的任务；<br>它的优先级最低(0);<br>当没有其他任务运行时，就会运行这个FreeRTOS就会运行这个。<br>它也是负责释放已删除任务资源的任务。<br>这个<code>configMINIMAL_STACK_SIZE</code>是可以在官方例子里能看到最低推荐值，这里就不赘述了。<br>没有简单的方法可以确定任务所需的堆栈空间。</li>
+<li>pvParameters 这个参数接收一个类型为<code> void*</code>指针，并传递给任务。</li>
+<li>uxPriority 定义任务执行的优先级。分配的优先级为：从0(最低优先级)到<code>configMAX_PRIORITIES – 1</code>(最高优先级)</li>
+<li>pxCreatedTask 可以向正在创建的任务传递句柄。然后这个句柄可以在API调用中引用该任务，比如修改任务优先级或删除任务。<br>如果应用程序不需要任务句柄，则可以将<code>pxCreatedTask</code>设置为<code>NULL</code>。</li>
+<li>Returned value 有两个返回值 1.<code>pdPASS</code>代表任务创建成功。2.<code>pdFAIL</code> 表示任务未被创建因为没有足够的堆内存。</li>
+</ul>
 
                 
             </div>
@@ -443,7 +568,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://haclm.github.io/2024/081444064.html">https://haclm.github.io/2024/081444064.html</a>
+                    <a href="https://haclm.github.io/2025/07318727.html">https://haclm.github.io/2025/07318727.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -481,8 +606,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0/">
-                                    <span class="chip bg-color">高效学习</span>
+                                <a href="/tags/FreeRTOS/">
+                                    <span class="chip bg-color">FreeRTOS</span>
                                 </a>
                             
                         </div>
@@ -654,64 +779,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
-            <div class="card">
-                <a href="/2024/100817950.html">
-                    <div class="card-image">
-                        
-                        <img src="/images/linux.png" class="responsive-img" alt="linux驱动开发介绍上">
-                        
-                        <span class="card-title">linux驱动开发介绍上</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-10-08
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="post-category">
-                                    嵌入式
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/linux/">
-                        <span class="chip bg-color">linux</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2024/06178348.html">
+                <a href="/2025/07318727.html">
                     <div class="card-image">
                         
-                        <img src="/images/lettershell.png" class="responsive-img" alt="stm32搭配freertos移植letter">
                         
-                        <span class="card-title">stm32搭配freertos移植letter</span>
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="FreeRTOS的讲解">
+                        
+                        <span class="card-title">FreeRTOS的讲解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -722,7 +801,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-31
                             </span>
                         <span class="publish-author">
                             
@@ -736,6 +815,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -743,12 +823,57 @@
                         <span class="chip bg-color">FreeRTOS</span>
                     </a>
                     
-                    <a href="/tags/STM32/">
-                        <span class="chip bg-color">STM32</span>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/073036205.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="晶体管电路设计与制作">
+                        
+                        <span class="card-title">晶体管电路设计与制作</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%99%E5%AD%A6/" class="post-category">
+                                    教学
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/electron/">
+                        <span class="chip bg-color">electron</span>
                     </a>
                     
-                    <a href="/tags/LetterShell/">
-                        <span class="chip bg-color">LetterShell</span>
+                    <a href="/tags/Ltspice/">
+                        <span class="chip bg-color">Ltspice</span>
                     </a>
                     
                 </div>
@@ -919,6 +1044,13 @@
 
 </main>
 
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
 

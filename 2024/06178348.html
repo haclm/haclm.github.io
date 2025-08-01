@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -342,12 +342,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/STM32/">
-                                <span class="chip bg-color">STM32</span>
-                            </a>
-                        
                             <a href="/tags/FreeRTOS/">
                                 <span class="chip bg-color">FreeRTOS</span>
+                            </a>
+                        
+                            <a href="/tags/STM32/">
+                                <span class="chip bg-color">STM32</span>
                             </a>
                         
                             <a href="/tags/LetterShell/">
@@ -435,10 +435,10 @@
 <li>1.#include “serial.h”（注释掉） #include “cevent.h” #include “log.h”（可选择注释掉）</li>
 <li>2.改userShellWrite函数和userShellRead函数，可以参考入校</li>
 </ul>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">short userShellWrite(char *data, unsigned short len)
+<pre class="line-numbers language-language-c"><code class="language-language-c">short userShellWrite(char *data, unsigned short len)
 &#123;
 //   serialTransmit(&debugSerial, (uint8_t *)data, len, 0x1FF);
-     HAL_UART_Transmit(&huart1, (uint8_t *)data, len, 0x1FF);
+	 HAL_UART_Transmit(&huart1, (uint8_t *)data, len, 0x1FF);
     return len;
 &#125;</code></pre>
 
@@ -446,21 +446,21 @@
 short userShellRead(char *data, unsigned short len)
 &#123;
  //   return serialReceive(&debugSerial, (uint8_t *)data, len, 0);
-    if(HAL_UART_Receive(&huart1, (uint8_t*)data, len, 0xFFFF) != HAL_OK)
-    &#123;
-        return 0;
-    &#125;
-    else
-    &#123;
+	if(HAL_UART_Receive(&huart1, (uint8_t*)data, len, 0xFFFF) != HAL_OK)
+	&#123;
+		return 0;
+	&#125;
+	else
+	&#123;
 
-        return 1;
-    &#125;
+		return 1;
+	&#125;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>3.修改下述函数</li>
 </ul>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">
+<pre class="line-numbers language-language-c"><code class="language-language-c">
 /**
  * @brief 用户shell上锁
  * 
@@ -488,8 +488,9 @@ int userShellUnlock(Shell *shell)
     xSemaphoreGive(shellMutex);
     return 0;
 &#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">void userShellInit(void)
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-c"><code class="language-language-c">void userShellInit(void)
 &#123;
     shellMutex = xSemaphoreCreateMutex();
 
@@ -506,7 +507,7 @@ CEVENT_EXPORT(EVENT_INIT_STAGE2, userShellInit);
 <li>4.在freertos.c里导入shell_port.h头文件</li>
 <li>5.配置中断回调函数和调用userShellInit()函数，整体文件代码如下</li>
 </ul>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">/* USER CODE BEGIN Header */
+<pre class="line-numbers language-language-c"><code class="language-language-c">/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * File Name          : freertos.c
@@ -634,12 +635,12 @@ void MX_FREERTOS_Init(void) &#123;
 void StartDefaultTask(void *argument)
 &#123;
   /* USER CODE BEGIN StartDefaultTask */
-    userShellInit();
-    HAL_UART_Receive_IT(&huart1, (uint8_t*)&recv_buf, 1);
-    while(1)
-    &#123;
+	userShellInit();
+	HAL_UART_Receive_IT(&huart1, (uint8_t*)&recv_buf, 1);
+	while(1)
+	&#123;
 
-    &#125;
+	&#125;
   /* USER CODE END StartDefaultTask */
 &#125;
 
@@ -653,9 +654,9 @@ void StartDefaultTask(void *argument)
 void StartTask02(void *argument)
 &#123;
   /* USER CODE BEGIN StartTask02 */
-    while(1)
-    &#123;
-    &#125;
+	while(1)
+	&#123;
+	&#125;
   /* USER CODE END StartTask02 */
 &#125;
 
@@ -663,10 +664,10 @@ void StartTask02(void *argument)
 /* USER CODE BEGIN Application */
 int LED_ON(int Time)
 &#123;
-    HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-    HAL_Delay(Time);
-    HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-    return 0;
+	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+	HAL_Delay(Time);
+	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+	return 0;
 &#125;
 SHELL_EXPORT_CMD(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_CMD_FUNC), LED_ON, LED_ON, LED_ON);
 
@@ -677,14 +678,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     /* 判断是哪个串口触发的中断 */
     if(huart ->Instance == USART1)
     &#123;
-        //调用shell处理数据的接收
-              shellHandler(&shell, recv_buf);
+        //调用shell处理数据的接收
+			  shellHandler(&shell, recv_buf);
         //使能串口中断接收
-              HAL_UART_Receive_IT(&huart1, (uint8_t*)&recv_buf, 1);
+			  HAL_UART_Receive_IT(&huart1, (uint8_t*)&recv_buf, 1);
     &#125;
 &#125;
 /* USER CODE END Application */
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>1.在实现LED闪烁会调用HAL_Delay()函数要注意它的中断优先级。防止延迟函数卡死。</p>
 <p>2.头文件的导入</p>
 <p>3.配置uart中断回调函数</p>
@@ -753,12 +755,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/STM32/">
-                                    <span class="chip bg-color">STM32</span>
-                                </a>
-                            
                                 <a href="/tags/FreeRTOS/">
                                     <span class="chip bg-color">FreeRTOS</span>
+                                </a>
+                            
+                                <a href="/tags/STM32/">
+                                    <span class="chip bg-color">STM32</span>
                                 </a>
                             
                                 <a href="/tags/LetterShell/">
@@ -1074,7 +1076,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFunction.js"></script>
 
 <!-- 代码语言 -->
 
@@ -1089,6 +1091,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 <!-- 代码块收缩 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
 
 
     </div>
@@ -1209,7 +1214,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.7k</span>
+                        class="white-color">11.1k</span>
             
             
             

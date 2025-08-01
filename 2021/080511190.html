@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -381,7 +381,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    681
+                    685
                 </div>
                 
 
@@ -415,8 +415,9 @@
             <div id="articleContent">
                 <h1 id="GitHub博客教学"><a href="#GitHub博客教学" class="headerlink" title="GitHub博客教学"></a>GitHub博客教学</h1><h2 id="要点如下："><a href="#要点如下：" class="headerlink" title="要点如下："></a>要点如下：</h2><ul>
 <li>1.GitHub账号</li>
-<li>2.linux/windows/mac 电脑<h5 id="let’s-go"><a href="#let’s-go" class="headerlink" title="let’s go"></a>let’s go</h5><h2 id="GitHub账号"><a href="#GitHub账号" class="headerlink" title="GitHub账号"></a>GitHub账号</h2>有GitHub账号就登录没有就注册一下，这里建议用手机版Firefox注册成功率比较高。登录GitHub账号，并点击右上角头像右旁的的向下三角形</li>
+<li>2.linux&#x2F;windows&#x2F;mac 电脑</li>
 </ul>
+<h5 id="let’s-go"><a href="#let’s-go" class="headerlink" title="let’s go"></a>let’s go</h5><h2 id="GitHub账号"><a href="#GitHub账号" class="headerlink" title="GitHub账号"></a>GitHub账号</h2><p>有GitHub账号就登录没有就注册一下，这里建议用手机版Firefox注册成功率比较高。登录GitHub账号，并点击右上角头像右旁的的向下三角形</p>
 <p><img src="/images/image.png" alt="upload successful"><br>之后再点击出现菜单的第二的选项 your repositories<br><img src="/images/pasted-1.png" alt="filename already exists, renamed"><br>点击new<br><img src="/images/pasted-2.png" alt="filename already exists, renamed"><br>Repository name 下面的方框填你GitHub的用户名.github.io</p>
 <blockquote>
 <p>你的用户名.github.io</p>
@@ -430,13 +431,11 @@
 
 <p>安装nodejs linux_nodejs<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cirry/p/13599472.html">菜小牛</a><br>安装ssh</p>
 <pre><code> sudo apt install ssh </pre></code>
-### 连接GitHub
-<pre><code>git config --global user.name "GitHub用户名"
+<h3 id="连接GitHub"><a href="#连接GitHub" class="headerlink" title="连接GitHub"></a>连接GitHub</h3><pre><code>git config --global user.name "GitHub用户名"
 git config --global user.email "GitHub邮箱"</code></pre>
-### 创建ssh
-<pre><code>ssh-keygen -t rsa -C "GitHub邮箱"</code></pre>
+<h3 id="创建ssh"><a href="#创建ssh" class="headerlink" title="创建ssh"></a>创建ssh</h3><pre><code>ssh-keygen -t rsa -C "GitHub邮箱"</code></pre>
 
-<h3 id="添加秘钥linux"><a href="#添加秘钥linux" class="headerlink" title="添加秘钥linux"></a>添加秘钥linux</h3><p>在~/.ssh目录下,查看秘钥<br> <pre><code>cd ~/.ssh && cat id_rsa.pub</code></pre></p>
+<h3 id="添加秘钥linux"><a href="#添加秘钥linux" class="headerlink" title="添加秘钥linux"></a>添加秘钥linux</h3><p>在~&#x2F;.ssh目录下,查看秘钥<br> <pre><code>cd ~/.ssh &amp;&amp; cat id_rsa.pub</code></pre></p>
 <p>复制id_rsa.pub里的内容，登录GitHub并点击Settings。进入Settings页面，选择左边的 SSH and GPG。Title随便起一个，粘贴id_rsa.pub内容到Key中，点击Add SSH Key完成添加。<br><img src="/images/pasted-3.png" alt="filename already exists, renamed"></p>
 <h3 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a>验证连接</h3><pre><code>ssh -T git@github.com </code></pre>
 
@@ -447,20 +446,20 @@ git config --global user.email "GitHub邮箱"</code></pre>
 <p>完成之后输入下面的命令，启动本地预览:</p>
 <pre><code>hexo g && hexo s</code></pre>
 
-<p>之后访问<a target="_blank" rel="noopener" href="http://localhost:4000/,出现Hexo页面就说明成功了。这只是本地网页，所以我们要把他部署到GitHub上。">http://localhost:4000/,出现Hexo页面就说明成功了。这只是本地网页，所以我们要把他部署到GitHub上。</a></p>
+<p>之后访问<a target="_blank" rel="noopener" href="http://localhost:4000/,%E5%87%BA%E7%8E%B0Hexo%E9%A1%B5%E9%9D%A2%E5%B0%B1%E8%AF%B4%E6%98%8E%E6%88%90%E5%8A%9F%E4%BA%86%E3%80%82%E8%BF%99%E5%8F%AA%E6%98%AF%E6%9C%AC%E5%9C%B0%E7%BD%91%E9%A1%B5%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E8%A6%81%E6%8A%8A%E4%BB%96%E9%83%A8%E7%BD%B2%E5%88%B0GitHub%E4%B8%8A%E3%80%82">http://localhost:4000/,出现Hexo页面就说明成功了。这只是本地网页，所以我们要把他部署到GitHub上。</a></p>
 <h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>安装hexo-deployer-git</p>
 <pre><code>npm install hexo-deployer-git --save</code></pre>
 
 <p>之后在blog目录下的_config.yml结尾添加一些代码</p>
 <blockquote>
-<p>deploy:<br>  type: git<br>  repo:  <a target="_blank" rel="noopener" href="https://github.com/用户名/h用户名.github.io.git">https://github.com/用户名/h用户名.github.io.git</a><br>  branch: master</p>
+<p>deploy:<br>  type: git<br>  repo:  <a target="_blank" rel="noopener" href="https://github.com/%E7%94%A8%E6%88%B7%E5%90%8D/h%E7%94%A8%E6%88%B7%E5%90%8D.github.io.git">https://github.com/用户名/h用户名.github.io.git</a><br>  branch: master</p>
 </blockquote>
-<p>  保存一下，之后执行下面命令部署到GitHub上：<br> <pre><code>hexo d</code></pre></p>
-<p>  之后终端要求你输入GitHub的账号和密码，到时候输入一下就行了。<br>完成之后打开之前创建的用户名.github.io</p>
+<p>  保存一下，之后执行下面命令部署到GitHub上：<br> <pre><code>hexo d</code></pre></p>
+<p>  之后终端要求你输入GitHub的账号和密码，到时候输入一下就行了。<br>完成之后打开之前创建的用户名.github.io</p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>进入blog的目录，在此打开终端，创建博文</p>
 <pre><code>hexo new "my new post"</code></pre>
 
-<p>之后进入source文件夹有一个my new post.md的文件，就可以用vim等编辑器撰写博客了。<br>写完了要重新发布/部署</p>
+<p>之后进入source文件夹有一个my new post.md的文件，就可以用vim等编辑器撰写博客了。<br>写完了要重新发布&#x2F;部署</p>
 <pre><code>hexo g && hexo d</code></pre>
 
 <h2 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h2><p>如果你觉得默认的主题不好看，你可以换一个主题。<br>可以参考这个博客<a target="_blank" rel="noopener" href="https://www.cnblogs.com/guixinchn/p/13549768.html">咕咕星</a></p>
@@ -842,7 +841,7 @@ git config --global user.email "GitHub邮箱"</code></pre>
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFunction.js"></script>
 
 <!-- 代码语言 -->
 
@@ -857,6 +856,9 @@ git config --global user.email "GitHub邮箱"</code></pre>
 <!-- 代码块收缩 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
 
 
     </div>
@@ -977,7 +979,7 @@ git config --global user.email "GitHub邮箱"</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.7k</span>
+                        class="white-color">11.1k</span>
             
             
             

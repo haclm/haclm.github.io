@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -381,7 +381,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    309
+                    342
                 </div>
                 
 
@@ -413,21 +413,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="跨导"><a href="#跨导" class="headerlink" title="跨导"></a>跨导</h1><p>源漏之间的线性电阻可以表示为</p>
-<script type="math/tex; mode=display">
-R_{on}=\frac{1}{\mu _n C_{ox}\frac{W}{L}(V_{GS}-V_{TH})}</script><p>也可以看为阻值由驱动电压控制的电阻。$\frac{W}{L}$是宽长比。<br>当 </p>
-<script type="math/tex; mode=display">
-V_{DS}<2(V_{GS}-V_{TH})</script><p>时器件工作在深三极管区，相反当 </p>
-<script type="math/tex; mode=display">
-V_{DS}>V_{GS}-V_{TH}</script><p>时，漏极并不遵行抛物线特性且工作在饱和区。<br>漏极电压必须大于或等于驱动电压（由公式可以看出）<br>跨导为$R_{on}$的倒数通常定义在饱和区</p>
-<script type="math/tex; mode=display">
-g_m=\mu _n C_{ox}\frac{W}{L}(V_{GS}-V_{TH})</script><p>同时也可以表示为</p>
-<script type="math/tex; mode=display">
-g_m = \sqrt{2\mu C_{ox}\frac{W}{L}I_D}</script><h1 id="沟道长度调制"><a href="#沟道长度调制" class="headerlink" title="沟道长度调制"></a>沟道长度调制</h1><p>当G与D之间的电压差增大时，实际上的反型沟道长度在逐渐减少。<br>定义沟道长度为$L$减少后的长度为$L \prime$则 $L=L \prime -\Delta L$<br>定义$\frac{\delta L}{L}=\lambda V_{DS}$<br>则可以通过简单运算得到如下：</p>
-<script type="math/tex; mode=display">
-\frac{1}{L'} = \frac{1}{L - \Delta L} = \frac{L + \Delta L}{L^2 {\Delta L}^2}</script><p>$\Delta L$可以省略则可以得到<br>$\frac{L + \Delta L}{L^2} =\frac{1 + \frac{\Delta L}{L}}{L}$<br>$\frac{1}{L’}=\frac{1+\lambda V_{DS}}{L}$<br>将上述带入公式则可以得到</p>
-<script type="math/tex; mode=display">
-I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</script>
+                <h1 id="跨导"><a href="#跨导" class="headerlink" title="跨导"></a>跨导</h1><p>源漏之间的线性电阻可以表示为<br>$$<br>R_{on}&#x3D;\frac{1}{\mu <em>n C</em>{ox}\frac{W}{L}(V_{GS}-V_{TH})}<br>$$<br>也可以看为阻值由驱动电压控制的电阻。$\frac{W}{L}$是宽长比。<br>当<br>$$<br>V_{DS}&lt;2(V_{GS}-V_{TH})<br>$$<br>时器件工作在深三极管区，相反当<br>$$<br>V_{DS}&gt;V_{GS}-V_{TH}<br>$$<br>时，漏极并不遵行抛物线特性且工作在饱和区。<br>漏极电压必须大于或等于驱动电压（由公式可以看出）<br>跨导为$R_{on}$的倒数通常定义在饱和区<br>$$<br>g_m&#x3D;\mu <em>n C</em>{ox}\frac{W}{L}(V_{GS}-V_{TH})<br>$$<br>同时也可以表示为<br>$$<br>g_m &#x3D; \sqrt{2\mu C_{ox}\frac{W}{L}I_D}<br>$$</p>
+<h1 id="沟道长度调制"><a href="#沟道长度调制" class="headerlink" title="沟道长度调制"></a>沟道长度调制</h1><p>当G与D之间的电压差增大时，实际上的反型沟道长度在逐渐减少。<br>定义沟道长度为$L$减少后的长度为$L \prime$则 $L&#x3D;L \prime -\Delta L$<br>定义$\frac{\delta L}{L}&#x3D;\lambda V_{DS}$<br>则可以通过简单运算得到如下：<br>$$<br>\frac{1}{L’} &#x3D; \frac{1}{L - \Delta L} &#x3D; \frac{L + \Delta L}{L^2 {\Delta L}^2}<br>$$<br>$\Delta L$可以省略则可以得到<br>$\frac{L + \Delta L}{L^2} &#x3D;\frac{1 + \frac{\Delta L}{L}}{L}$<br>$\frac{1}{L’}&#x3D;\frac{1+\lambda V_{DS}}{L}$<br>将上述带入公式则可以得到<br>$$<br>I_D&#x3D;\frac{1}{2}\frac{W}{L}\mu <em>n C</em>{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})<br>$$</p>
+
                 
             </div>
             <hr/>
@@ -809,7 +797,7 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFunction.js"></script>
 
 <!-- 代码语言 -->
 
@@ -824,6 +812,9 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
 <!-- 代码块收缩 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
 
 
     </div>
@@ -925,7 +916,7 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
 </main>
 
 
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
     MathJax.Hub.Config({
         tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
@@ -951,7 +942,7 @@ I_D=\frac{1}{2}\frac{W}{L}\mu _n C_{ox}(V_{GS} - V_{TH}^2)(1+\lambda V_{GS})</sc
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.7k</span>
+                        class="white-color">11.1k</span>
             
             
             
