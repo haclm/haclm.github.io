@@ -1218,7 +1218,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>容错处理：遍历中若链表提前结束，动态调整归还数量，避免空指针访问，保证代码健壮性。</li>
 </ul>
 <p>批量数计算：getBatchNum 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">size_t ThreadCache::getBatchNum(size_t size)
+<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">size_t ThreadCache::getBatchNum(size_t size)
 &#123;
     constexpr size_t MAX_BATCH_SIZE = 4 * 1024; // 4KB
 
