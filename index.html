@@ -373,7 +373,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         coverSlider.carousel({
             duration: Number('120'),
             fullWidth: true,
-            indicators: 'true' === 'true',
+            indicators: 'false' === 'true',
             onCycleTo() {
                 if (!initUserPressedOrDraggedActive) {
                     // console.log('initUserPressedOrDraggedActive')
@@ -385,32 +385,11 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
         let carouselIntervalId;
         
-        // Loop to call the next cover article picture.
-        let autoCarousel = function () {
-            carouselIntervalId = setInterval(function () {
-                coverSlider.carousel('next');
-            }, 5000);
-        };
-        autoCarousel();
-        
 
         function restartPlay() {
             
-            clearInterval(carouselIntervalId);
-            autoCarousel();
-            
         };
 
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
         
     });
 </script>
@@ -467,36 +446,31 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2024/100955011.html">
+                    <a href="/2026/030544274.html">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="纳瓦尔宝典阅读摘抄">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="内存池代码分析">
                             
-                            <span class="card-title">纳瓦尔宝典阅读摘抄</span>
+                            <span class="card-title">内存池代码分析</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                好句摘抄&amp;反思
-如果社会可以培训你，那么社会也可以培训他人来取代你。大家都能学会的东西是不可能让你致富的。凡是可以批量化培训的技能都是能够被雇佣的技能。只有你自己学到的东西，才是属于你独有的能力，才有可能让你创业成功。
-没有所谓的“
+                                内存池代码分析我们都知道内存池是一种分配内存并进行重新利用得技术，通过减少频繁得动态内存分配与释放操作从而提高程序运行效率。这里代码分析的是 代码随想录 开源的内存池 memory-pool
+CentralCache.hCentralCac
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-05
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/" class="post-category">
-                                    个人提升
-                                </a>
-                                
+                                <i class="fas fa-user fa-fw"></i>
+                                D.riven
                                 
                             </span>
                         </div>
@@ -505,8 +479,8 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E6%91%98%E6%8A%84/">
-                            <span class="chip bg-color">摘抄</span>
+                        <a href="/tags/CPP/">
+                            <span class="chip bg-color">CPP</span>
                         </a>
                         
                     </div>
@@ -531,7 +505,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2025</span>
+                <span id="year">2021-2026</span>
             
             <span id="year">2021</span>
             <a href="/about" target="_blank">D.riven</a>
@@ -540,7 +514,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">2k</span>
+                        class="white-color">7.2k</span>
             
             
             

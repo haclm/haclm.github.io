@@ -1,0 +1,1992 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="内存池代码分析, blog,D.riven">
+    <meta name="description" content="Hello ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>内存池代码分析 | D.riven</title>
+    <link rel="icon" type="image/png" href="/favicon1.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+   <style>
+    body{
+       background-image: url(https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=1920&q=80);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
+
+<body>
+
+ 
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo1.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">D.riven</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo1.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">D.riven</div>
+        <div class="logo-desc">
+            
+            Hello 
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">内存池代码分析</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/CPP/">
+                                <span class="chip bg-color">CPP</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-03-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-03-19
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    27 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="内存池代码分析"><a href="#内存池代码分析" class="headerlink" title="内存池代码分析"></a>内存池代码分析</h1><p>我们都知道内存池是一种分配内存并进行重新利用得技术，通过减少频繁得动态内存分配与释放操作从而提高程序运行效率。<br>这里代码分析的是 代码随想录 开源的内存池 memory-pool</p>
+<h2 id="CentralCache-h"><a href="#CentralCache-h" class="headerlink" title="CentralCache.h"></a>CentralCache.h</h2><p>CentralCache(中心缓存)是内存池架构中介于线程缓存(TreadCache)和页缓存(PageCahce)之间的中间层。<br>其核心功能是：</p>
+<ul>
+<li>缓存小内存块  ——–    从页缓存申请大块内存，切割成固定大小的内存块供线程缓存获取</li>
+<li>线程间共享    ——–    是全局共享，通过锁保证线程安全</li>
+<li>批量分配并回收——–    减少ThreadCache访问频率，减低内存碎片和锁竞争，提高效率</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "Common.h" //包含通用定义
+#include <mutex>    //包含原子操作 、锁操作
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>核心定义CentralCache对象并在Kama_memoryPool命名空间里避免命名冲突。</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP"> static CentralCache& getInstance()
+        &#123;
+            static CentralCache instance;
+            return instance;
+        &#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用单例模式：全局唯一的中心缓存实例，并使用局部静态变量保证线程安全且只初始化一次。<br>局部静态变量初始化对于C++11来说这是安全且高效的，不用手动加锁。</p>
+<p>下面然我们进行分析核心对外接口</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* fetchRange(size_t index, size_t &batchNum);
+void returnRange(void* start, size_t size, size_t bytes);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>对于fetchRange函数来说：</p>
+<ul>
+<li>index对应内存块的下标，按照Common.h中的映射</li>
+<li>batch对应传入 “想要的内存块数量”，返回 “实际拿到的数量”（可能中心缓存不够，只能返回部分）<br>对于returnRange函数来说：</li>
+<li>start是要归还的内存块链表头</li>
+<li>size即是内存块的数量</li>
+<li>Bytes是单个内存块的大小<br>作用是ThreadCache 中某个大小的内存块过多时，批量归还给 CentralCache，避免内存浪费。</li>
+</ul>
+<p>让我们来看它的私有构造函数</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+    // 私有构造函数：禁止外部创建实例（单例的关键）
+    CentralCache()
+    &#123;
+        // 初始化中心缓存的自由链表：所有原子指针置为nullptr
+        for (auto& ptr : centralFreeList_)
+        &#123;
+            ptr.store(nullptr, std::memory_order_relaxed);
+        &#125;
+        // 初始化所有自旋锁：清空（atomic_flag默认是clear状态，即未锁定）
+        for (auto& lock : locks_)
+        &#123;
+            lock.clear();
+        &#125;
+    &#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>构造函数私有化：确保只能通过 getInstance () 获取实例，杜绝 new CentralCache () 等外部创建方式，是单例模式实现的核心保障</li>
+<li>自由链表初始化：遍历 centralFreeList_数组，将所有原子指针通过 store 置为 nullptr，memory_order_relaxed 内存序保证原子操作本身，无额外指令重排限制，初始化场景下性能最优</li>
+<li>自旋锁初始化：遍历 locks_数组调用 clear ()，将所有自旋锁置为未锁定状态，为后续多线程访问做准备</li>
+</ul>
+<p>接下来分析私有内部方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">// 从页缓存（PageCache）获取大块内存，切割后补充到中心缓存
+void* fetchFromPageCache(size_t size);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li>核心作用：作为 CentralCache 的兜底逻辑，当某个尺寸的内存块库存不足时，向页缓存申请大块内存（通常按物理页粒度申请），切割为对应大小的小内存块后补充到自由链表中</li>
+<li>访问控制：私有化设计，外部组件（如 ThreadCache）无需直接调用，仅通过 fetchRange 间接触发，符合封装原则，避免内部逻辑暴露</li>
+</ul>
+<p>核心成员变量</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+    // 中心缓存的自由链表数组：每个元素对应一种大小的内存块链表头（原子指针保证线程安全）
+    std::array<std::atomic<void*>, FREE_LIST_SIZE> centralFreeList_;
+
+    // 用于同步的自旋锁
+    std::array<std::atomic_flag, FREE_LIST_SIZE> locks_;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于 centralFreeList_来说：</p>
+<ul>
+<li>容器选择：std::array 固定长度数组，长度由 FREE_LIST_SIZE 定义，相比动态容器访问效率更高，内存布局更稳定</li>
+<li>原子指针：std::atomic&lt;void*&gt; 保证多线程对链表头的修改是原子操作，避免并发场景下链表指针错乱，保证数据一致性</li>
+<li>映射关系：数组下标与内存块尺寸一一对应（如下标 0 对应 8B、下标 1 对应 16B），每个元素指向对应尺寸的空闲内存块链表头</li>
+</ul>
+<p>对于 locks_来说：</p>
+<ul>
+<li>锁类型：std::atomic_flag 轻量级自旋锁，相比 std::mutex 开销更小，适合内存分配这种短时间锁定的场景</li>
+<li>细粒度锁设计：每个自由链表对应一把锁，而非全局一把锁，线程操作不同尺寸链表时互不阻塞，大幅提升多线程并发效率</li>
+</ul>
+<h2 id="PageCache-h"><a href="#PageCache-h" class="headerlink" title="PageCache.h"></a>PageCache.h</h2><p>PageCache (页缓存) 是内存池架构中最底层的内存管理组件，直接对接操作系统进行内存申请与释放，是 CentralCache 的内存来源。<br>其核心功能是：</p>
+<ul>
+<li>页级内存管理 ——– 以物理页（4KB）为单位申请 &#x2F; 管理内存，避免频繁调用系统 API</li>
+<li>内存碎片合并 ——– 回收内存页时合并相邻空闲页，减少内存碎片</li>
+<li>全局统一调度 ——– 为 CentralCache 提供大块内存，按需切割后向下分发</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "Common.h" //包含通用定义
+#include <map>      //用于存储空闲页块和地址映射
+#include <mutex>    //用于全局锁保证线程安全
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>核心定义 PageCache 对象并在 Kama_memoryPool 命名空间里避免命名冲突。</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">static const size_t PAGE_SIZE = 4096;
+static PageCache& getInstance()&#123;
+    static PageCache instance;
+    return instance;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>页大小定义：PAGE_SIZE 固定为 4096 字节（即 4KB），符合 x86&#x2F;x64 系统的默认物理页大小，是操作系统内存管理的基本单位</li>
+<li>单例模式：和 CentralCache 一致</li>
+</ul>
+<p>下面让我们进行分析核心对外接口</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* allocateSpan(size_t numPages);
+void deallocateSpan(void* ptr, size_t numPages);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>对于 allocateSpan 函数来说：</p>
+<ul>
+<li>numPages 是要申请的物理页数量（比如 numPages&#x3D;2 表示申请 8KB 内存）</li>
+<li>返回值是申请到的连续内存页起始地址，供 CentralCache 切割为小内存块使用</li>
+</ul>
+<p>对于 deallocateSpan 函数来说：</p>
+<ul>
+<li>ptr 是要回收的内存页起始地址</li>
+<li>numPages 是要回收的物理页数量</li>
+<li>作用是将 CentralCache 归还的内存页回收，合并相邻空闲页后重新存入空闲页表，实现内存复用</li>
+</ul>
+<p>让我们来看它的私有构造函数</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+    PageCache() = default;
+    void* systemAlloc(size_t numPages);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>构造函数默认化：使用 &#x3D; default 显式生成默认构造函数，同时私有化避免外部创建实例，是单例模式的必要保障</li>
+<li>systemAlloc 私有方法：作为底层系统调用封装，直接调用 mmap&#x2F;brk 等系统 API 申请内存（不同平台实现不同），对外屏蔽系统级内存申请的细节，符合封装原则</li>
+</ul>
+<p>接下来分析核心内部数据结构</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+    struct Span&#123;
+        void*  pageAddr; // 内存页起始地址
+        size_t numPages; // 该Span包含的物理页数量
+        Span*  next;     // 串联同尺寸的空闲Span链表
+    &#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>Span 结构作用：作为页缓存的核心管理单元，描述一段连续的物理内存页</li>
+<li>关键字段解读：<ul>
+<li>pageAddr：标记该段内存的起始地址，是内存定位的核心标识</li>
+<li>numPages：记录包含的页数，用于计算内存大小和合并相邻 Span</li>
+<li>next：将相同页数的空闲 Span 串联成链表，方便快速查找和分配</li>
+</ul>
+</li>
+</ul>
+<p>最后分析核心成员变量</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+    std::map<size_t, Span*> freeSpans_;
+    std::map<void*, Span*> spanMap_;
+    std::mutex mutex_;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于 freeSpans_来说：</p>
+<ul>
+<li>容器类型：std::map &lt;页数，Span 链表头&gt;，按页数作为 key 组织空闲 Span</li>
+<li>核心作用：快速查找对应页数的空闲 Span，比如 CentralCache 需要 8 页内存时，直接通过 key&#x3D;8 找到对应的空闲 Span 链表，分配效率高</li>
+<li>有序特性：std::map 的有序性保证按页数从小到大 &#x2F; 从大到小遍历，方便实现 “按需分配” 或 “合并分配” 逻辑</li>
+</ul>
+<p>对于 spanMap_来说：</p>
+<ul>
+<li>容器类型：std::map &lt;内存地址，Span 指针&gt;，按内存起始地址映射到对应的 Span</li>
+<li>核心作用：回收内存时，通过内存地址快速定位到所属的 Span，比如知道某块内存的起始地址，就能立刻找到对应的 numPages 和相邻 Span，是内存合并的关键</li>
+</ul>
+<p>对于 mutex_来说：</p>
+<ul>
+<li>锁类型：std::mutex 全局互斥锁，相比 CentralCache 的细粒度自旋锁，页缓存使用粗粒度锁</li>
+<li>设计原因：页缓存是内存池最底层，直接对接系统调用，操作频率低但单次操作耗时较长（系统调用是毫秒级），用互斥锁更适合，且全局锁实现简单，避免复杂的锁管理</li>
+</ul>
+<h2 id="MemoryPool-h"><a href="#MemoryPool-h" class="headerlink" title="MemoryPool.h"></a>MemoryPool.h</h2><p>MemoryPool 是整个内存池架构的对外统一入口，封装了底层 ThreadCache&#x2F;CentralCache&#x2F;PageCache 的所有细节，给用户提供极简的内存分配 &#x2F; 释放接口。</p>
+<ul>
+<li>接口归一化 ——– 对外仅暴露 allocate&#x2F;deallocate 两个静态方法，屏蔽内存池三层架构的复杂逻辑</li>
+<li>调用转发 ——– 所有内存申请 &#x2F; 释放请求，统一转发给 ThreadCache 处理，是用户和内存池底层的 “桥梁”</li>
+<li>易用性提升 ——– 无需关注内存池内部组件，调用静态方法即可完成内存分配与回收</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "ThreadCache.h" //依赖线程缓存，所有请求最终转发给ThreadCache处理
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>核心定义 MemoryPool 类并在 Kama_memoryPool 命名空间里避免命名冲突，作为内存池对外暴露的唯一类。</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">static void* allocate(size_t size)
+&#123;
+    return ThreadCache::getInstance()->allocate(size);
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>函数作用：内存池对外提供的内存分配接口，用户只需传入要申请的内存大小，即可获取对应内存地址</li>
+<li>实现逻辑：无任何额外处理，直接调用 ThreadCache 单例的 allocate 方法，将分配请求转发给线程缓存</li>
+<li>设计优势：静态方法无需创建 MemoryPool 实例，用户调用方式极简（如 MemoryPool::allocate (1024)），降低使用成本</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">static void deallocate(void* ptr, size_t size)
+&#123;
+    ThreadCache::getInstance()->deallocate(ptr, size);
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>函数作用：内存池对外提供的内存释放接口，用户传入要释放的内存地址和大小，完成内存回收</li>
+<li>实现逻辑：同样直接转发给 ThreadCache 单例的 deallocate 方法，由线程缓存处理后续的回收逻辑（如判断是否归还给 CentralCache）</li>
+<li>入参说明<ul>
+<li>ptr：待释放的内存起始地址（必须是通过 MemoryPool::allocate 申请的地址）</li>
+<li>size：释放内存的大小（需和申请时的大小一致，保证回收时能正确匹配对应尺寸的自由链表）</li>
+</ul>
+</li>
+</ul>
+<h2 id="ThreadCache-h"><a href="#ThreadCache-h" class="headerlink" title="ThreadCache.h"></a>ThreadCache.h</h2><p>ThreadCache (线程缓存) 是内存池架构中最贴近用户层的组件，也是整个内存池高性能的核心保障。作为 CentralCache 的上层缓存，它为每个线程提供私有内存空间：</p>
+<ul>
+<li>无锁访问 ——– 线程私有设计，分配 &#x2F; 释放内存时无需加锁，极致提升并发效率</li>
+<li>按需缓存 ——– 从 CentralCache 批量获取内存块缓存，减少跨线程 &#x2F; 跨层调用</li>
+<li>阈值回收 ——– 缓存的内存块数量超过阈值时，自动归还给 CentralCache，避免内存浪费</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">static ThreadCache* getInstance() &#123;
+    static ThreadCache instance;
+    return &instance;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>线程私有设计说明：这里的 “单例” 实际是线程局部单例（通常配合 TLS 线程局部存储实现，代码中未显式体现但逻辑上是核心设计），即每个线程拥有独立的 ThreadCache 实例，这是无锁访问的关键</p>
+<p>下面让我们进行分析核心对外接口</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* allocate(size_t size);
+void deallocate(void* ptr, size_t size);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>对于 allocate 函数来说：</p>
+<ul>
+<li>size 是用户申请的内存大小（未对齐），函数内部会先通过 SizeClass::roundUp 对齐到 8 的倍数</li>
+<li>核心逻辑：优先从当前线程的 freeList_中取内存块，若缓存不足则调用 fetchFromCentralCache 批量获取</li>
+<li>返回值：对齐后内存块的可用地址（跳过 BlockHeader 元数据）<br>对于 deallocate 函数来说：</li>
+<li>ptr 是用户要释放的内存地址，size 是申请时的原始大小（或对齐后的大小）</li>
+<li>核心逻辑：将内存块归还给当前线程的 freeList_，若 freeListSize_超过阈值则调用 returnToCentralCache 批量归还</li>
+<li>设计优势：线程内操作无锁，相比直接调用 malloc&#x2F;free，性能提升数倍</li>
+</ul>
+<p>让我们来看它的私有构造函数与内部方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+    ThreadCache() = default;
+    void* fetchFromCentralCache(size_t index);
+    void returnToCentralCache(void* ptr, size_t size);
+    size_t getBatchNum(size_t size);
+    bool shouldReturnToCentralCache(size_t size);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>构造函数默认化：私有化保证只能通过 getInstance 获取实例，默认构造函数初始化 freeList_和 freeListSize_为空</li>
+<li>fetchFromCentralCache：<ul>
+<li>index 是内存块尺寸对应的自由链表下标</li>
+<li>作用：向 CentralCache 批量申请内存块，补充到当前线程的 freeList_中，是 ThreadCache 的 “补库存” 逻辑</li>
+</ul>
+</li>
+<li>returnToCentralCache：<ul>
+<li>ptr 是要归还的内存块链表头，size 是单块内存大小</li>
+<li>作用：将线程缓存中过剩的内存块批量归还给 CentralCache，避免单个线程占用过多内存</li>
+</ul>
+</li>
+<li>getBatchNum：<ul>
+<li>作用：根据内存块大小计算 “批量申请 &#x2F; 归还的数量”（小内存块批量数多，大内存块批量数少）</li>
+<li>设计逻辑：平衡 “减少 CentralCache 访问次数” 和 “避免内存浪费”，比如 8B 内存块批量取 20 个，256KB 内存块批量取 2 个</li>
+</ul>
+</li>
+<li>shouldReturnToCentralCache：<ul>
+<li>作用：判断当前尺寸的内存块缓存数量是否超过阈值，返回 bool 值决定是否需要归还</li>
+<li>阈值规则：通常内存块越大，阈值越低（比如 8B 块缓存 50 个才归还，256KB 块缓存 5 个就归还）</li>
+</ul>
+</li>
+</ul>
+<p>分析核心成员变量</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+    std::array<void*, FREE_LIST_SIZE> freeList_;
+    std::array<size_t, FREE_LIST_SIZE> freeListSize_;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>对于 freeList_来说：</p>
+<ul>
+<li>容器类型：std::array&lt;void*, FREE_LIST_SIZE&gt;，长度和 Common.h 中定义的尺寸映射一致</li>
+<li>核心作用：存储当前线程的空闲内存块链表头，每个下标对应一种对齐后的内存尺寸（如下标 0→8B、下标 1→16B）</li>
+<li>设计优势：数组访问 O (1) 时间复杂度，线程内取内存块无需遍历，极致高效</li>
+<li>对于 freeListSize_来说：</li>
+<li>容器类型：std::array&lt;size_t, FREE_LIST_SIZE&gt;，和 freeList_一一对应</li>
+<li>核心作用：记录每个尺寸的空闲内存块数量，是判断 “是否需要补库存”“是否需要归还” 的核心依据</li>
+<li>举例：freeListSize_[0]&#x3D;10 表示当前线程缓存了 10 个 8B 的空闲内存块，若用户申请 8B 内存，直接取链表头并将数量减 1 即可</li>
+</ul>
+<h2 id="Common-h"><a href="#Common-h" class="headerlink" title="Common.h"></a>Common.h</h2><p>Common.h 是整个内存池架构的基础规则定义文件，封装了内存池的核心常量、内存块元数据结构和尺寸计算工具，是 ThreadCache&#x2F;CentralCache&#x2F;PageCache 所有组件的公共依赖，保证整个内存池遵循统一的尺寸规则。<br>其核心作用是：</p>
+<ul>
+<li>规则标准化 ——– 定义内存对齐粒度、最大管理尺寸等核心常量，统一所有组件的尺寸逻辑</li>
+<li>元数据封装 ——– 定义内存块头部结构，管理内存块的状态和链表关系</li>
+<li>工具类封装 ——– 提供内存对齐、尺寸转下标等核心算法，避免重复代码</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include <cstddef>   //提供size_t等基础类型，是内存大小/下标表示的核心依赖
+#include <atomic>    //为后续原子操作预留头文件（如CentralCache的原子指针）
+#include <array>     //为自由链表数组提供容器支持
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">constexpr size_t ALIGNMENT = 8;
+constexpr size_t MAX_BYTES = 256 * 1024; //256kb
+constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>取值定义：固定为 8 字节，是 x86&#x2F;x64 系统的最优内存对齐粒度</li>
+<li>设计原因：8 字节是 C++ 基本类型（如指针、int64、double）的自然对齐要求，同时能保证 CPU 访问内存时不跨缓存行，最大化访问效率</li>
+<li>核心作用：所有内存池分配的小内存块，大小必须是 8 的整数倍，保证尺寸标准化</li>
+<li>对于 MAX_BYTES 来说：</li>
+<li>取值定义：256KB，是内存池管理的最大单块内存尺寸</li>
+<li>设计原因：内存池的优势是管理 “小内存”（减少碎片、提升分配速度），超过 256KB 的内存请求直接调用系统 malloc，避免内存池切割大块内存导致的浪费</li>
+<li>边界意义：划分 “内存池管理范围” 和 “系统调用范围” 的核心阈值<br>对于 FREE_LIST_SIZE 来说：</li>
+<li>计算逻辑：256*1024 &#x2F; 8 &#x3D; 32768，是自由链表数组的固定长度</li>
+<li>核心作用：对应 “8B~256KB、步长 8B” 的所有内存块尺寸，每个下标对应一种尺寸，是 ThreadCache&#x2F;CentralCache 自由链表数组的长度依据</li>
+<li>常量特性：用 constexpr 定义为编译期常量，相比宏定义类型更安全，且无需运行时计算，性能更优</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">struct BlockHeader &#123;
+    size_t size;
+    bool inUse;
+    BlockHeader* next;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>结构作用：作为每个内存块的 “头部元数据”，嵌入在实际内存块的起始位置，是内存池管理内存块的核心</li>
+<li>关键字段解读：<ul>
+<li>size：记录该内存块的实际大小（已对齐后的尺寸），回收时能快速定位到对应自由链表下标</li>
+<li>inUse：标记内存块是否被使用（true &#x3D; 使用中，false &#x3D; 空闲），避免重复分配 &#x2F; 重复回收的错误</li>
+<li>next：链表指针，将同尺寸的空闲内存块串联成链表，是自由链表的核心组成部分</li>
+</ul>
+</li>
+<li>内存布局说明：用户实际拿到的内存地址是 BlockHeader 之后的区域，回收时通过指针偏移找回头部</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">class SizeClass &#123;
+    public:
+        static size_t roundUp(size_t bytes) &#123;
+            return (bytes + ALIGNMENT - 1) & ~(ALIGNMENT - 1);
+        &#125;
+        static size_t getIndex(size_t bytes) &#123;      
+            bytes = std::max(bytes, ALIGNMENT);
+            return (bytes + ALIGNMENT - 1) / ALIGNMENT - 1;
+        &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>核心作用：将用户输入的任意字节数向上取整到最近的 8 的倍数（实现内存对齐）</li>
+<li>算法亮点：用位运算替代除法（~(ALIGNMENT-1) 即～7，二进制为…11111000），按位与会清空最后 3 位，计算效率比除法高 10 倍以上</li>
+<li>示例：输入 10→10+7&#x3D;17→17&amp;<del>7&#x3D;16；输入 8→8+7&#x3D;15→15&amp;</del>7&#x3D;8（刚好对齐时不变）<br>对于 getIndex 函数来说：</li>
+<li>核心作用：将对齐后的内存尺寸转换为自由链表数组的下标</li>
+<li>边界处理：std::max (bytes, ALIGNMENT) 确保最小尺寸为 8B，避免用户传入 0B&#x2F;1B 等非法尺寸导致下标为负</li>
+<li>算法逻辑：(bytes +7)&#x2F;8 -1 等价于 “向上取整到 8 的倍数后 ÷8 -1”，示例：<ul>
+<li>输入 8→(8+7)&#x2F;8&#x3D;1→1-1&#x3D;0（下标 0，对应 8B 链表）</li>
+<li>输入 10→先 roundUp 到 16→(16+7)&#x2F;8&#x3D;2→2-1&#x3D;1（下标 1，对应 16B 链表）</li>
+</ul>
+</li>
+<li>设计优势：所有组件复用同一套下标映射规则，修改对齐粒度仅需调整 ALIGNMENT 常量</li>
+</ul>
+<h2 id="ThreadCache-cpp"><a href="#ThreadCache-cpp" class="headerlink" title="ThreadCache.cpp"></a>ThreadCache.cpp</h2><p>ThreadCache.cpp 是 ThreadCache 类的核心实现文件，完整落地了线程缓存的内存分配、释放、批量申请 &#x2F; 归还逻辑，是整个内存池 “无锁高性能” 特性的核心载体。相比头文件的接口定义，该文件聚焦具体的逻辑实现，体现了线程缓存 “优先用本地缓存、批量和中心缓存交互” 的核心设计。</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "../include/ThreadCache.h"   //引入线程缓存头文件，关联类定义
+#include "../include/CentralCache.h" //引入中心缓存头文件，实现跨层交互
+#include <cstdlib>                   //引入malloc/free，处理超大内存请求
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>所有实现逻辑均在 Kama_memoryPool 命名空间下，保证代码隔离性。<br>核心分配逻辑：allocate 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* ThreadCache::allocate(size_t size)
+&#123;
+    if (size == 0)
+    &#123;
+        size = ALIGNMENT;
+    &#125;
+
+    if (size > MAX_BYTES)
+    &#123;
+        return malloc(size);
+    &#125;
+
+    size_t index = SizeClass::getIndex(size);
+
+    freeListSize_[index]--;
+
+    if (void* ptr = freeList_[index])
+    &#123;
+        freeList_[index] = *reinterpret_cast<void**>(ptr);
+        return ptr;
+    &#125;
+
+    return fetchFromCentralCache(index);
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>边界处理：<ul>
+<li>若用户传入 0，默认分配 8 字节（最小对齐单位），避免非法尺寸；</li>
+<li>若尺寸超过 256KB，直接调用系统 malloc，符合内存池 “只管理小内存” 的规则；</li>
+</ul>
+</li>
+<li>核心流程：<br> 计算尺寸对应的自由链表下标 → 2. 缓存数量减 1 → 3. 若本地缓存有空闲块，直接取链表头并更新链表 → 4. 缓存不足则向 CentralCache 批量申请；</li>
+<li>链表操作细节：*reinterpret_cast&lt;void**&gt;(ptr) 是内存池经典的 “指针内嵌链表” 技巧 —— 将内存块的首地址作为指针，存储下一个空闲块的地址，无需额外的链表节点，节省内存。</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void ThreadCache::deallocate(void* ptr, size_t size)
+&#123;
+    if (size > MAX_BYTES)
+    &#123;
+        free(ptr);
+        return;
+    &#125;
+
+    size_t index = SizeClass::getIndex(size);
+
+    *reinterpret_cast<void**>(ptr) = freeList_[index];
+    freeList_[index] = ptr;
+
+    freeListSize_[index]++;
+
+    if (shouldReturnToCentralCache(index))
+    &#123;
+        returnToCentralCache(freeList_[index], size);
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>边界处理：超大内存直接调用系统 free，和 allocate 逻辑一致；<br>核心流程：<br>计算下标 → 2. 将释放的内存块插入本地自由链表头部 → 3. 缓存数量加 1 → 4. 若超过阈值则批量归还给 CentralCache；</li>
+<li>插入链表技巧：先将当前内存块的首地址指向原链表头，再更新链表头为当前内存块，O (1) 时间完成插入，效率拉满</li>
+</ul>
+<p>阈值判断：shouldReturnToCentralCache 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">bool ThreadCache::shouldReturnToCentralCache(size_t index)
+&#123;
+    size_t threshold = 64;
+    return (freeListSize_[index] > threshold);
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>核心逻辑：简单阈值判断 —— 只要某尺寸的缓存数量超过 64，就触发归还逻辑；</li>
+<li>设计说明：示例中用固定阈值 64，实际生产环境中通常会按内存块大小动态调整（比如小内存阈值高、大内存阈值低），避免大内存块占用过多线程缓存。</li>
+</ul>
+<p>批量申请：fetchFromCentralCache 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* ThreadCache::fetchFromCentralCache(size_t index)
+&#123;
+    size_t size = (index + 1) * ALIGNMENT;
+    size_t batchNum = getBatchNum(size);
+
+    void* start = CentralCache::getInstance().fetchRange(index, batchNum);
+    if (!start) return nullptr;
+
+    freeListSize_[index] += batchNum-1;
+
+    void* result = start;
+    if (batchNum > 1)
+    &#123;
+        freeList_[index] = *reinterpret_cast<void**>(start);
+    &#125;
+
+    return result;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>核心流程：<br>计算当前下标对应的内存块大小 → 2. 计算批量申请数量 → 3. 调用 CentralCache 获取批量内存块 → 4. 留 1 个给当前请求，剩余的存入本地自由链表；<br>数量处理细节：freeListSize_[index] +&#x3D; batchNum-1—— 因为 1 个内存块直接返回给用户，剩余的 batchNum-1 个存入缓存，数量统计精准。</p>
+<p>批量归还：returnToCentralCache 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void ThreadCache::returnToCentralCache(void* start, size_t size)
+&#123;
+    size_t index = SizeClass::getIndex(size);
+    size_t alignedSize = SizeClass::roundUp(size);
+
+    size_t batchNum = freeListSize_[index];
+    if (batchNum <= 1) return;
+
+    size_t keepNum = std::max(batchNum / 4, size_t(1));
+    size_t returnNum = batchNum - keepNum;
+
+    char* current = static_cast<char*>(start);
+    char* splitNode = current;
+    for (size_t i = 0; i < keepNum - 1; ++i)
+    &#123;
+        splitNode = reinterpret_cast<char*>(*reinterpret_cast<void**>(splitNode));
+        if (splitNode == nullptr)
+        &#123;
+            returnNum = batchNum - (i + 1);
+            break;
+        &#125;
+    &#125;
+
+    if (splitNode != nullptr)
+    &#123;
+        void* nextNode = *reinterpret_cast<void**>(splitNode);
+        *reinterpret_cast<void**>(splitNode) = nullptr;
+
+        freeList_[index] = start;
+        freeListSize_[index] = keepNum;
+
+        if (returnNum > 0 && nextNode != nullptr)
+        &#123;
+            CentralCache::getInstance().returnRange(nextNode, returnNum * alignedSize, index);
+        &#125;
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>核心逻辑：“留一部分、还一部分”—— 保留 1&#x2F;4 的缓存（最少 1 个），剩余的归还给 CentralCache，既避免线程缓存空了频繁申请，又避免缓存过多浪费内存；</li>
+<li>链表拆分细节：<br>遍历链表找到第 keepNum 个节点 → 2. 切断链表（将该节点的 next 置空） → 3. 更新本地缓存为前 keepNum 个节点 → 4. 将剩余节点归还给 CentralCache；</li>
+<li>容错处理：遍历中若链表提前结束，动态调整归还数量，避免空指针错误。</li>
+</ul>
+<p>批量数计算：getBatchNum 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">size_t ThreadCache::getBatchNum(size_t size)
+&#123;
+    constexpr size_t MAX_BATCH_SIZE = 4 * 1024; // 4KB
+
+    size_t baseNum;
+    if (size <= 32) baseNum = 64;    // 64 * 32 = 2KB
+    else if (size <= 64) baseNum = 32;  // 32 * 64 = 2KB
+    else if (size <= 128) baseNum = 16; // 16 * 128 = 2KB
+    else if (size <= 256) baseNum = 8;  // 8 * 256 = 2KB
+    else if (size <= 512) baseNum = 4;  // 4 * 512 = 2KB
+    else if (size <= 1024) baseNum = 2; // 2 * 1024 = 2KB
+    else baseNum = 1;
+
+    size_t maxNum = std::max(size_t(1), MAX_BATCH_SIZE / size);
+
+    return std::max(sizeof(1), std::min(maxNum, baseNum));
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>核心设计：“固定总字节数” 原则 —— 小内存块批量数多，大内存块批量数少，保证每次批量申请的总字节数约 2KB（不超过 4KB 上限）；<br>比如 32B 内存块批 64 个（6432&#x3D;2048B），1024B 内存块批 2 个（21024&#x3D;2048B）；</li>
+<li>边界处理：<ul>
+<li>MAX_BATCH_SIZE &#x2F; size 避免批量数过大导致单次申请内存过多；</li>
+<li>std::max(sizeof(1), …) 保证最少申请 1 个，避免 0 个的非法情况。</li>
+</ul>
+</li>
+</ul>
+<h2 id="PageCache-cpp"><a href="#PageCache-cpp" class="headerlink" title="PageCache.cpp"></a>PageCache.cpp</h2><p>PageCache.cpp 是页缓存的核心实现文件，落地了以物理页为单位的内存申请、回收、合并逻辑，是内存池对接操作系统的 “最后一公里”。相比上层的 ThreadCache&#x2F;CentralCache，该文件聚焦 “页级内存管理” 和 “内存碎片合并”，体现了内存池 “底层统一调度、减少系统调用” 的核心设计.</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "PageCache.h"   //引入页缓存头文件，关联类定义
+#include <sys/mman.h>    //引入mmap系统调用，实现跨平台内存申请（Linux/macOS）
+#include <cstring>       //引入memset，初始化申请的内存空间
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>核心分配逻辑：allocateSpan 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* PageCache::allocateSpan(size_t numPages)
+&#123;
+    std::lock_guard<std::mutex> lock(mutex_);
+
+    auto it = freeSpans_.lower_bound(numPages);
+    if (it != freeSpans_.end())
+    &#123;
+        Span* span = it->second;
+
+        if (span->next)
+        &#123;
+            freeSpans_[it->first] = span->next;
+        &#125;
+        else
+        &#123;
+            freeSpans_.erase(it);
+        &#125;
+
+        if (span->numPages > numPages)
+        &#123;
+            Span* newSpan = new Span;
+            newSpan->pageAddr = static_cast<char*>(span->pageAddr) +
+                                numPages * PAGE_SIZE;
+            newSpan->numPages = span->numPages - numPages;
+            newSpan->next = nullptr;
+
+            auto& list = freeSpans_[newSpan->numPages];
+            newSpan->next = list;
+            list = newSpan;
+
+            span->numPages = numPages;
+        &#125;
+
+        spanMap_[span->pageAddr] = span;
+        return span->pageAddr;
+    &#125;
+
+    void* memory = systemAlloc(numPages);
+    if (!memory) return nullptr;
+
+    Span* span = new Span;
+    span->pageAddr = memory;
+    span->numPages = numPages;
+    span->next = nullptr;
+
+    spanMap_[memory] = span;
+    return memory;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>线程安全保障：std::lock_guard<a href="std::mutex">std::mutex</a> 自动加锁 &#x2F; 解锁，保证页缓存全局操作的线程安全；</li>
+<li>核心流程（优先复用空闲页）：<br>用lower_bound查找 “大于等于目标页数” 的空闲 Span（有序 map 的高效查找）；<br>若找到空闲 Span：<br>从 freeSpans_中移除该 Span；<br>若 Span 页数超过目标页数，拆分出剩余页数为新 Span，重新存入 freeSpans_；<br>将分配的 Span 存入 spanMap_，返回内存地址；</li>
+<li>若未找到空闲 Span：调用 systemAlloc 向操作系统申请新内存，封装为 Span 后返回；</li>
+</ul>
+<p>核心回收逻辑：deallocateSpan 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void PageCache::deallocateSpan(void* ptr, size_t numPages)
+&#123;
+    std::lock_guard<std::mutex> lock(mutex_);
+
+    auto it = spanMap_.find(ptr);
+    if (it == spanMap_.end()) return;
+
+    Span* span = it->second;
+
+    void* nextAddr = static_cast<char*>(ptr) + numPages * PAGE_SIZE;
+    auto nextIt = spanMap_.find(nextAddr);
+
+    if (nextIt != spanMap_.end())
+    &#123;
+        Span* nextSpan = nextIt->second;
+
+        bool found = false;
+        auto& nextList = freeSpans_[nextSpan->numPages];
+
+        if (nextList == nextSpan)
+        &#123;
+            nextList = nextSpan->next;
+            found = true;
+        &#125;
+        else if (nextList)
+        &#123;
+            Span* prev = nextList;
+            while (prev->next)
+            &#123;
+                if (prev->next == nextSpan)
+                &#123;
+                    prev->next = nextSpan->next;
+                    found = true;
+                    break;
+                &#125;
+                prev = prev->next;
+            &#125;
+        &#125;
+
+        if (found)
+        &#123;
+            span->numPages += nextSpan->numPages;
+            spanMap_.erase(nextAddr);
+            delete nextSpan;
+        &#125;
+    &#125;
+
+    auto& list = freeSpans_[span->numPages];
+    span->next = list;
+    list = span;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>核心目标：回收内存页并合并相邻空闲页，减少内存碎片；<br>核心流程：</li>
+<li>从 spanMap_找到待回收的 Span（通过内存地址快速定位）；</li>
+<li>检查当前 Span 的下一个地址是否存在空闲 Span（相邻页合并的关键）；<br>若存在相邻空闲 Span：</li>
+<li>从 freeSpans_中移除该相邻 Span；</li>
+<li>合并两个 Span 的页数，释放相邻 Span 的内存；</li>
+<li>将合并后的 Span 重新存入 freeSpans_，等待后续分配；<br>合并逻辑细节：遍历 freeSpans_中的 Span 链表，找到相邻 Span 并移除，保证合并后链表的完整性。</li>
+</ul>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* PageCache::systemAlloc(size_t numPages)
+&#123;
+    size_t size = numPages * PAGE_SIZE;
+
+    void* ptr = mmap(nullptr, size, PROT_READ | PROT_WRITE,
+                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (ptr == MAP_FAILED) return nullptr;
+
+    memset(ptr, 0, size);
+    return ptr;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>核心实现：调用 Linux&#x2F;macOS 系统的mmap函数申请内存（Windows 对应 VirtualAlloc）；</li>
+<li>参数解读：<ul>
+<li>nullptr：让系统自动选择内存起始地址；</li>
+<li>PROT_READ | PROT_WRITE：内存可读写；</li>
+<li>MAP_PRIVATE | MAP_ANONYMOUS：私有匿名内存（不关联文件，纯内存分配）；</li>
+<li>-1：匿名内存无需文件描述符；</li>
+</ul>
+</li>
+<li>容错处理：检查mmap返回值（MAP_FAILED 表示失败），返回 nullptr 避免非法地址；</li>
+<li>内存初始化：memset(ptr, 0, size) 将申请的内存置 0，避免脏数据问题。</li>
+</ul>
+<h2 id="ThreadCache-cpp-1"><a href="#ThreadCache-cpp-1" class="headerlink" title="ThreadCache.cpp"></a>ThreadCache.cpp</h2><p>ThreadCache.cpp 是 ThreadCache 类的核心实现文件，完整落地了线程缓存的内存分配、释放、批量申请 &#x2F; 归还逻辑，是整个内存池 “无锁高性能” 特性的核心载体。相比头文件的接口定义，该文件聚焦具体的逻辑实现，体现了线程缓存 “优先用本地缓存、批量和中心缓存交互” 的核心设计。</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "../include/ThreadCache.h"   //引入线程缓存头文件，关联类定义
+#include "../include/CentralCache.h" //引入中心缓存头文件，实现跨层交互
+#include <cstdlib>                   //引入malloc/free，处理超大内存请求
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>核心分配逻辑：allocate 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* ThreadCache::allocate(size_t size)
+&#123;
+    if (size == 0)
+    &#123;
+        size = ALIGNMENT;
+    &#125;
+
+    if (size > MAX_BYTES)
+    &#123;
+        return malloc(size);
+    &#125;
+
+    size_t index = SizeClass::getIndex(size);
+
+    freeListSize_[index]--;
+
+    if (void* ptr = freeList_[index])
+    &#123;
+        freeList_[index] = *reinterpret_cast<void**>(ptr);
+        return ptr;
+    &#125;
+
+    return fetchFromCentralCache(index);
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>边界容错处理：<ul>
+<li>针对用户传入 0 字节的非法请求，默认分配最小对齐单位（8 字节），避免后续下标计算、链表操作出现异常；</li>
+<li>超过内存池管理上限（256KB）的内存请求，直接转发给系统malloc，遵循 “内存池只优化小内存分配” 的设计原则；</li>
+</ul>
+</li>
+<li>核心分配流程（无锁高效）：<ul>
+<li>调用SizeClass::getIndex将申请尺寸转换为自由链表下标，完成尺寸标准化；</li>
+<li>先将对应下标的缓存数量减 1（预判分配，简化逻辑）；</li>
+<li>若本地自由链表有空闲块，通过指针内嵌链表技巧取出头节点：将当前链表头更新为该块指向的下一个空闲块，直接返回当前块；</li>
+<li>本地缓存不足时，调用fetchFromCentralCache向中心缓存批量申请补充；</li>
+</ul>
+</li>
+<li>关键技巧解析：*reinterpret_cast&lt;void**&gt;(ptr) 是内存池经典优化 —— 直接复用内存块的首地址存储下一个空闲块的指针，无需额外定义链表节点结构体，几乎无元数据开销。</li>
+</ul>
+<p>核心释放逻辑：deallocate 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void ThreadCache::deallocate(void* ptr, size_t size)
+&#123;
+    if (size > MAX_BYTES)
+    &#123;
+        free(ptr);
+        return;
+    &#125;
+
+    size_t index = SizeClass::getIndex(size);
+
+    *reinterpret_cast<void**>(ptr) = freeList_[index];
+    freeList_[index] = ptr;
+
+    freeListSize_[index]++;
+
+    if (shouldReturnToCentralCache(index))
+    &#123;
+        returnToCentralCache(freeList_[index], size);
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>对称化设计：超大内存释放直接调用系统free，与allocate逻辑完全匹配，保证上层接口的一致性；</li>
+<li>核心释放流程（O (1) 时间复杂度）：<ul>
+<li>计算释放尺寸对应的链表下标；</li>
+<li>头插法将释放块加入本地自由链表：先让该块指向原链表头，再将链表头更新为该块；</li>
+<li>缓存数量加 1，判断是否超过阈值；</li>
+<li>超过阈值则触发批量归还逻辑，避免单个线程占用过多内存；</li>
+</ul>
+</li>
+<li>性能优势：全程无锁、无遍历，释放操作仅需 3 次指针赋值 + 1 次计数，耗时可忽略。</li>
+</ul>
+<p>阈值判断：shouldReturnToCentralCache 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">bool ThreadCache::shouldReturnToCentralCache(size_t index)
+&#123;
+    size_t threshold = 64;
+    return (freeListSize_[index] > threshold);
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>核心逻辑：采用固定阈值 64 作为归还触发条件，当某尺寸的空闲块数量超过 64 时，向中心缓存归还部分块；</li>
+<li>设计说明：示例中固定阈值是为了简化逻辑，生产级实现中通常会按块大小动态调整（如 8B 块阈值设为 128，256KB 块阈值设为 8），平衡 “减少中心缓存交互” 和 “内存全局复用”。</li>
+</ul>
+<p>批量申请：fetchFromCentralCache 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* ThreadCache::fetchFromCentralCache(size_t index)
+&#123;
+    size_t size = (index + 1) * ALIGNMENT;
+    size_t batchNum = getBatchNum(size);
+
+    void* start = CentralCache::getInstance().fetchRange(index, batchNum);
+    if (!start) return nullptr;
+
+    freeListSize_[index] += batchNum-1;
+
+    void* result = start;
+    if (batchNum > 1)
+    &#123;
+        freeList_[index] = *reinterpret_cast<void**>(start);
+    &#125;
+
+    return result;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>批量策略核心：<ul>
+<li>由下标反算内存块实际大小(下标 + 1)*8；</li>
+<li>调用getBatchNum计算合理的批量数（小块多批、大块少批）；</li>
+<li>向中心缓存申请批量块，补充本地缓存；</li>
+</ul>
+</li>
+<li>缓存处理细节：<ul>
+<li>申请到的批量块中，1 个直接返回给当前请求，剩余batchNum-1个存入本地链表；</li>
+<li>freeListSize_仅累加剩余数量，保证计数精准，避免重复统计。</li>
+</ul>
+</li>
+</ul>
+<p>批量归还：returnToCentralCache 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void ThreadCache::returnToCentralCache(void* start, size_t size)
+&#123;
+    size_t index = SizeClass::getIndex(size);
+    size_t alignedSize = SizeClass::roundUp(size);
+
+    size_t batchNum = freeListSize_[index];
+    if (batchNum <= 1) return;
+
+    size_t keepNum = std::max(batchNum / 4, size_t(1));
+    size_t returnNum = batchNum - keepNum;
+
+    char* current = static_cast<char*>(start);
+    char* splitNode = current;
+    for (size_t i = 0; i < keepNum - 1; ++i)
+    &#123;
+        splitNode = reinterpret_cast<char*>(*reinterpret_cast<void**>(splitNode));
+        if (splitNode == nullptr)
+        &#123;
+            returnNum = batchNum - (i + 1);
+            break;
+        &#125;
+    &#125;
+
+    if (splitNode != nullptr)
+    &#123;
+        void* nextNode = *reinterpret_cast<void**>(splitNode);
+        *reinterpret_cast<void**>(splitNode) = nullptr;
+
+        freeList_[index] = start;
+        freeListSize_[index] = keepNum;
+
+        if (returnNum > 0 && nextNode != nullptr)
+        &#123;
+            CentralCache::getInstance().returnRange(nextNode, returnNum * alignedSize, index);
+        &#125;
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>归还策略：“保留 1&#x2F;4、归还 3&#x2F;4”，既避免本地缓存被清空导致频繁申请，又防止线程独占过多内存；</li>
+<li>链表拆分逻辑：<ul>
+<li>遍历链表找到第keepNum个节点，作为本地缓存和归还块的分割点；</li>
+<li>切断链表（置空分割点的 next 指针），更新本地链表为前keepNum个节点；</li>
+<li>将剩余节点批量归还给中心缓存；</li>
+</ul>
+</li>
+<li>容错处理：遍历中若链表提前结束，动态调整归还数量，避免空指针访问，保证代码健壮性。</li>
+</ul>
+<p>批量数计算：getBatchNum 方法</p>
+<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">size_t ThreadCache::getBatchNum(size_t size)
+&#123;
+    constexpr size_t MAX_BATCH_SIZE = 4 * 1024; // 4KB
+
+    size_t baseNum;
+    if (size <= 32) baseNum = 64;    // 64 * 32 = 2KB
+    else if (size <= 64) baseNum = 32;  // 32 * 64 = 2KB
+    else if (size <= 128) baseNum = 16; // 16 * 128 = 2KB
+    else if (size <= 256) baseNum = 8;  // 8 * 256 = 2KB
+    else if (size <= 512) baseNum = 4;  // 4 * 512 = 2KB
+    else if (size <= 1024) baseNum = 2; // 2 * 1024 = 2KB
+    else baseNum = 1;
+
+    size_t maxNum = std::max(size_t(1), MAX_BATCH_SIZE / size);
+
+    return std::max(sizeof(1), std::min(maxNum, baseNum));
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>核心设计原则：“固定总字节数”—— 无论块大小，单次批量申请的总字节数控制在 2KB 左右（不超过 4KB 上限），避免单次申请过多内存；<ul>
+<li>示例：32B 块批 64 个（总计 2KB）、1024B 块批 2 个（总计 2KB），兼顾申请效率和内存占用；</li>
+</ul>
+</li>
+<li>边界防护：<ul>
+<li>MAX_BATCH_SIZE &#x2F; size 避免大内存块批量数过大（如 256KB 块仅批 1 个）；</li>
+<li>std::max(sizeof(1), …) 保证最少申请 1 个，杜绝 0 个的非法情况；</li>
+</ul>
+</li>
+<li>小瑕疵说明：std::max(sizeof(1), …) 中sizeof(1)是笔误（应为size_t(1)），但sizeof(1)值为 1，不影响逻辑结果。</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">D.riven</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://haclm.github.io/2026/030544274.html">https://haclm.github.io/2026/030544274.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">D.riven</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/CPP/">
+                                    <span class="chip bg-color">CPP</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">欢迎打赏</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2026/030544274.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="内存池代码分析">
+                        
+                        <span class="card-title">内存池代码分析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            D.riven
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CPP/">
+                        <span class="chip bg-color">CPP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/030544274.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="内存池代码分析">
+                        
+                        <span class="card-title">内存池代码分析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            D.riven
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CPP/">
+                        <span class="chip bg-color">CPP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('600')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: D.riven<br />'
+            + '文章作者: D.riven<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFunction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2026</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">D.riven</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">7.2k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/haclm" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:haclmker1234@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2801861760" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2801861760" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+<!--动态线条背景-->
+<script type="text/javascript"
+color="122 103 238" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+</body>
+
+</html>
