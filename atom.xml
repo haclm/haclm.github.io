@@ -41,11 +41,11 @@
   </entry>
   
   <entry>
-    <title>Designing Filter Taps by GNURadio</title>
+    <title>Sample Rate Change by GNURadio</title>
     <link href="https://haclm.github.io/2026/032217132.html"/>
     <id>https://haclm.github.io/2026/032217132.html</id>
     <published>2026-03-22T04:43:00.000Z</published>
-    <updated>2026-03-23T01:43:05.240Z</updated>
+    <updated>2026-03-23T01:44:42.151Z</updated>
     
     <content type="html"><![CDATA[<h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>插值可以提高采样率，人话：原来 1 秒只有 100 个点 → 插值后变成 1 秒 400 个点<br>这样可以不太准确的推理，从奈奎斯特来说可用带宽≈采样率的一半。现在通过插值采样率高了，能表示的最高频率自然也就大了。看起来可用带宽就变多了。</p><h2 id="具体"><a href="#具体" class="headerlink" title="具体"></a>具体</h2><p>我们需要以下block:</p><ul><li>Two Variable bocks</li><li>Low-Pass Filter Taps</li><li>QT GUI Range</li><li>Signal Source</li><li>Interpolating FIR Filter</li><li>Throttle</li><li>QT GUI Frequency Sink</li></ul><p>按照以下进行连接：<br><img src="../images/SRC/SRC.png" alt=""><br>将两个变量分别设置为</p><ul><li>The First<ul><li>Id:interpolation_rate</li><li>Value:4</li></ul></li><li>The Second<ul><li>Id: samp_rate_interpolated</li><li>value: samp_rate*interpolations_rate</li></ul></li></ul><p>编辑Low-Pass Filter Tpas</p><ul><li>Id : lowPassTaps</li><li>Sample Rate: samp_rate_interpolated</li><li>Cutoff Freq: samp_rate_interpolated/(interpolation_rate*2)</li><li>Transition Width: samp_rate_interpolated/(interpolation_rate*4)</li></ul><p>设置QT GUI Range</p><ul><li>Id: frequency</li><li>Default Value: 0</li><li>Start: -samp_rate/2</li><li>Stop: samp_rate/2</li></ul><p>将Signal Source的Frequency设置为frequency</p><p>设置Interpolating FIR Filter block</p><ul><li>Interpolation: interpolation_rate</li><li>Taps: lowPassTaps</li></ul><p>设置Throttle</p><ul><li>Sample Rate: samp_rate_interpolated</li></ul><p>设置QT GUI Frequency Sink </p><ul><li>BandWidth : samp_rate_interpolated<br>然后就可以运行了<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1></li><li>插值 = 升采样 + 低通滤镜像</li><li>抽取 = 低通防混叠 + 降采样</li><li>重采样 = 插值 + 抽取，任意换速率</li></ul><p>Interpolation</p><ul><li>提高采样率—-&gt; 扩大可用带宽</li><li>使用Interpolating FIR Filter模块进行实现。</li></ul><p>关键步骤：</p><ul><li>使用Low-Pass Filter Taps生成匹配插值倍数的抗镜像滤波器</li><li>插值后的采样率= 源采样率 * 插值倍数</li><li>滤波器的作用： 滤除插值产生的频谱镜像<br>效果：采样率变高，波形更平滑，频谱展示范围更大。<br>Interpolating它把插值与低通滤波的活都干了，它是天生绑定的。</li></ul>]]></content>
     
