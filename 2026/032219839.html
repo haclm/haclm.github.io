@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Sample Rate Change by GNURadio, blog,D.riven">
+    <meta name="keywords" content="B200 FM Receiver by gnuradio, blog,D.riven">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Sample Rate Change by GNURadio | D.riven</title>
+    <title>B200 FM Receiver by gnuradio | D.riven</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -338,7 +338,7 @@ mjx-container[display="true"] + br {
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Sample Rate Change by GNURadio</h1>
+                    <h1 class="description center-align post-title">B200 FM Receiver by gnuradio</h1>
                 </div>
             </div>
         </div>
@@ -470,8 +470,8 @@ mjx-container[display="true"] + br {
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/SDRs/" class="post-category">
-                                SDRs
+                            <a href="/categories/SDR/" class="post-category">
+                                SDR
                             </a>
                         
                     </div>
@@ -497,7 +497,7 @@ mjx-container[display="true"] + br {
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    391
+                    265
                 </div>
                 
 
@@ -524,72 +524,9 @@ mjx-container[display="true"] + br {
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>插值可以提高采样率，人话：原来 1 秒只有 100 个点 → 插值后变成 1 秒 400 个点<br>这样可以不太准确的推理，从奈奎斯特来说可用带宽≈采样率的一半。现在通过插值采样率高了，能表示的最高频率自然也就大了。看起来可用带宽就变多了。</p>
-<h2 id="具体"><a href="#具体" class="headerlink" title="具体"></a>具体</h2><p>我们需要以下block:</p>
-<ul>
-<li>Two Variable bocks</li>
-<li>Low-Pass Filter Taps</li>
-<li>QT GUI Range</li>
-<li>Signal Source</li>
-<li>Interpolating FIR Filter</li>
-<li>Throttle</li>
-<li>QT GUI Frequency Sink</li>
-</ul>
-<p>按照以下进行连接：<br><img src="../images/SRC/SRC.png" alt=""><br>将两个变量分别设置为</p>
-<ul>
-<li>The First<ul>
-<li>Id:interpolation_rate</li>
-<li>Value:4</li>
-</ul>
-</li>
-<li>The Second<ul>
-<li>Id: samp_rate_interpolated</li>
-<li>value: samp_rate*interpolations_rate</li>
-</ul>
-</li>
-</ul>
-<p>编辑Low-Pass Filter Tpas</p>
-<ul>
-<li>Id : lowPassTaps</li>
-<li>Sample Rate: samp_rate_interpolated</li>
-<li>Cutoff Freq: samp_rate_interpolated/(interpolation_rate*2)</li>
-<li>Transition Width: samp_rate_interpolated/(interpolation_rate*4)</li>
-</ul>
-<p>设置QT GUI Range</p>
-<ul>
-<li>Id: frequency</li>
-<li>Default Value: 0</li>
-<li>Start: -samp_rate/2</li>
-<li>Stop: samp_rate/2</li>
-</ul>
-<p>将Signal Source的Frequency设置为frequency</p>
-<p>设置Interpolating FIR Filter block</p>
-<ul>
-<li>Interpolation: interpolation_rate</li>
-<li>Taps: lowPassTaps</li>
-</ul>
-<p>设置Throttle</p>
-<ul>
-<li>Sample Rate: samp_rate_interpolated</li>
-</ul>
-<p>设置QT GUI Frequency Sink </p>
-<ul>
-<li>BandWidth : samp_rate_interpolated<br>然后就可以运行了<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1></li>
-<li>插值 = 升采样 + 低通滤镜像</li>
-<li>抽取 = 低通防混叠 + 降采样</li>
-<li>重采样 = 插值 + 抽取，任意换速率</li>
-</ul>
-<p>Interpolation</p>
-<ul>
-<li>提高采样率—-&gt; 扩大可用带宽</li>
-<li>使用Interpolating FIR Filter模块进行实现。</li>
-</ul>
-<p>关键步骤：</p>
-<ul>
-<li>使用Low-Pass Filter Taps生成匹配插值倍数的抗镜像滤波器</li>
-<li>插值后的采样率= 源采样率 * 插值倍数</li>
-<li>滤波器的作用： 滤除插值产生的频谱镜像<br>效果：采样率变高，波形更平滑，频谱展示范围更大。<br>Interpolating它把插值与低通滤波的活都干了，它是天生绑定的。</li>
-</ul>
+                <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>这里要使用SDR软件无线电，我使用的是B210.<br>我们首先先在ubuntu里找到usrp B210.<br><img src="../images/FM/B210.png" alt=""><br>关于FM调频的介绍可以看<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/644683436">这个</a></p>
+<h2 id="配置流图"><a href="#配置流图" class="headerlink" title="配置流图"></a>配置流图</h2><p>我们首先需要一个USRP的源，并且配置它的Device Address，我这里配置它为B210mini<br>将Sync改成PC Clock把同步频率改成PC时钟。<br>然后设置RF Options里的，Center frequency我这里设置的是freq,把Ch0:AGC Enable通道选RX1.<br>再把samp_rate改成2M，这是USRP的采样率。<br>然后使用QT GUI Range把Default Value  Start Stop step 设置成本地区可以使用的电台参数。<br>其实这样就可以了，但是我们还可以进行添加时间图与频率图。记得打开自动缩放。</p>
+<p>最后导入Audio Sink，把Samp_rate选择为48K；<br>WBFM Recelve: Quadrature Rate 48000*4, audio Decimation 4<br>Rational Resampler: Interpolation 12, Decimation 125<br>整体为<img src="../images/FM/image.png" alt=""><br>之后运行就可以进行听到声音啦！<br>我们在USRP source输出端后面加上一个Throttle缓解CPU压力，在Audio Sink前面加一个低通滤波器选择float效果会好很多</p>
 
                 
             </div>
@@ -616,7 +553,7 @@ mjx-container[display="true"] + br {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://haclm.github.io/2026/032217132.html">https://haclm.github.io/2026/032217132.html</a>
+                    <a href="https://haclm.github.io/2026/032219839.html">https://haclm.github.io/2026/032219839.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -838,9 +775,9 @@ mjx-container[display="true"] + br {
                 <a href="/2026/032217132.html">
                     <div class="card-image">
                         
-                        <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Designing Filter Taps by GNURadio">
+                        <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Sample Rate Change by GNURadio">
                         
-                        <span class="card-title">Designing Filter Taps by GNURadio</span>
+                        <span class="card-title">Sample Rate Change by GNURadio</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -855,8 +792,12 @@ mjx-container[display="true"] + br {
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            D.riven
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/SDRs/" class="post-category">
+                                    SDRs
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -883,12 +824,12 @@ mjx-container[display="true"] + br {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2026/032219839.html">
+                <a href="/2026/032232090.html">
                     <div class="card-image">
                         
-                        <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="B200 FM Receiver by gnuradio">
+                        <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Low pass filter example by gnuradio">
                         
-                        <span class="card-title">B200 FM Receiver by gnuradio</span>
+                        <span class="card-title">Low pass filter example by gnuradio</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

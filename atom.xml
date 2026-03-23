@@ -67,6 +67,32 @@
   </entry>
   
   <entry>
+    <title>B200 FM Receiver by gnuradio</title>
+    <link href="https://haclm.github.io/2026/032219839.html"/>
+    <id>https://haclm.github.io/2026/032219839.html</id>
+    <published>2026-03-22T04:16:00.000Z</published>
+    <updated>2026-03-23T11:22:47.343Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>这里要使用SDR软件无线电，我使用的是B210.<br>我们首先先在ubuntu里找到usrp B210.<br><img src="../images/FM/B210.png" alt=""><br>关于FM调频的介绍可以看<a href="https://zhuanlan.zhihu.com/p/644683436">这个</a></p><h2 id="配置流图"><a href="#配置流图" class="headerlink" title="配置流图"></a>配置流图</h2><p>我们首先需要一个USRP的源，并且配置它的Device Address，我这里配置它为B210mini<br>将Sync改成PC Clock把同步频率改成PC时钟。<br>然后设置RF Options里的，Center frequency我这里设置的是freq,把Ch0:AGC Enable通道选RX1.<br>再把samp_rate改成2M，这是USRP的采样率。<br>然后使用QT GUI Range把Default Value  Start Stop step 设置成本地区可以使用的电台参数。<br>其实这样就可以了，但是我们还可以进行添加时间图与频率图。记得打开自动缩放。</p><p>最后导入Audio Sink，把Samp_rate选择为48K；<br>WBFM Recelve: Quadrature Rate 48000*4, audio Decimation 4<br>Rational Resampler: Interpolation 12, Decimation 125<br>整体为<img src="../images/FM/image.png" alt=""><br>之后运行就可以进行听到声音啦！<br>我们在USRP source输出端后面加上一个Throttle缓解CPU压力，在Audio Sink前面加一个低通滤波器选择float效果会好很多</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;p&gt;这里要使用SDR软件无线电，我使用的是B210.&lt;br&gt;我们首先先在ubuntu里找到usrp B210.&lt;br&gt;&lt;img src=&quot;../</summary>
+      
+    
+    
+    
+    <category term="SDR" scheme="https://haclm.github.io/categories/SDR/"/>
+    
+    
+    <category term="SDR" scheme="https://haclm.github.io/tags/SDR/"/>
+    
+    <category term="gnuradio" scheme="https://haclm.github.io/tags/gnuradio/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Low pass filter example by gnuradio</title>
     <link href="https://haclm.github.io/2026/032232090.html"/>
     <id>https://haclm.github.io/2026/032232090.html</id>
@@ -79,6 +105,32 @@
       
       
     <summary type="html">&lt;h1 id=&quot;创建流程图&quot;&gt;&lt;a href=&quot;#创建流程图&quot; class=&quot;headerlink&quot; title=&quot;创建流程图&quot;&gt;&lt;/a&gt;创建流程图&lt;/h1&gt;&lt;h2 id=&quot;准备阶段&quot;&gt;&lt;a href=&quot;#准备阶段&quot; class=&quot;headerlink&quot; title=&quot;准备阶段&quot;</summary>
+      
+    
+    
+    
+    <category term="SDR" scheme="https://haclm.github.io/categories/SDR/"/>
+    
+    
+    <category term="SDR" scheme="https://haclm.github.io/tags/SDR/"/>
+    
+    <category term="gnuradio" scheme="https://haclm.github.io/tags/gnuradio/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Frequency Shifting by gnuradio</title>
+    <link href="https://haclm.github.io/2026/032226894.html"/>
+    <id>https://haclm.github.io/2026/032226894.html</id>
+    <published>2026-03-22T03:43:00.000Z</published>
+    <updated>2026-03-23T06:14:00.038Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>我们知道频移可以使用多种方式进行实现，但是这篇文章使用的是 简单乘以复杂正弦波。<br>源信号<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="9.822ex" height="2.135ex" role="img" focusable="false" viewBox="0 -861.5 4341.1 943.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msup" transform="translate(778,0)"><g data-mml-node="mi"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="TeXAtom" transform="translate(499,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D457" d="M297 596Q297 627 318 644T361 661Q378 661 389 651T403 623Q403 595 384 576T340 557Q322 557 310 567T297 596ZM288 376Q288 405 262 405Q240 405 220 393T185 362T161 325T144 293L137 279Q135 278 121 278H107Q101 284 101 286T105 299Q126 348 164 391T252 441Q253 441 260 441T272 442Q296 441 316 432Q341 418 354 401T367 348V332L318 133Q267 -67 264 -75Q246 -125 194 -164T75 -204Q25 -204 7 -183T-12 -137Q-12 -110 7 -91T53 -71Q70 -71 82 -81T95 -112Q95 -148 63 -167Q69 -168 77 -168Q111 -168 139 -140T182 -74L193 -32Q204 11 219 72T251 197T278 308T289 365Q289 372 288 376Z"></path></g><g data-mml-node="mn" transform="translate(412,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(912,0)"><path data-c="1D70B" d="M132 -11Q98 -11 98 22V33L111 61Q186 219 220 334L228 358H196Q158 358 142 355T103 336Q92 329 81 318T62 297T53 285Q51 284 38 284Q19 284 19 294Q19 300 38 329T93 391T164 429Q171 431 389 431Q549 431 553 430Q573 423 573 402Q573 371 541 360Q535 358 472 358H408L405 341Q393 269 393 222Q393 170 402 129T421 65T431 37Q431 20 417 5T381 -10Q370 -10 363 -7T347 17T331 77Q330 86 330 121Q330 170 339 226T357 318T367 358H269L268 354Q268 351 249 275T206 114T175 17Q164 -11 132 -11Z"></path></g><g data-mml-node="msub" transform="translate(1482,0)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mi" transform="translate(2408.6,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g></g><g data-mml-node="mo" transform="translate(3563.1,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g></g></g></svg></mjx-container>信号整体搬到频率<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="2.096ex" height="2.059ex" role="img" focusable="false" viewBox="0 -705 926.6 910"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g></g></g></svg></mjx-container></p><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先使用一个10M噪声源加上一个低通滤波器组成一个源输入<br><img src="../images/FS/Soucres.png" alt=""></p><p>然后我们加入一个复正弦波，之后用于频率偏移。<br>并添加一个变量new_center_frequency 值为1M<br>将signal Source输入(复正弦波)加入到QT GUI Frequency Sink，如果只有一个输入接口则双击它找到number of inputs改值即可。<br>根据上面逻辑，下面我们就要把Signal Source的Frequency改成new_center_frequency<br>然后我们运行一下就可以看到<br><img src="../images/FS/DoubleShow.png" alt=""><br>我们可以清晰的看到复正弦波在1M左右。</p><h2 id="转移"><a href="#转移" class="headerlink" title="转移"></a>转移</h2><p>这一步我们要把乘法成分加入图中，从上面的公式推到就知道一个输入是低通滤波器的信号另一个肯定是1M的正弦波信号。最后输出给QT GUI Frequency Sink<br>Just like this<br><img src="../images/FS/Shifting.png" alt=""></p><p>发现频率转移了，那么我们可以大胆猜测当值是负数时则向左偏移。<br>我们可以把Variable 1M的变量给disable，使用QT GUI Range进行调控。<br>就像这样<br><img src="../images/FS/image.png" alt=""></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;实践&quot;&gt;&lt;a href=&quot;#实践&quot; class=&quot;headerlink&quot; title=&quot;实践&quot;&gt;&lt;/a&gt;实践&lt;/h1&gt;&lt;p&gt;我们知道频移可以使用多种方式进行实现，但是这篇文章使用的是 简单乘以复杂正弦波。&lt;br&gt;源信号&lt;mjx-container class=&quot;M</summary>
       
     
     
