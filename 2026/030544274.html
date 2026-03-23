@@ -365,7 +365,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-03-19
+                    2026-03-23
                 </div>
                 
 
@@ -402,15 +402,15 @@
                 <h1 id="内存池代码分析"><a href="#内存池代码分析" class="headerlink" title="内存池代码分析"></a>内存池代码分析</h1><p>我们都知道内存池是一种分配内存并进行重新利用得技术，通过减少频繁得动态内存分配与释放操作从而提高程序运行效率。<br>这里代码分析的是 代码随想录 开源的内存池 memory-pool</p>
 <h2 id="CentralCache-h"><a href="#CentralCache-h" class="headerlink" title="CentralCache.h"></a>CentralCache.h</h2><p>CentralCache(中心缓存)是内存池架构中介于线程缓存(TreadCache)和页缓存(PageCahce)之间的中间层。<br>其核心功能是：</p>
 <ul>
-<li>缓存小内存块  ——–    从页缓存申请大块内存，切割成固定大小的内存块供线程缓存获取</li>
-<li>线程间共享    ——–    是全局共享，通过锁保证线程安全</li>
-<li>批量分配并回收——–    减少ThreadCache访问频率，减低内存碎片和锁竞争，提高效率</li>
+<li>缓存小内存块  ————    从页缓存申请大块内存，切割成固定大小的内存块供线程缓存获取</li>
+<li>线程间共享    ————    是全局共享，通过锁保证线程安全</li>
+<li>批量分配并回收————    减少ThreadCache访问频率，减低内存碎片和锁竞争，提高效率</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "Common.h" //包含通用定义
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">#include "Common.h" //包含通用定义
 #include <mutex>    //包含原子操作 、锁操作
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>核心定义CentralCache对象并在Kama_memoryPool命名空间里避免命名冲突。</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP"> static CentralCache& getInstance()
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP"> static CentralCache& getInstance()
         &#123;
             static CentralCache instance;
             return instance;
@@ -418,7 +418,7 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>使用单例模式：全局唯一的中心缓存实例，并使用局部静态变量保证线程安全且只初始化一次。<br>局部静态变量初始化对于C++11来说这是安全且高效的，不用手动加锁。</p>
 <p>下面然我们进行分析核心对外接口</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* fetchRange(size_t index, size_t &batchNum);
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* fetchRange(size_t index, size_t &batchNum);
 void returnRange(void* start, size_t size, size_t bytes);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>对于fetchRange函数来说：</p>
@@ -430,7 +430,7 @@ void returnRange(void* start, size_t size, size_t bytes);
 <li>Bytes是单个内存块的大小<br>作用是ThreadCache 中某个大小的内存块过多时，批量归还给 CentralCache，避免内存浪费。</li>
 </ul>
 <p>让我们来看它的私有构造函数</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">private:
     // 私有构造函数：禁止外部创建实例（单例的关键）
     CentralCache()
     &#123;
@@ -452,7 +452,7 @@ void returnRange(void* start, size_t size, size_t bytes);
 <li>自旋锁初始化：遍历 locks_数组调用 clear ()，将所有自旋锁置为未锁定状态，为后续多线程访问做准备</li>
 </ul>
 <p>接下来分析私有内部方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">// 从页缓存（PageCache）获取大块内存，切割后补充到中心缓存
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">// 从页缓存（PageCache）获取大块内存，切割后补充到中心缓存
 void* fetchFromPageCache(size_t size);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <ul>
@@ -460,7 +460,7 @@ void* fetchFromPageCache(size_t size);
 <li>访问控制：私有化设计，外部组件（如 ThreadCache）无需直接调用，仅通过 fetchRange 间接触发，符合封装原则，避免内部逻辑暴露</li>
 </ul>
 <p>核心成员变量</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">private:
     // 中心缓存的自由链表数组：每个元素对应一种大小的内存块链表头（原子指针保证线程安全）
     std::array<std::atomic<void*>, FREE_LIST_SIZE> centralFreeList_;
 
@@ -470,7 +470,7 @@ void* fetchFromPageCache(size_t size);
 <p>对于 centralFreeList_来说：</p>
 <ul>
 <li>容器选择：std::array 固定长度数组，长度由 FREE_LIST_SIZE 定义，相比动态容器访问效率更高，内存布局更稳定</li>
-<li>原子指针：std::atomic&lt;void*&gt; 保证多线程对链表头的修改是原子操作，避免并发场景下链表指针错乱，保证数据一致性</li>
+<li>原子指针：std::atomic<void*> 保证多线程对链表头的修改是原子操作，避免并发场景下链表指针错乱，保证数据一致性</li>
 <li>映射关系：数组下标与内存块尺寸一一对应（如下标 0 对应 8B、下标 1 对应 16B），每个元素指向对应尺寸的空闲内存块链表头</li>
 </ul>
 <p>对于 locks_来说：</p>
@@ -480,32 +480,32 @@ void* fetchFromPageCache(size_t size);
 </ul>
 <h2 id="PageCache-h"><a href="#PageCache-h" class="headerlink" title="PageCache.h"></a>PageCache.h</h2><p>PageCache (页缓存) 是内存池架构中最底层的内存管理组件，直接对接操作系统进行内存申请与释放，是 CentralCache 的内存来源。<br>其核心功能是：</p>
 <ul>
-<li>页级内存管理 ——– 以物理页（4KB）为单位申请 &#x2F; 管理内存，避免频繁调用系统 API</li>
-<li>内存碎片合并 ——– 回收内存页时合并相邻空闲页，减少内存碎片</li>
-<li>全局统一调度 ——– 为 CentralCache 提供大块内存，按需切割后向下分发</li>
+<li>页级内存管理 ———— 以物理页（4KB）为单位申请 / 管理内存，避免频繁调用系统 API</li>
+<li>内存碎片合并 ———— 回收内存页时合并相邻空闲页，减少内存碎片</li>
+<li>全局统一调度 ———— 为 CentralCache 提供大块内存，按需切割后向下分发</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "Common.h" //包含通用定义
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">#include "Common.h" //包含通用定义
 #include <map>      //用于存储空闲页块和地址映射
 #include <mutex>    //用于全局锁保证线程安全
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>核心定义 PageCache 对象并在 Kama_memoryPool 命名空间里避免命名冲突。</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">static const size_t PAGE_SIZE = 4096;
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">static const size_t PAGE_SIZE = 4096;
 static PageCache& getInstance()&#123;
     static PageCache instance;
     return instance;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>页大小定义：PAGE_SIZE 固定为 4096 字节（即 4KB），符合 x86&#x2F;x64 系统的默认物理页大小，是操作系统内存管理的基本单位</li>
+<li>页大小定义：PAGE_SIZE 固定为 4096 字节（即 4KB），符合 x86/x64 系统的默认物理页大小，是操作系统内存管理的基本单位</li>
 <li>单例模式：和 CentralCache 一致</li>
 </ul>
 <p>下面让我们进行分析核心对外接口</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* allocateSpan(size_t numPages);
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* allocateSpan(size_t numPages);
 void deallocateSpan(void* ptr, size_t numPages);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>对于 allocateSpan 函数来说：</p>
 <ul>
-<li>numPages 是要申请的物理页数量（比如 numPages&#x3D;2 表示申请 8KB 内存）</li>
+<li>numPages 是要申请的物理页数量（比如 numPages=2 表示申请 8KB 内存）</li>
 <li>返回值是申请到的连续内存页起始地址，供 CentralCache 切割为小内存块使用</li>
 </ul>
 <p>对于 deallocateSpan 函数来说：</p>
@@ -515,16 +515,16 @@ void deallocateSpan(void* ptr, size_t numPages);
 <li>作用是将 CentralCache 归还的内存页回收，合并相邻空闲页后重新存入空闲页表，实现内存复用</li>
 </ul>
 <p>让我们来看它的私有构造函数</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">private:
     PageCache() = default;
     void* systemAlloc(size_t numPages);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>构造函数默认化：使用 &#x3D; default 显式生成默认构造函数，同时私有化避免外部创建实例，是单例模式的必要保障</li>
-<li>systemAlloc 私有方法：作为底层系统调用封装，直接调用 mmap&#x2F;brk 等系统 API 申请内存（不同平台实现不同），对外屏蔽系统级内存申请的细节，符合封装原则</li>
+<li>构造函数默认化：使用 = default 显式生成默认构造函数，同时私有化避免外部创建实例，是单例模式的必要保障</li>
+<li>systemAlloc 私有方法：作为底层系统调用封装，直接调用 mmap/brk 等系统 API 申请内存（不同平台实现不同），对外屏蔽系统级内存申请的细节，符合封装原则</li>
 </ul>
 <p>接下来分析核心内部数据结构</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">private:
     struct Span&#123;
         void*  pageAddr; // 内存页起始地址
         size_t numPages; // 该Span包含的物理页数量
@@ -541,7 +541,7 @@ void deallocateSpan(void* ptr, size_t numPages);
 </li>
 </ul>
 <p>最后分析核心成员变量</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">private:
     std::map<size_t, Span*> freeSpans_;
     std::map<void*, Span*> spanMap_;
     std::mutex mutex_;
@@ -549,8 +549,8 @@ void deallocateSpan(void* ptr, size_t numPages);
 <p>对于 freeSpans_来说：</p>
 <ul>
 <li>容器类型：std::map &lt;页数，Span 链表头&gt;，按页数作为 key 组织空闲 Span</li>
-<li>核心作用：快速查找对应页数的空闲 Span，比如 CentralCache 需要 8 页内存时，直接通过 key&#x3D;8 找到对应的空闲 Span 链表，分配效率高</li>
-<li>有序特性：std::map 的有序性保证按页数从小到大 &#x2F; 从大到小遍历，方便实现 “按需分配” 或 “合并分配” 逻辑</li>
+<li>核心作用：快速查找对应页数的空闲 Span，比如 CentralCache 需要 8 页内存时，直接通过 key=8 找到对应的空闲 Span 链表，分配效率高</li>
+<li>有序特性：std::map 的有序性保证按页数从小到大 / 从大到小遍历，方便实现 “按需分配” 或 “合并分配” 逻辑</li>
 </ul>
 <p>对于 spanMap_来说：</p>
 <ul>
@@ -562,16 +562,16 @@ void deallocateSpan(void* ptr, size_t numPages);
 <li>锁类型：std::mutex 全局互斥锁，相比 CentralCache 的细粒度自旋锁，页缓存使用粗粒度锁</li>
 <li>设计原因：页缓存是内存池最底层，直接对接系统调用，操作频率低但单次操作耗时较长（系统调用是毫秒级），用互斥锁更适合，且全局锁实现简单，避免复杂的锁管理</li>
 </ul>
-<h2 id="MemoryPool-h"><a href="#MemoryPool-h" class="headerlink" title="MemoryPool.h"></a>MemoryPool.h</h2><p>MemoryPool 是整个内存池架构的对外统一入口，封装了底层 ThreadCache&#x2F;CentralCache&#x2F;PageCache 的所有细节，给用户提供极简的内存分配 &#x2F; 释放接口。</p>
+<h2 id="MemoryPool-h"><a href="#MemoryPool-h" class="headerlink" title="MemoryPool.h"></a>MemoryPool.h</h2><p>MemoryPool 是整个内存池架构的对外统一入口，封装了底层 ThreadCache/CentralCache/PageCache 的所有细节，给用户提供极简的内存分配 / 释放接口。</p>
 <ul>
-<li>接口归一化 ——– 对外仅暴露 allocate&#x2F;deallocate 两个静态方法，屏蔽内存池三层架构的复杂逻辑</li>
-<li>调用转发 ——– 所有内存申请 &#x2F; 释放请求，统一转发给 ThreadCache 处理，是用户和内存池底层的 “桥梁”</li>
-<li>易用性提升 ——– 无需关注内存池内部组件，调用静态方法即可完成内存分配与回收</li>
+<li>接口归一化 ———— 对外仅暴露 allocate/deallocate 两个静态方法，屏蔽内存池三层架构的复杂逻辑</li>
+<li>调用转发 ———— 所有内存申请 / 释放请求，统一转发给 ThreadCache 处理，是用户和内存池底层的 “桥梁”</li>
+<li>易用性提升 ———— 无需关注内存池内部组件，调用静态方法即可完成内存分配与回收</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "ThreadCache.h" //依赖线程缓存，所有请求最终转发给ThreadCache处理
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">#include "ThreadCache.h" //依赖线程缓存，所有请求最终转发给ThreadCache处理
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>核心定义 MemoryPool 类并在 Kama_memoryPool 命名空间里避免命名冲突，作为内存池对外暴露的唯一类。</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">static void* allocate(size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">static void* allocate(size_t size)
 &#123;
     return ThreadCache::getInstance()->allocate(size);
 &#125;
@@ -581,7 +581,7 @@ void deallocateSpan(void* ptr, size_t numPages);
 <li>实现逻辑：无任何额外处理，直接调用 ThreadCache 单例的 allocate 方法，将分配请求转发给线程缓存</li>
 <li>设计优势：静态方法无需创建 MemoryPool 实例，用户调用方式极简（如 MemoryPool::allocate (1024)），降低使用成本</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">static void deallocate(void* ptr, size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">static void deallocate(void* ptr, size_t size)
 &#123;
     ThreadCache::getInstance()->deallocate(ptr, size);
 &#125;
@@ -597,18 +597,18 @@ void deallocateSpan(void* ptr, size_t numPages);
 </ul>
 <h2 id="ThreadCache-h"><a href="#ThreadCache-h" class="headerlink" title="ThreadCache.h"></a>ThreadCache.h</h2><p>ThreadCache (线程缓存) 是内存池架构中最贴近用户层的组件，也是整个内存池高性能的核心保障。作为 CentralCache 的上层缓存，它为每个线程提供私有内存空间：</p>
 <ul>
-<li>无锁访问 ——– 线程私有设计，分配 &#x2F; 释放内存时无需加锁，极致提升并发效率</li>
-<li>按需缓存 ——– 从 CentralCache 批量获取内存块缓存，减少跨线程 &#x2F; 跨层调用</li>
-<li>阈值回收 ——– 缓存的内存块数量超过阈值时，自动归还给 CentralCache，避免内存浪费</li>
+<li>无锁访问 ———— 线程私有设计，分配 / 释放内存时无需加锁，极致提升并发效率</li>
+<li>按需缓存 ———— 从 CentralCache 批量获取内存块缓存，减少跨线程 / 跨层调用</li>
+<li>阈值回收 ———— 缓存的内存块数量超过阈值时，自动归还给 CentralCache，避免内存浪费</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">static ThreadCache* getInstance() &#123;
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">static ThreadCache* getInstance() &#123;
     static ThreadCache instance;
     return &instance;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>线程私有设计说明：这里的 “单例” 实际是线程局部单例（通常配合 TLS 线程局部存储实现，代码中未显式体现但逻辑上是核心设计），即每个线程拥有独立的 ThreadCache 实例，这是无锁访问的关键</p>
 <p>下面让我们进行分析核心对外接口</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* allocate(size_t size);
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* allocate(size_t size);
 void deallocate(void* ptr, size_t size);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>对于 allocate 函数来说：</p>
@@ -617,11 +617,11 @@ void deallocate(void* ptr, size_t size);
 <li>核心逻辑：优先从当前线程的 freeList_中取内存块，若缓存不足则调用 fetchFromCentralCache 批量获取</li>
 <li>返回值：对齐后内存块的可用地址（跳过 BlockHeader 元数据）<br>对于 deallocate 函数来说：</li>
 <li>ptr 是用户要释放的内存地址，size 是申请时的原始大小（或对齐后的大小）</li>
-<li>核心逻辑：将内存块归还给当前线程的 freeList_，若 freeListSize_超过阈值则调用 returnToCentralCache 批量归还</li>
-<li>设计优势：线程内操作无锁，相比直接调用 malloc&#x2F;free，性能提升数倍</li>
+<li>核心逻辑：将内存块归还给当前线程的 freeList<em>，若 freeListSize</em>超过阈值则调用 returnToCentralCache 批量归还</li>
+<li>设计优势：线程内操作无锁，相比直接调用 malloc/free，性能提升数倍</li>
 </ul>
 <p>让我们来看它的私有构造函数与内部方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">private:
     ThreadCache() = default;
     void* fetchFromCentralCache(size_t index);
     void returnToCentralCache(void* ptr, size_t size);
@@ -629,7 +629,7 @@ void deallocate(void* ptr, size_t size);
     bool shouldReturnToCentralCache(size_t size);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>构造函数默认化：私有化保证只能通过 getInstance 获取实例，默认构造函数初始化 freeList_和 freeListSize_为空</li>
+<li>构造函数默认化：私有化保证只能通过 getInstance 获取实例，默认构造函数初始化 freeList<em>和 freeListSize</em>为空</li>
 <li>fetchFromCentralCache：<ul>
 <li>index 是内存块尺寸对应的自由链表下标</li>
 <li>作用：向 CentralCache 批量申请内存块，补充到当前线程的 freeList_中，是 ThreadCache 的 “补库存” 逻辑</li>
@@ -641,7 +641,7 @@ void deallocate(void* ptr, size_t size);
 </ul>
 </li>
 <li>getBatchNum：<ul>
-<li>作用：根据内存块大小计算 “批量申请 &#x2F; 归还的数量”（小内存块批量数多，大内存块批量数少）</li>
+<li>作用：根据内存块大小计算 “批量申请 / 归还的数量”（小内存块批量数多，大内存块批量数少）</li>
 <li>设计逻辑：平衡 “减少 CentralCache 访问次数” 和 “避免内存浪费”，比如 8B 内存块批量取 20 个，256KB 内存块批量取 2 个</li>
 </ul>
 </li>
@@ -652,47 +652,47 @@ void deallocate(void* ptr, size_t size);
 </li>
 </ul>
 <p>分析核心成员变量</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">private:
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">private:
     std::array<void*, FREE_LIST_SIZE> freeList_;
     std::array<size_t, FREE_LIST_SIZE> freeListSize_;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>对于 freeList_来说：</p>
 <ul>
-<li>容器类型：std::array&lt;void*, FREE_LIST_SIZE&gt;，长度和 Common.h 中定义的尺寸映射一致</li>
+<li>容器类型：std::array<void*, FREE_LIST_SIZE>，长度和 Common.h 中定义的尺寸映射一致</li>
 <li>核心作用：存储当前线程的空闲内存块链表头，每个下标对应一种对齐后的内存尺寸（如下标 0→8B、下标 1→16B）</li>
 <li>设计优势：数组访问 O (1) 时间复杂度，线程内取内存块无需遍历，极致高效</li>
 <li>对于 freeListSize_来说：</li>
-<li>容器类型：std::array&lt;size_t, FREE_LIST_SIZE&gt;，和 freeList_一一对应</li>
+<li>容器类型：std::array<size_t, FREE_LIST_SIZE>，和 freeList_一一对应</li>
 <li>核心作用：记录每个尺寸的空闲内存块数量，是判断 “是否需要补库存”“是否需要归还” 的核心依据</li>
-<li>举例：freeListSize_[0]&#x3D;10 表示当前线程缓存了 10 个 8B 的空闲内存块，若用户申请 8B 内存，直接取链表头并将数量减 1 即可</li>
+<li>举例：freeListSize_[0]=10 表示当前线程缓存了 10 个 8B 的空闲内存块，若用户申请 8B 内存，直接取链表头并将数量减 1 即可</li>
 </ul>
-<h2 id="Common-h"><a href="#Common-h" class="headerlink" title="Common.h"></a>Common.h</h2><p>Common.h 是整个内存池架构的基础规则定义文件，封装了内存池的核心常量、内存块元数据结构和尺寸计算工具，是 ThreadCache&#x2F;CentralCache&#x2F;PageCache 所有组件的公共依赖，保证整个内存池遵循统一的尺寸规则。<br>其核心作用是：</p>
+<h2 id="Common-h"><a href="#Common-h" class="headerlink" title="Common.h"></a>Common.h</h2><p>Common.h 是整个内存池架构的基础规则定义文件，封装了内存池的核心常量、内存块元数据结构和尺寸计算工具，是 ThreadCache/CentralCache/PageCache 所有组件的公共依赖，保证整个内存池遵循统一的尺寸规则。<br>其核心作用是：</p>
 <ul>
-<li>规则标准化 ——– 定义内存对齐粒度、最大管理尺寸等核心常量，统一所有组件的尺寸逻辑</li>
-<li>元数据封装 ——– 定义内存块头部结构，管理内存块的状态和链表关系</li>
-<li>工具类封装 ——– 提供内存对齐、尺寸转下标等核心算法，避免重复代码</li>
+<li>规则标准化 ———— 定义内存对齐粒度、最大管理尺寸等核心常量，统一所有组件的尺寸逻辑</li>
+<li>元数据封装 ———— 定义内存块头部结构，管理内存块的状态和链表关系</li>
+<li>工具类封装 ———— 提供内存对齐、尺寸转下标等核心算法，避免重复代码</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include <cstddef>   //提供size_t等基础类型，是内存大小/下标表示的核心依赖
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">#include <cstddef>   //提供size_t等基础类型，是内存大小/下标表示的核心依赖
 #include <atomic>    //为后续原子操作预留头文件（如CentralCache的原子指针）
 #include <array>     //为自由链表数组提供容器支持
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">constexpr size_t ALIGNMENT = 8;
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">constexpr size_t ALIGNMENT = 8;
 constexpr size_t MAX_BYTES = 256 * 1024; //256kb
 constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>取值定义：固定为 8 字节，是 x86&#x2F;x64 系统的最优内存对齐粒度</li>
+<li>取值定义：固定为 8 字节，是 x86/x64 系统的最优内存对齐粒度</li>
 <li>设计原因：8 字节是 C++ 基本类型（如指针、int64、double）的自然对齐要求，同时能保证 CPU 访问内存时不跨缓存行，最大化访问效率</li>
 <li>核心作用：所有内存池分配的小内存块，大小必须是 8 的整数倍，保证尺寸标准化</li>
 <li>对于 MAX_BYTES 来说：</li>
 <li>取值定义：256KB，是内存池管理的最大单块内存尺寸</li>
 <li>设计原因：内存池的优势是管理 “小内存”（减少碎片、提升分配速度），超过 256KB 的内存请求直接调用系统 malloc，避免内存池切割大块内存导致的浪费</li>
 <li>边界意义：划分 “内存池管理范围” 和 “系统调用范围” 的核心阈值<br>对于 FREE_LIST_SIZE 来说：</li>
-<li>计算逻辑：256*1024 &#x2F; 8 &#x3D; 32768，是自由链表数组的固定长度</li>
-<li>核心作用：对应 “8B~256KB、步长 8B” 的所有内存块尺寸，每个下标对应一种尺寸，是 ThreadCache&#x2F;CentralCache 自由链表数组的长度依据</li>
+<li>计算逻辑：256*1024 / 8 = 32768，是自由链表数组的固定长度</li>
+<li>核心作用：对应 “8B~256KB、步长 8B” 的所有内存块尺寸，每个下标对应一种尺寸，是 ThreadCache/CentralCache 自由链表数组的长度依据</li>
 <li>常量特性：用 constexpr 定义为编译期常量，相比宏定义类型更安全，且无需运行时计算，性能更优</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">struct BlockHeader &#123;
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">struct BlockHeader &#123;
     size_t size;
     bool inUse;
     BlockHeader* next;
@@ -702,13 +702,13 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>结构作用：作为每个内存块的 “头部元数据”，嵌入在实际内存块的起始位置，是内存池管理内存块的核心</li>
 <li>关键字段解读：<ul>
 <li>size：记录该内存块的实际大小（已对齐后的尺寸），回收时能快速定位到对应自由链表下标</li>
-<li>inUse：标记内存块是否被使用（true &#x3D; 使用中，false &#x3D; 空闲），避免重复分配 &#x2F; 重复回收的错误</li>
+<li>inUse：标记内存块是否被使用（true = 使用中，false = 空闲），避免重复分配 / 重复回收的错误</li>
 <li>next：链表指针，将同尺寸的空闲内存块串联成链表，是自由链表的核心组成部分</li>
 </ul>
 </li>
 <li>内存布局说明：用户实际拿到的内存地址是 BlockHeader 之后的区域，回收时通过指针偏移找回头部</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">class SizeClass &#123;
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">class SizeClass &#123;
     public:
         static size_t roundUp(size_t bytes) &#123;
             return (bytes + ALIGNMENT - 1) & ~(ALIGNMENT - 1);
@@ -722,23 +722,23 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <ul>
 <li>核心作用：将用户输入的任意字节数向上取整到最近的 8 的倍数（实现内存对齐）</li>
 <li>算法亮点：用位运算替代除法（~(ALIGNMENT-1) 即～7，二进制为…11111000），按位与会清空最后 3 位，计算效率比除法高 10 倍以上</li>
-<li>示例：输入 10→10+7&#x3D;17→17&amp;<del>7&#x3D;16；输入 8→8+7&#x3D;15→15&amp;</del>7&#x3D;8（刚好对齐时不变）<br>对于 getIndex 函数来说：</li>
+<li>示例：输入 10→10+7=17→17&amp;~7=16；输入 8→8+7=15→15&amp;~7=8（刚好对齐时不变）<br>对于 getIndex 函数来说：</li>
 <li>核心作用：将对齐后的内存尺寸转换为自由链表数组的下标</li>
-<li>边界处理：std::max (bytes, ALIGNMENT) 确保最小尺寸为 8B，避免用户传入 0B&#x2F;1B 等非法尺寸导致下标为负</li>
-<li>算法逻辑：(bytes +7)&#x2F;8 -1 等价于 “向上取整到 8 的倍数后 ÷8 -1”，示例：<ul>
-<li>输入 8→(8+7)&#x2F;8&#x3D;1→1-1&#x3D;0（下标 0，对应 8B 链表）</li>
-<li>输入 10→先 roundUp 到 16→(16+7)&#x2F;8&#x3D;2→2-1&#x3D;1（下标 1，对应 16B 链表）</li>
+<li>边界处理：std::max (bytes, ALIGNMENT) 确保最小尺寸为 8B，避免用户传入 0B/1B 等非法尺寸导致下标为负</li>
+<li>算法逻辑：(bytes +7)/8 -1 等价于 “向上取整到 8 的倍数后 ÷8 -1”，示例：<ul>
+<li>输入 8→(8+7)/8=1→1-1=0（下标 0，对应 8B 链表）</li>
+<li>输入 10→先 roundUp 到 16→(16+7)/8=2→2-1=1（下标 1，对应 16B 链表）</li>
 </ul>
 </li>
 <li>设计优势：所有组件复用同一套下标映射规则，修改对齐粒度仅需调整 ALIGNMENT 常量</li>
 </ul>
-<h2 id="ThreadCache-cpp"><a href="#ThreadCache-cpp" class="headerlink" title="ThreadCache.cpp"></a>ThreadCache.cpp</h2><p>ThreadCache.cpp 是 ThreadCache 类的核心实现文件，完整落地了线程缓存的内存分配、释放、批量申请 &#x2F; 归还逻辑，是整个内存池 “无锁高性能” 特性的核心载体。相比头文件的接口定义，该文件聚焦具体的逻辑实现，体现了线程缓存 “优先用本地缓存、批量和中心缓存交互” 的核心设计。</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "../include/ThreadCache.h"   //引入线程缓存头文件，关联类定义
+<h2 id="ThreadCache-cpp"><a href="#ThreadCache-cpp" class="headerlink" title="ThreadCache.cpp"></a>ThreadCache.cpp</h2><p>ThreadCache.cpp 是 ThreadCache 类的核心实现文件，完整落地了线程缓存的内存分配、释放、批量申请 / 归还逻辑，是整个内存池 “无锁高性能” 特性的核心载体。相比头文件的接口定义，该文件聚焦具体的逻辑实现，体现了线程缓存 “优先用本地缓存、批量和中心缓存交互” 的核心设计。</p>
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">#include "../include/ThreadCache.h"   //引入线程缓存头文件，关联类定义
 #include "../include/CentralCache.h" //引入中心缓存头文件，实现跨层交互
 #include <cstdlib>                   //引入malloc/free，处理超大内存请求
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>所有实现逻辑均在 Kama_memoryPool 命名空间下，保证代码隔离性。<br>核心分配逻辑：allocate 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* ThreadCache::allocate(size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* ThreadCache::allocate(size_t size)
 &#123;
     if (size == 0)
     &#123;
@@ -769,10 +769,10 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>若尺寸超过 256KB，直接调用系统 malloc，符合内存池 “只管理小内存” 的规则；</li>
 </ul>
 </li>
-<li>核心流程：<br> 计算尺寸对应的自由链表下标 → 2. 缓存数量减 1 → 3. 若本地缓存有空闲块，直接取链表头并更新链表 → 4. 缓存不足则向 CentralCache 批量申请；</li>
-<li>链表操作细节：*reinterpret_cast&lt;void**&gt;(ptr) 是内存池经典的 “指针内嵌链表” 技巧 —— 将内存块的首地址作为指针，存储下一个空闲块的地址，无需额外的链表节点，节省内存。</li>
+<li>核心流程：<br>计算尺寸对应的自由链表下标 → 2. 缓存数量减 1 → 3. 若本地缓存有空闲块，直接取链表头并更新链表 → 4. 缓存不足则向 CentralCache 批量申请；</li>
+<li>链表操作细节：<em>reinterpret_cast&lt;void*</em>&gt;(ptr) 是内存池经典的 “指针内嵌链表” 技巧 —— 将内存块的首地址作为指针，存储下一个空闲块的地址，无需额外的链表节点，节省内存。</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void ThreadCache::deallocate(void* ptr, size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void ThreadCache::deallocate(void* ptr, size_t size)
 &#123;
     if (size > MAX_BYTES)
     &#123;
@@ -798,7 +798,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>插入链表技巧：先将当前内存块的首地址指向原链表头，再更新链表头为当前内存块，O (1) 时间完成插入，效率拉满</li>
 </ul>
 <p>阈值判断：shouldReturnToCentralCache 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">bool ThreadCache::shouldReturnToCentralCache(size_t index)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">bool ThreadCache::shouldReturnToCentralCache(size_t index)
 &#123;
     size_t threshold = 64;
     return (freeListSize_[index] > threshold);
@@ -809,7 +809,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>设计说明：示例中用固定阈值 64，实际生产环境中通常会按内存块大小动态调整（比如小内存阈值高、大内存阈值低），避免大内存块占用过多线程缓存。</li>
 </ul>
 <p>批量申请：fetchFromCentralCache 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* ThreadCache::fetchFromCentralCache(size_t index)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* ThreadCache::fetchFromCentralCache(size_t index)
 &#123;
     size_t size = (index + 1) * ALIGNMENT;
     size_t batchNum = getBatchNum(size);
@@ -828,9 +828,9 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
     return result;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>核心流程：<br>计算当前下标对应的内存块大小 → 2. 计算批量申请数量 → 3. 调用 CentralCache 获取批量内存块 → 4. 留 1 个给当前请求，剩余的存入本地自由链表；<br>数量处理细节：freeListSize_[index] +&#x3D; batchNum-1—— 因为 1 个内存块直接返回给用户，剩余的 batchNum-1 个存入缓存，数量统计精准。</p>
+<p>核心流程：<br>计算当前下标对应的内存块大小 → 2. 计算批量申请数量 → 3. 调用 CentralCache 获取批量内存块 → 4. 留 1 个给当前请求，剩余的存入本地自由链表；<br>数量处理细节：freeListSize_[index] += batchNum-1—— 因为 1 个内存块直接返回给用户，剩余的 batchNum-1 个存入缓存，数量统计精准。</p>
 <p>批量归还：returnToCentralCache 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void ThreadCache::returnToCentralCache(void* start, size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void ThreadCache::returnToCentralCache(void* start, size_t size)
 &#123;
     size_t index = SizeClass::getIndex(size);
     size_t alignedSize = SizeClass::roundUp(size);
@@ -869,12 +869,12 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>核心逻辑：“留一部分、还一部分”—— 保留 1&#x2F;4 的缓存（最少 1 个），剩余的归还给 CentralCache，既避免线程缓存空了频繁申请，又避免缓存过多浪费内存；</li>
+<li>核心逻辑：“留一部分、还一部分”—— 保留 1/4 的缓存（最少 1 个），剩余的归还给 CentralCache，既避免线程缓存空了频繁申请，又避免缓存过多浪费内存；</li>
 <li>链表拆分细节：<br>遍历链表找到第 keepNum 个节点 → 2. 切断链表（将该节点的 next 置空） → 3. 更新本地缓存为前 keepNum 个节点 → 4. 将剩余节点归还给 CentralCache；</li>
 <li>容错处理：遍历中若链表提前结束，动态调整归还数量，避免空指针错误。</li>
 </ul>
 <p>批量数计算：getBatchNum 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">size_t ThreadCache::getBatchNum(size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">size_t ThreadCache::getBatchNum(size_t size)
 &#123;
     constexpr size_t MAX_BATCH_SIZE = 4 * 1024; // 4KB
 
@@ -893,20 +893,20 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>核心设计：“固定总字节数” 原则 —— 小内存块批量数多，大内存块批量数少，保证每次批量申请的总字节数约 2KB（不超过 4KB 上限）；<br>比如 32B 内存块批 64 个（6432&#x3D;2048B），1024B 内存块批 2 个（21024&#x3D;2048B）；</li>
+<li>核心设计：“固定总字节数” 原则 —— 小内存块批量数多，大内存块批量数少，保证每次批量申请的总字节数约 2KB（不超过 4KB 上限）；<br>比如 32B 内存块批 64 个（6432=2048B），1024B 内存块批 2 个（21024=2048B）；</li>
 <li>边界处理：<ul>
-<li>MAX_BATCH_SIZE &#x2F; size 避免批量数过大导致单次申请内存过多；</li>
+<li>MAX_BATCH_SIZE / size 避免批量数过大导致单次申请内存过多；</li>
 <li>std::max(sizeof(1), …) 保证最少申请 1 个，避免 0 个的非法情况。</li>
 </ul>
 </li>
 </ul>
-<h2 id="PageCache-cpp"><a href="#PageCache-cpp" class="headerlink" title="PageCache.cpp"></a>PageCache.cpp</h2><p>PageCache.cpp 是页缓存的核心实现文件，落地了以物理页为单位的内存申请、回收、合并逻辑，是内存池对接操作系统的 “最后一公里”。相比上层的 ThreadCache&#x2F;CentralCache，该文件聚焦 “页级内存管理” 和 “内存碎片合并”，体现了内存池 “底层统一调度、减少系统调用” 的核心设计.</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "PageCache.h"   //引入页缓存头文件，关联类定义
+<h2 id="PageCache-cpp"><a href="#PageCache-cpp" class="headerlink" title="PageCache.cpp"></a>PageCache.cpp</h2><p>PageCache.cpp 是页缓存的核心实现文件，落地了以物理页为单位的内存申请、回收、合并逻辑，是内存池对接操作系统的 “最后一公里”。相比上层的 ThreadCache/CentralCache，该文件聚焦 “页级内存管理” 和 “内存碎片合并”，体现了内存池 “底层统一调度、减少系统调用” 的核心设计.</p>
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">#include "PageCache.h"   //引入页缓存头文件，关联类定义
 #include <sys/mman.h>    //引入mmap系统调用，实现跨平台内存申请（Linux/macOS）
 #include <cstring>       //引入memset，初始化申请的内存空间
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>核心分配逻辑：allocateSpan 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* PageCache::allocateSpan(size_t numPages)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* PageCache::allocateSpan(size_t numPages)
 &#123;
     std::lock_guard<std::mutex> lock(mutex_);
 
@@ -956,12 +956,12 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>线程安全保障：std::lock_guard<a href="std::mutex">std::mutex</a> 自动加锁 &#x2F; 解锁，保证页缓存全局操作的线程安全；</li>
-<li>核心流程（优先复用空闲页）：<br>用lower_bound查找 “大于等于目标页数” 的空闲 Span（有序 map 的高效查找）；<br>若找到空闲 Span：<br>从 freeSpans_中移除该 Span；<br>若 Span 页数超过目标页数，拆分出剩余页数为新 Span，重新存入 freeSpans_；<br>将分配的 Span 存入 spanMap_，返回内存地址；</li>
+<li>线程安全保障：std::lock_guard<std::mutex> 自动加锁 / 解锁，保证页缓存全局操作的线程安全；</li>
+<li>核心流程（优先复用空闲页）：<br>用lower<em>bound查找 “大于等于目标页数” 的空闲 Span（有序 map 的高效查找）；<br>若找到空闲 Span：<br>从 freeSpans</em>中移除该 Span；<br>若 Span 页数超过目标页数，拆分出剩余页数为新 Span，重新存入 freeSpans<em>；<br>将分配的 Span 存入 spanMap</em>，返回内存地址；</li>
 <li>若未找到空闲 Span：调用 systemAlloc 向操作系统申请新内存，封装为 Span 后返回；</li>
 </ul>
 <p>核心回收逻辑：deallocateSpan 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void PageCache::deallocateSpan(void* ptr, size_t numPages)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void PageCache::deallocateSpan(void* ptr, size_t numPages)
 &#123;
     std::lock_guard<std::mutex> lock(mutex_);
 
@@ -1019,9 +1019,9 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>检查当前 Span 的下一个地址是否存在空闲 Span（相邻页合并的关键）；<br>若存在相邻空闲 Span：</li>
 <li>从 freeSpans_中移除该相邻 Span；</li>
 <li>合并两个 Span 的页数，释放相邻 Span 的内存；</li>
-<li>将合并后的 Span 重新存入 freeSpans_，等待后续分配；<br>合并逻辑细节：遍历 freeSpans_中的 Span 链表，找到相邻 Span 并移除，保证合并后链表的完整性。</li>
+<li>将合并后的 Span 重新存入 freeSpans<em>，等待后续分配；<br>合并逻辑细节：遍历 freeSpans</em>中的 Span 链表，找到相邻 Span 并移除，保证合并后链表的完整性。</li>
 </ul>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* PageCache::systemAlloc(size_t numPages)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* PageCache::systemAlloc(size_t numPages)
 &#123;
     size_t size = numPages * PAGE_SIZE;
 
@@ -1034,7 +1034,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>核心实现：调用 Linux&#x2F;macOS 系统的mmap函数申请内存（Windows 对应 VirtualAlloc）；</li>
+<li>核心实现：调用 Linux/macOS 系统的mmap函数申请内存（Windows 对应 VirtualAlloc）；</li>
 <li>参数解读：<ul>
 <li>nullptr：让系统自动选择内存起始地址；</li>
 <li>PROT_READ | PROT_WRITE：内存可读写；</li>
@@ -1045,13 +1045,13 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>容错处理：检查mmap返回值（MAP_FAILED 表示失败），返回 nullptr 避免非法地址；</li>
 <li>内存初始化：memset(ptr, 0, size) 将申请的内存置 0，避免脏数据问题。</li>
 </ul>
-<h2 id="ThreadCache-cpp-1"><a href="#ThreadCache-cpp-1" class="headerlink" title="ThreadCache.cpp"></a>ThreadCache.cpp</h2><p>ThreadCache.cpp 是 ThreadCache 类的核心实现文件，完整落地了线程缓存的内存分配、释放、批量申请 &#x2F; 归还逻辑，是整个内存池 “无锁高性能” 特性的核心载体。相比头文件的接口定义，该文件聚焦具体的逻辑实现，体现了线程缓存 “优先用本地缓存、批量和中心缓存交互” 的核心设计。</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">#include "../include/ThreadCache.h"   //引入线程缓存头文件，关联类定义
+<h2 id="ThreadCache-cpp-1"><a href="#ThreadCache-cpp-1" class="headerlink" title="ThreadCache.cpp"></a>ThreadCache.cpp</h2><p>ThreadCache.cpp 是 ThreadCache 类的核心实现文件，完整落地了线程缓存的内存分配、释放、批量申请 / 归还逻辑，是整个内存池 “无锁高性能” 特性的核心载体。相比头文件的接口定义，该文件聚焦具体的逻辑实现，体现了线程缓存 “优先用本地缓存、批量和中心缓存交互” 的核心设计。</p>
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">#include "../include/ThreadCache.h"   //引入线程缓存头文件，关联类定义
 #include "../include/CentralCache.h" //引入中心缓存头文件，实现跨层交互
 #include <cstdlib>                   //引入malloc/free，处理超大内存请求
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>核心分配逻辑：allocate 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* ThreadCache::allocate(size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* ThreadCache::allocate(size_t size)
 &#123;
     if (size == 0)
     &#123;
@@ -1089,10 +1089,10 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>本地缓存不足时，调用fetchFromCentralCache向中心缓存批量申请补充；</li>
 </ul>
 </li>
-<li>关键技巧解析：*reinterpret_cast&lt;void**&gt;(ptr) 是内存池经典优化 —— 直接复用内存块的首地址存储下一个空闲块的指针，无需额外定义链表节点结构体，几乎无元数据开销。</li>
+<li>关键技巧解析：<em>reinterpret_cast&lt;void*</em>&gt;(ptr) 是内存池经典优化 —— 直接复用内存块的首地址存储下一个空闲块的指针，无需额外定义链表节点结构体，几乎无元数据开销。</li>
 </ul>
 <p>核心释放逻辑：deallocate 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void ThreadCache::deallocate(void* ptr, size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void ThreadCache::deallocate(void* ptr, size_t size)
 &#123;
     if (size > MAX_BYTES)
     &#123;
@@ -1125,7 +1125,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>性能优势：全程无锁、无遍历，释放操作仅需 3 次指针赋值 + 1 次计数，耗时可忽略。</li>
 </ul>
 <p>阈值判断：shouldReturnToCentralCache 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">bool ThreadCache::shouldReturnToCentralCache(size_t index)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">bool ThreadCache::shouldReturnToCentralCache(size_t index)
 &#123;
     size_t threshold = 64;
     return (freeListSize_[index] > threshold);
@@ -1136,7 +1136,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>设计说明：示例中固定阈值是为了简化逻辑，生产级实现中通常会按块大小动态调整（如 8B 块阈值设为 128，256KB 块阈值设为 8），平衡 “减少中心缓存交互” 和 “内存全局复用”。</li>
 </ul>
 <p>批量申请：fetchFromCentralCache 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void* ThreadCache::fetchFromCentralCache(size_t index)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void* ThreadCache::fetchFromCentralCache(size_t index)
 &#123;
     size_t size = (index + 1) * ALIGNMENT;
     size_t batchNum = getBatchNum(size);
@@ -1169,7 +1169,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 </li>
 </ul>
 <p>批量归还：returnToCentralCache 方法</p>
-<pre class="line-numbers language-language-CPP"><code class="language-language-CPP">void ThreadCache::returnToCentralCache(void* start, size_t size)
+<pre class="line-numbers language-lang-CPP"><code class="language-lang-CPP">void ThreadCache::returnToCentralCache(void* start, size_t size)
 &#123;
     size_t index = SizeClass::getIndex(size);
     size_t alignedSize = SizeClass::roundUp(size);
@@ -1208,7 +1208,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>归还策略：“保留 1&#x2F;4、归还 3&#x2F;4”，既避免本地缓存被清空导致频繁申请，又防止线程独占过多内存；</li>
+<li>归还策略：“保留 1/4、归还 3/4”，既避免本地缓存被清空导致频繁申请，又防止线程独占过多内存；</li>
 <li>链表拆分逻辑：<ul>
 <li>遍历链表找到第keepNum个节点，作为本地缓存和归还块的分割点；</li>
 <li>切断链表（置空分割点的 next 指针），更新本地链表为前keepNum个节点；</li>
@@ -1218,7 +1218,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 <li>容错处理：遍历中若链表提前结束，动态调整归还数量，避免空指针访问，保证代码健壮性。</li>
 </ul>
 <p>批量数计算：getBatchNum 方法</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">size_t ThreadCache::getBatchNum(size_t size)
+<pre class="line-numbers language-lang-cpp"><code class="language-lang-cpp">size_t ThreadCache::getBatchNum(size_t size)
 &#123;
     constexpr size_t MAX_BATCH_SIZE = 4 * 1024; // 4KB
 
@@ -1242,7 +1242,7 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 </ul>
 </li>
 <li>边界防护：<ul>
-<li>MAX_BATCH_SIZE &#x2F; size 避免大内存块批量数过大（如 256KB 块仅批 1 个）；</li>
+<li>MAX_BATCH_SIZE / size 避免大内存块批量数过大（如 256KB 块仅批 1 个）；</li>
 <li>std::max(sizeof(1), …) 保证最少申请 1 个，杜绝 0 个的非法情况；</li>
 </ul>
 </li>
@@ -1522,6 +1522,10 @@ constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
                         <span class="chip bg-color">SDR</span>
                     </a>
                     
+                    <a href="/tags/gnuradio/">
+                        <span class="chip bg-color">gnuradio</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1760,7 +1764,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">7.7k</span>
+                        class="white-color">8.3k</span>
             
             
             
