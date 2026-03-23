@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="标签: gnuradio, blog,D.riven">
+    <meta name="keywords" content="分类: SDRs, blog,D.riven">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>标签: gnuradio | D.riven</title>
+    <title>分类: SDRs | D.riven</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -252,53 +252,46 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
     
 
-<div id="tags" class="container chip-container">
+<div id="category-cloud" class="container chip-container">
     <div class="card">
         <div class="card-content">
             <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
             </div>
             <div class="tag-chips">
                 
                 
-                <a href="/tags/CPP/" title="CPP: 1">
+                
+                <a href="/categories/SDRs/" title="SDRs: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="CPP" style="background-color: #F9EBEA;">CPP
+                             chip-active "
+                            style="background-color: #F9EBEA;">SDRs
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/SDR/" title="SDR: 3">
+                <a href="/categories/SDR/" title="SDR: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="SDR" style="background-color: #F5EEF8;">SDR
-                        <span class="tag-length">3</span>
+                            style="background-color: #F5EEF8;">SDR
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
-                
-                <a href="/tags/gnuradio/" title="gnuradio: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="gnuradio" style="background-color: #D5F5E3;">gnuradio
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
                 
             </div>
         </div>
     </div>
 </div>
 
+
     
 
     <article id="articles" class="container articles">
         <div class="row tags-posts">
             
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="SDR, gnuradio" data-aos="fade-up">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2026/032217132.html">
                         <div class="card-image tag-image">
@@ -309,6 +302,11 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                         </div>
                     </a>
                     <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                设计介绍插值可以提高采样率，人话：原来 1 秒只有 100 个点 → 插值后变成 1 秒 400 个点这样可以不太准确的推理，从奈奎斯特来说可用带宽≈采样率的一半。现在通过插值采样率高了，能表示的最高频率自然也就大了。看起来可用带宽就变多了
+                            
+                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2026-03-22
@@ -318,71 +316,27 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/SDRs/" class="post-category">
-                                SDRs
+                                    SDRs
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="SDR, gnuradio" data-aos="fade-up">
-                <div class="card">
-                    <a href="/2026/032217132.html">
-                        <div class="card-image tag-image">
-                            
-                            <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Designing Filter Taps by GNURadio">
-                            
-                            <span class="card-title">Designing Filter Taps by GNURadio</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-22
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                D.riven
-                                
-                            </span>
-                        </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/SDR/">
+                            <span class="chip bg-color">SDR</span>
+                        </a>
+                        
+                        <a href="/tags/gnuradio/">
+                            <span class="chip bg-color">gnuradio</span>
+                        </a>
+                        
                     </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="SDR, gnuradio" data-aos="fade-up">
-                <div class="card">
-                    <a href="/2026/032232090.html">
-                        <div class="card-image tag-image">
-                            
-                            <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Low pass filter example by gnuradio">
-                            
-                            <span class="card-title">Low pass filter example by gnuradio</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-22
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/SDR/" class="post-category">
-                                SDR
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             
