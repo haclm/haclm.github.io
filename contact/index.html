@@ -236,7 +236,28 @@
 
             <div class="description center-align">
                 
-                    Hello 
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: [ 
+                            
+                                "~$ echo &#39;Welcome to D.riven&#39;s Blog&#39;",
+                            
+                                "~$ cat /about/me.txt",
+                            
+                                "Embedded Engineer | SDR Enthusiast",
+                            
+                                "~$ ./start_reading.sh",
+                            
+                        ],
+                        startDelay: 500,
+                        typeSpeed: 80,
+                        loop: true,
+                        backSpeed: 30,
+                        showCursor: true
+                    });
+                </script>
                 
             </div>
         </div>
@@ -249,7 +270,7 @@
 </script>
 
 <script>
-$('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+$('.bg-cover').css('background-image', 'url(/medias/banner/' + (new Date().getDay() % 2) + '.jpg)');
 </script>
     </div>
 </div>

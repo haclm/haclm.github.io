@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="404, blog,D.riven">
+    <meta name="keywords" content="404 - File Not Found, blog,D.riven">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>404 | D.riven</title>
+    <title>404 - File Not Found | D.riven</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -218,31 +218,172 @@
 </header>
 
     <style type="text/css">
-    /* don't remove. */
-    .about-cover {
-        height: 90.2vh;
+    .terminal-404 {
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        background-color: #0d1117;
+        color: #3fb950;
+        min-height: 100vh;
+        padding: 40px;
+        box-sizing: border-box;
+    }
+
+    .terminal-container {
+        max-width: 800px;
+        margin: 0 auto;
+        border: 1px solid #3fb950;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(63, 185, 80, 0.2);
+    }
+
+    .terminal-header {
+        background-color: #161b22;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #3fb950;
+    }
+
+    .terminal-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+
+    .terminal-dot.red { background-color: #ff5f56; }
+    .terminal-dot.yellow { background-color: #ffbd2e; }
+    .terminal-dot.green { background-color: #27ca40; }
+
+    .terminal-title {
+        color: #8b949e;
+        font-size: 14px;
+        margin-left: 16px;
+    }
+
+    .terminal-body {
+        padding: 20px;
+        background-color: #0d1117;
+    }
+
+    .terminal-line {
+        margin-bottom: 8px;
+        white-space: pre-wrap;
+        line-height: 1.6;
+    }
+
+    .terminal-prompt {
+        color: #58a6ff;
+    }
+
+    .terminal-command {
+        color: #e6edf3;
+    }
+
+    .terminal-error {
+        color: #f85149;
+    }
+
+    .terminal-success {
+        color: #3fb950;
+    }
+
+    .terminal-path {
+        color: #a371f7;
+    }
+
+    .cursor {
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    .typewriter {
+        overflow: hidden;
+        border-right: 2px solid #3fb950;
+        white-space: nowrap;
+        animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: #3fb950; }
+    }
+
+    .return-home {
+        margin-top: 20px;
+        color: #58a6ff;
+        text-decoration: underline;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .return-home:hover {
+        color: #79c0ff;
     }
 </style>
-<div class="bg-cover pd-header about-cover">
-    <div class="container">
-        <div class="row">
-            <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-                <div class="brand">
-                    <div class="title center-align">
-                        404
-                    </div>
-                    <div class="description center-align">
-                        Oops～，我崩溃了！找不到你想要的页面了
-                    </div>
-                </div>
+
+<div class="terminal-404">
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <span class="terminal-title">driven@blog: ~</span>
+        </div>
+        <div class="terminal-body">
+            <div class="terminal-line">
+                <span class="terminal-prompt">driven@blog</span>:<span class="terminal-path">~</span>$ cat <span class="terminal-command">/page/not/found</span>
+            </div>
+            <div class="terminal-line">
+                <span class="terminal-error">cat: /page/not/found: No such file or directory</span>
+            </div>
+            <div class="terminal-line"></div>
+            <div class="terminal-line">
+                <span class="terminal-prompt">driven@blog</span>:<span class="terminal-path">~</span>$ ls <span class="terminal-command">/</span>
+            </div>
+            <div class="terminal-line">
+                <span class="terminal-success">about/    archives/    categories/    tags/    index.html</span>
+            </div>
+            <div class="terminal-line"></div>
+            <div class="terminal-line">
+                <span class="terminal-prompt">driven@blog</span>:<span class="terminal-path">~</span>$ <span class="terminal-command">echo "Redirecting to homepage..."</span>
+            </div>
+            <div class="terminal-line">
+                <span class="terminal-success">Redirecting to homepage...</span>
+            </div>
+            <div class="terminal-line"></div>
+            <div class="terminal-line">
+                <span class="terminal-prompt">driven@blog</span>:<span class="terminal-path">~</span>$ <span class="terminal-command">cd / && ./start.sh</span>
+            </div>
+            <div class="terminal-line">
+                <span class="terminal-success">Welcome back! Loading main page...</span>
+            </div>
+            <div class="terminal-line"></div>
+            <div class="terminal-line">
+                <span class="terminal-prompt">driven@blog</span>:<span class="terminal-path">~</span>$ <span class="cursor">_</span>
+            </div>
+            <div class="terminal-line return-home">
+                <a href="/" style="color: #58a6ff; text-decoration: underline;">[Press Enter] or click here to return to homepage</a>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            window.location.href = '/';
+        }
+    });
 </script>
 
 

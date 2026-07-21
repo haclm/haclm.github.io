@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="关于, blog,D.riven">
+    <meta name="keywords" content="关于我, blog,D.riven">
     <meta name="description" content="Hello ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>关于 | D.riven</title>
+    <title>关于我 | D.riven</title>
     <link rel="icon" type="image/png" href="/favicon1.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -237,7 +237,28 @@
 
             <div class="description center-align">
                 
-                    Hello 
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: [ 
+                            
+                                "~$ echo &#39;Welcome to D.riven&#39;s Blog&#39;",
+                            
+                                "~$ cat /about/me.txt",
+                            
+                                "Embedded Engineer | SDR Enthusiast",
+                            
+                                "~$ ./start_reading.sh",
+                            
+                        ],
+                        startDelay: 500,
+                        typeSpeed: 80,
+                        loop: true,
+                        backSpeed: 30,
+                        showCursor: true
+                    });
+                </script>
                 
             </div>
         </div>
@@ -250,7 +271,7 @@
 </script>
 
 <script>
-$('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+$('.bg-cover').css('background-image', 'url(/medias/banner/' + (new Date().getDay() % 2) + '.jpg)');
 </script>
     </div>
 </div>
@@ -442,7 +463,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         },
         xAxis: {
             type: 'category',
-            data: ["2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03"]
+            data: ["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"]
         },
         yAxis: {
             type: 'value',
@@ -452,7 +473,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,0,6],
+                data: [0,0,0,0,0,0,0,0,6,0,0,0,0],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -562,6 +583,58 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
 
                 
+                
+<div class="my-projects">
+    <div class="title center-align" data-aos="zoom-in-up">
+        <i class="fas fa-gift"></i>&nbsp;&nbsp;我的项目
+    </div>
+    <div class="row">
+        
+        
+        <div class="col s12 m6 l4" data-aos="fade-up">
+            <div class="info center-align">
+                <a href="https://github.com/haclm" class="icon"
+                   style="background: linear-gradient(to bottom right, #66BB6A 0%, #81C784 100%)" target="_blank">
+                    <i class="fas fa-memory"></i>
+                </a>
+                <div class="info-title">
+                    <a href="https://github.com/haclm" target="_blank">MemoryPool</a>
+                </div>
+                <div class="info-desc">C++高性能内存池实现，支持线程缓存、中心缓存、页缓存三级架构</div>
+            </div>
+        </div>
+        
+        <div class="col s12 m6 l4" data-aos="fade-up">
+            <div class="info center-align">
+                <a href="https://github.com/haclm" class="icon"
+                   style="background: linear-gradient(to bottom right, #42A5F5 0%, #1E88E5 100%)" target="_blank">
+                    <i class="fas fa-radio"></i>
+                </a>
+                <div class="info-title">
+                    <a href="https://github.com/haclm" target="_blank">FMReceiver</a>
+                </div>
+                <div class="info-desc">基于GNURadio的FM收音机实现，支持B210设备</div>
+            </div>
+        </div>
+        
+        <div class="col s12 m6 l4" data-aos="fade-up">
+            <div class="info center-align">
+                <a href="https://github.com/haclm" class="icon"
+                   style="background: linear-gradient(to bottom right, #AB47BC 0%, #8E24AA 100%)" target="_blank">
+                    <i class="fas fa-signal"></i>
+                </a>
+                <div class="info-title">
+                    <a href="https://github.com/haclm" target="_blank">SDRProjects</a>
+                </div>
+                <div class="info-desc">软件定义无线电相关项目，包括滤波器设计、频率转换等</div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+                
 
                 
                 
@@ -576,8 +649,30 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
                 <div class="skillbar-title"
-                     style="background: linear-gradient(to right, #00BCD4 0%, #FF00CC 100%); width: 80%">
-                    <span>C</span>
+                     style="background: linear-gradient(to right, #00BCD4 0%, #FF00CC 100%); width: 85%">
+                    <span>C/C++</span>
+                </div>
+                <div class="skill-bar-percent">85%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #FFD54F 0%, #FF9800 100%); width: 70%">
+                    <span>Python</span>
+                </div>
+                <div class="skill-bar-percent">70%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #7E57C2 0%, #5E35B1 100%); width: 80%">
+                    <span>Embedded</span>
                 </div>
                 <div class="skill-bar-percent">80%</div>
             </div>
@@ -587,10 +682,21 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
                 <div class="skillbar-title"
-                     style="background: linear-gradient(to right, #FF9800 0%, #FF5722 100%); width: 40%">
-                    <span>Cpp</span>
+                     style="background: linear-gradient(to right, #26C6DA 0%, #00ACC1 100%); width: 75%">
+                    <span>SignalProcessing</span>
                 </div>
-                <div class="skill-bar-percent">40%</div>
+                <div class="skill-bar-percent">75%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #388E3C 0%, #2E7D32 100%); width: 78%">
+                    <span>Linux</span>
+                </div>
+                <div class="skill-bar-percent">78%</div>
             </div>
         </div>
         
