@@ -33,8 +33,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
-<style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -146,7 +145,8 @@ mjx-container[display="true"] {
 mjx-container[display="true"] + br {
   display: none;
 }
-</style><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+</style><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
@@ -717,28 +717,21 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + (new Date().getDa
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2026/032232090.html">
+                    <a href="/2026/032226894.html">
                         <div class="card-image">
                             
-                            <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Low pass filter example by gnuradio">
+                            <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Frequency Shifting by gnuradio">
                             
-                            <span class="card-title">Low pass filter example by gnuradio</span>
+                            <span class="card-title">Frequency Shifting by gnuradio</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                创建流程图准备阶段我们要准备以下方块
-
-Signal Source
-Low Pass Filter
-Throttle
-QT GUI Frquency Sink
-QT GUI Range
-
-具体连接把它们以下面这样的形式进行连接：
-双击QT 
+                                实践我们知道频移可以使用多种方式进行实现，但是这篇文章使用的是 简单乘以复杂正弦波。源信号信号整体搬到频率
+准备首先使用一个10M噪声源加上一个低通滤波器组成一个源输入
+然后我们加入一个复正弦波，之后用于频率偏移。并添加一个变量new_ce
                             
                         </div>
                         <div class="publish-info">
@@ -778,21 +771,28 @@ QT GUI Range
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2026/032226894.html">
+                    <a href="/2026/032232090.html">
                         <div class="card-image">
                             
-                            <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Frequency Shifting by gnuradio">
+                            <img src="/images/Covers/GNURadio.png" class="responsive-img" alt="Low pass filter example by gnuradio">
                             
-                            <span class="card-title">Frequency Shifting by gnuradio</span>
+                            <span class="card-title">Low pass filter example by gnuradio</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                实践我们知道频移可以使用多种方式进行实现，但是这篇文章使用的是 简单乘以复杂正弦波。源信号信号整体搬到频率
-准备首先使用一个10M噪声源加上一个低通滤波器组成一个源输入
-然后我们加入一个复正弦波，之后用于频率偏移。并添加一个变量new_ce
+                                创建流程图准备阶段我们要准备以下方块
+
+Signal Source
+Low Pass Filter
+Throttle
+QT GUI Frquency Sink
+QT GUI Range
+
+具体连接把它们以下面这样的形式进行连接：
+双击QT 
                             
                         </div>
                         <div class="publish-info">
