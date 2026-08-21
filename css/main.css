@@ -1433,7 +1433,7 @@ pre code {
     transition: all 0.2s ease-in-out;
   }
   .links-of-author a::before {
-    background: #ff7571;
+    background: #1811df;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -3297,6 +3297,21 @@ body {
   height: 100%;
   display: block;
 }
+.scope-mode {
+  position: absolute;
+  right: 12px;
+  top: 7px;
+  z-index: 2;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgba(0,255,136,0.85);
+  background: rgba(0,255,136,0.08);
+  border: 1px solid rgba(0,255,136,0.25);
+  padding: 1px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+}
 .scope-wrap::before {
   content: 'CH1  AC';
   position: absolute;
@@ -3308,7 +3323,7 @@ body {
   color: rgba(0,255,136,0.55);
 }
 .scope-wrap::after {
-  content: 'V:500mV/div  T:1ms/div  AUTO';
+  content: attr(data-readout);
   position: absolute;
   right: 12px;
   bottom: 7px;
@@ -3316,6 +3331,108 @@ body {
   font-size: 10px;
   letter-spacing: 0.5px;
   color: rgba(0,255,136,0.4);
+}
+.about-hero {
+  margin: 8px 0 24px;
+}
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 12px 0;
+}
+.skill-name {
+  width: 120px;
+  flex: none;
+  color: #9fb59f;
+  font-size: 13px;
+  text-align: right;
+}
+.skill-track {
+  flex: 1;
+  height: 10px;
+  background: #0d1710;
+  border: 1px solid #1b281e;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00c96b, #0f8);
+  box-shadow: 0 0 10px rgba(0,255,136,0.5);
+  border-radius: 4px;
+  animation: skill-grow 1.2s ease-out both;
+}
+.skill-pct {
+  width: 40px;
+  flex: none;
+  text-align: right;
+  color: #0f8;
+  font-size: 12px;
+}
+.about-tags {
+  margin: 18px 0 6px;
+}
+.about-tags .chip {
+  display: inline-block;
+  margin: 3px 5px 3px 0;
+  padding: 2px 10px;
+  border: 1px solid rgba(0,255,136,0.3);
+  border-radius: 4px;
+  color: #00c96b;
+  font-size: 12px;
+  background: rgba(0,255,136,0.04);
+}
+.about-tags .chip:hover {
+  color: #0f8;
+  border-color: #0f8;
+}
+.about-links {
+  margin: 10px 0;
+}
+.about-link {
+  display: block;
+  margin: 8px 0;
+  padding: 10px 14px;
+  border: 1px solid #1b281e;
+  border-radius: 6px;
+  color: #9fb59f;
+  background: rgba(0,255,136,0.03);
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+a.about-link:hover {
+  color: #0f8;
+  border-color: #0f8;
+  background: rgba(0,255,136,0.08);
+}
+.about-link .prompt {
+  color: #0f8;
+  font-weight: 600;
+}
+.about-posts {
+  margin: 10px 0;
+}
+.about-posts .post-line {
+  margin: 8px 0;
+  color: #71806f;
+  font-size: 14px;
+}
+.about-posts .post-line .date {
+  color: #00e5ff;
+  margin-right: 10px;
+}
+.about-posts .post-line a {
+  color: #9fb59f;
+  border-bottom: 0;
+}
+.about-posts .post-line a:hover {
+  color: #0f8;
+}
+@media (max-width: 767px) {
+  .skill-name {
+    width: 90px;
+    font-size: 12px;
+  }
 }
 .post-block {
   background: rgba(10,15,11,0.92);
@@ -3633,5 +3750,10 @@ figure.highlight {
 @keyframes dr-blink {
   50% {
     opacity: 0;
+  }
+}
+@keyframes skill-grow {
+  from {
+    width: 0;
   }
 }

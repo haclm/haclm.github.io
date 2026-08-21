@@ -77,6 +77,7 @@
 <meta name="theme-color" content="#050807">
 <meta name="color-scheme" content="dark">
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -233,6 +234,24 @@
 
   <footer class="footer">
     <div class="footer-inner">
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="" aria-label="选择语言">
+      
+        <option value="zh-CN" data-href="/friends/index.html" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/friends/index.html" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
 
   <div class="copyright">
     &copy; 2021 – 
@@ -297,7 +316,20 @@
   /* ---------- helpers ---------- */
   function $(sel) { return document.querySelector(sel); }
   function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
-  var isHome = /^\/(index\.html?)?$/.test(location.pathname);
+
+  /* ---------- en pages: prefix internal links with /en ---------- */
+  if (document.documentElement.lang === 'en') {
+    var links = document.querySelectorAll('a[href^="/"]');
+    for (var li = 0; li < links.length; li++) {
+      var la = links[li];
+      var lhref = la.getAttribute('href');
+      if (lhref && lhref.length > 1 && lhref.charAt(1) !== '/' && lhref.indexOf('/en') !== 0) {
+        la.setAttribute('href', '/en' + lhref);
+      }
+    }
+  }
+
+  var isHome = /^\/(en\/)?(index\.html?)?$/.test(location.pathname);
 
   /* ---------- status bar clock ---------- */
   var timeEl = $('.ts-time');
@@ -314,11 +346,16 @@
   if (!isHome) return;
 
   /* ---------- terminal hero ---------- */
-  var LINES = [
+  var LINES = document.documentElement.lang === 'en' ? [
     { cmd: 'whoami', out: 'D.riven — Embedded Engineer' },
     { cmd: 'cat skills.txt', out: 'C/C++ · Python · Embedded · SDR · Linux' },
     { cmd: 'ls blog/ --tech', out: '#SDR  #CPP  #gnuradio  #Linux  #ARM', cls: 'dim' },
     { cmd: './launch_blog.sh', out: '[OK] signal acquired · posts on air', cls: 'ok' }
+  ] : [
+    { cmd: 'whoami', out: 'D.riven — 嵌入式工程师' },
+    { cmd: 'cat skills.txt', out: 'C/C++ · Python · Embedded · SDR · Linux' },
+    { cmd: 'ls blog/ --tech', out: '#SDR  #CPP  #gnuradio  #Linux  #ARM', cls: 'dim' },
+    { cmd: './launch_blog.sh', out: '[OK] 信号已锁定 · 文章在线', cls: 'ok' }
   ];
 
   function typeText(el, text) {
@@ -349,7 +386,8 @@
 
     var scope = document.createElement('div');
     scope.className = 'scope-wrap';
-    scope.innerHTML = '<canvas id="scope-canvas"></canvas>';
+    scope.setAttribute('data-readout', 'V:500mV/div  T:1ms/div  AUTO');
+    scope.innerHTML = '<canvas id="scope-canvas"></canvas><span class="scope-mode">F1 TIME</span>';
 
     win.appendChild(bar);
     win.appendChild(body);
@@ -382,10 +420,10 @@
       body.classList.add('done');
     })();
 
-    /* oscilloscope */
+    /* oscilloscope: multi-mode (TIME / FFT / CHIRP / AM / SQUARE) */
     var canvas = document.getElementById('scope-canvas');
     var ctx = canvas.getContext('2d');
-    var W = 0, H = 0, dpr = 1, phase = 0;
+    var W = 0, H = 0, dpr = 1, phase = 0, t = 0;
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -397,17 +435,7 @@
     if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
     else window.addEventListener('resize', resize);
 
-    function yAt(x) {
-      var p = x / W * Math.PI * 7 + phase;
-      return H / 2
-        + Math.sin(p) * H * 0.22
-        + Math.sin(p * 0.41 + 1.7) * H * 0.10
-        + Math.sin(p * 0.13 + 4.2) * H * 0.05;
-    }
-
-    (function frame() {
-      ctx.clearRect(0, 0, W, H);
-      /* graticule */
+    function drawGraticule() {
       ctx.strokeStyle = 'rgba(0,255,136,0.07)';
       ctx.lineWidth = 1;
       var gx = W / 14, gy = H / 5;
@@ -415,24 +443,189 @@
       for (var x = 0; x <= W; x += gx) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); }
       for (var y = 0; y <= H; y += gy) { ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); }
       ctx.stroke();
-      /* waveform */
+    }
+
+    // fn(u) -> -1..1, u in [0,1]; draws phosphor trace
+    function trace(fn) {
       ctx.strokeStyle = 'rgba(0,255,136,0.85)';
       ctx.shadowColor = 'rgba(0,255,136,0.7)';
       ctx.shadowBlur = 10;
       ctx.lineWidth = 1.6;
       ctx.beginPath();
       for (var px = 0; px <= W; px += 2) {
-        var py = yAt(px);
-        if (px === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        var y = fn(px / W) * H * 0.48 + H / 2;
+        if (px === 0) ctx.moveTo(px, y); else ctx.lineTo(px, y);
       }
       ctx.stroke();
       ctx.shadowBlur = 0;
-      /* sweep head */
+    }
+
+    function sweepDot() {
       var sweep = ((phase % (Math.PI * 2)) / (Math.PI * 2)) * W;
-      var sy = yAt(sweep);
+      var sy = H / 2 + Math.sin(phase) * H * 0.2;
       ctx.fillStyle = '#d7ffe6';
       ctx.beginPath(); ctx.arc(sweep, sy, 2.5, 0, Math.PI * 2); ctx.fill();
+    }
+
+    var lissajous = { lastRi: -1 };
+
+    var MODES = [
+      { // 时域：正弦叠加 + 噪声
+        label: 'F1 TIME',
+        readout: 'V:500mV/div  T:1ms/div  AUTO',
+        draw: function () {
+          var p = phase;
+          trace(function (u) {
+            var x = u * Math.PI * 7 + p;
+            return Math.sin(x) * 0.44
+              + Math.sin(x * 0.41 + 1.7) * 0.20
+              + Math.sin(x * 0.13 + 4.2) * 0.10
+              + (Math.random() - .5) * 0.04;
+          });
+          sweepDot();
+        }
+      },
+      { // 傅里叶：频谱柱 + 漂移谱峰
+        label: 'F2 FFT',
+        readout: 'SPAN:50kHz/div  RBW:1kHz  AVG:x4',
+        draw: function () {
+          var bins = 56, bw = W / bins, now = t * 0.001;
+          var peaks = [
+            { c: 0.16 + 0.05 * Math.sin(now * 0.6), a: 0.9 },
+            { c: 0.42 + 0.08 * Math.sin(now * 0.9 + 1.2), a: 1.0 },
+            { c: 0.70 + 0.05 * Math.sin(now * 0.7 + 3.4), a: 0.65 },
+            { c: 0.90 + 0.03 * Math.sin(now * 1.1 + 5.1), a: 0.4 }
+          ];
+          for (var i = 0; i < bins; i++) {
+            var fx = (i + 0.5) / bins, v = 0.04;
+            for (var j = 0; j < peaks.length; j++) {
+              v += peaks[j].a * Math.exp(-Math.pow((fx - peaks[j].c) / 0.05, 2));
+            }
+            v += Math.random() * 0.06;
+            if (v > 1) v = 1;
+            var bh = v * H * 0.86;
+            ctx.fillStyle = (i % 2) ? 'rgba(0,255,136,0.45)' : 'rgba(0,255,136,0.8)';
+            ctx.fillRect(i * bw + 1, H - bh, bw - 2, bh);
+          }
+          // 峰值保持线
+          ctx.fillStyle = 'rgba(212,255,226,0.9)';
+          for (var k = 0; k < peaks.length; k++) {
+            var px2 = peaks[k].c * W;
+            ctx.fillRect(px2 - 1, H - peaks[k].a * H * 0.86 - 3, 2, 3);
+          }
+        }
+      },
+      { // 扫频：chirp 信号
+        label: 'F3 CHIRP',
+        readout: 'V:500mV/div  SWEEP:100ms  AUTO',
+        draw: function () {
+          var p = phase;
+          trace(function (u) {
+            var k = 1 + Math.sin(p * 0.35) * 0.6 + u * 5.5;
+            var x = u * Math.PI * 3;
+            return Math.sin(x * k + p * 0.8) * 0.5
+              + Math.sin(x * k * 1.7 + p * 1.2) * 0.15;
+          });
+          sweepDot();
+        }
+      },
+      { // 调幅：载波 + 包络
+        label: 'F4 AM',
+        readout: 'V:500mV/div  MOD:1kHz  AUTO',
+        draw: function () {
+          var p = phase;
+          trace(function (u) {
+            var x = u * Math.PI * 12 + p;
+            var env = 0.5 + 0.5 * Math.sin(u * Math.PI * 1.4 + p * 0.18);
+            return Math.sin(x) * env;
+          });
+          // 包络虚线
+          ctx.strokeStyle = 'rgba(0,229,255,0.35)';
+          ctx.lineWidth = 1;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          for (var px3 = 0; px3 <= W; px3 += 4) {
+            var eu = px3 / W;
+            var envY = (0.5 + 0.5 * Math.sin(eu * Math.PI * 1.4 + phase * 0.18)) * H * 0.48;
+            if (px3 === 0) ctx.moveTo(px3, H / 2 - envY); else ctx.lineTo(px3, H / 2 - envY);
+          }
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+      },
+      { // 方波：带上升沿过冲
+        label: 'F5 SQUARE',
+        readout: 'V:500mV/div  T:200us/div  AUTO',
+        draw: function () {
+          var p = phase;
+          trace(function (u) {
+            var x = u * Math.PI * 5 + p;
+            var cycle = (x % (Math.PI * 2)) / (Math.PI * 2);
+            var s = cycle < 0.5 ? 1 : -1;
+            var edge = Math.max(0, 1 - Math.abs(cycle - 0) * 8);
+            var edge2 = Math.max(0, 1 - Math.abs(cycle - 0.5) * 8);
+            var overshoot = Math.sin(cycle * Math.PI * 6) * 0.2 * (edge + edge2);
+            return s * 0.6 + overshoot;
+          });
+          sweepDot();
+        }
+      },
+      { // 李萨如 X-Y：频率比周期变化 + 相位差扫动
+        label: 'F6 XY LISSAJOUS',
+        readout: 'X-Y MODE  AUTO',
+        draw: function () {
+          var ratios = [[1, 1], [1, 2], [2, 3], [3, 4], [3, 2], [5, 3], [2, 5]];
+          var ri = Math.floor(t / 3600) % ratios.length;
+          if (ri !== lissajous.lastRi) {
+            lissajous.lastRi = ri;
+            scopeWrap.setAttribute('data-readout', 'X-Y MODE  RATIO ' + ratios[ri][0] + ':' + ratios[ri][1]);
+          }
+          var a = ratios[ri][0], b = ratios[ri][1];
+          var delta = phase * 0.45;
+          ctx.strokeStyle = 'rgba(0,255,136,0.85)';
+          ctx.shadowColor = 'rgba(0,255,136,0.7)';
+          ctx.shadowBlur = 10;
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          for (var i = 0; i <= 260; i++) {
+            var u = i / 260 * Math.PI * 2;
+            var px = (Math.sin(a * u + delta) * 0.9 + 1) / 2 * W;
+            var py = (Math.sin(b * u) * 0.9 + 1) / 2 * H;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+          // 扫描光点
+          var su = ((phase * 0.45) % (Math.PI * 2)) / (Math.PI * 2) * Math.PI * 2;
+          var sx = (Math.sin(a * su + delta) * 0.9 + 1) / 2 * W;
+          var sy = (Math.sin(b * su) * 0.9 + 1) / 2 * H;
+          ctx.fillStyle = '#d7ffe6';
+          ctx.beginPath(); ctx.arc(sx, sy, 2.5, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+    ];
+
+    var scopeWrap = $('.scope-wrap');
+    var modeEl = scopeWrap.querySelector('.scope-mode');
+    var modeIdx = 0;
+
+    function setMode(i) {
+      modeIdx = ((i % MODES.length) + MODES.length) % MODES.length;
+      var m = MODES[modeIdx];
+      modeEl.textContent = m.label;
+      scopeWrap.setAttribute('data-readout', m.readout);
+    }
+
+    setMode(0);
+    setInterval(function () { setMode(modeIdx + 1); }, 5000);
+    scopeWrap.addEventListener('click', function () { setMode(modeIdx + 1); });
+
+    (function frame() {
+      ctx.clearRect(0, 0, W, H);
+      drawGraticule();
+      MODES[modeIdx].draw();
       phase += 0.055;
+      t += 16;
       requestAnimationFrame(frame);
     })();
   }
