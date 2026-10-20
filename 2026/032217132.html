@@ -601,6 +601,15 @@ mjx-container[display="true"] + br {
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
+<script>
+/* 站点标签（构建时生成，随文章/标签变化自动更新）
+   注：本文件也会被 _data 处理器无 locals 渲染一次，故需判断 site 是否存在 */
+var HEXO_TAGS = [
+  { name: "SDR", count: 5},
+  { name: "gnuradio", count: 5},
+  { name: "Math", count: 1}
+];
+</script>
 <div id="driven-hero" aria-hidden="true"></div>
 <div id="crt-scanlines" aria-hidden="true"></div>
 <div id="term-status" aria-hidden="true">
@@ -644,17 +653,28 @@ mjx-container[display="true"] + br {
 
   if (!isHome) return;
 
+  /* ---------- 标签行：取站点真实标签，按文章数排序（随文章增多自动变化） ---------- */
+  var SITE_TAGS = window.HEXO_TAGS || [];
+  var TAGLINE = (function () {
+    if (!SITE_TAGS.length) return '#no_tags_yet';
+    return SITE_TAGS.slice()
+      .sort(function (a, b) { return b.count - a.count || a.name.localeCompare(b.name); })
+      .slice(0, 8)
+      .map(function (t) { return '#' + t.name; })
+      .join('  ');
+  })();
+
   /* ---------- terminal hero ---------- */
   var LINES = document.documentElement.lang === 'en' ? [
     { cmd: 'whoami', out: 'D.riven — Embedded Engineer' },
     { cmd: 'cat skills.txt', out: 'C/C++ · Python · Embedded · SDR · Linux' },
-    { cmd: 'ls blog/ --tech', out: '#SDR  #CPP  #gnuradio  #Linux  #ARM', cls: 'dim' },
-    { cmd: './launch_blog.sh', out: '[OK] signal acquired · posts on air', cls: 'ok' }
+    { cmd: 'ls blog/ --tech', out: TAGLINE, cls: 'dim' },
+    { cmd: './launch_blog.sh', out: '[OK] signal acquired · ' + SITE_TAGS.length + ' tags on air', cls: 'ok' }
   ] : [
     { cmd: 'whoami', out: 'D.riven — 嵌入式工程师' },
     { cmd: 'cat skills.txt', out: 'C/C++ · Python · Embedded · SDR · Linux' },
-    { cmd: 'ls blog/ --tech', out: '#SDR  #CPP  #gnuradio  #Linux  #ARM', cls: 'dim' },
-    { cmd: './launch_blog.sh', out: '[OK] 信号已锁定 · 文章在线', cls: 'ok' }
+    { cmd: 'ls blog/ --tech', out: TAGLINE, cls: 'dim' },
+    { cmd: './launch_blog.sh', out: '[OK] 信号已锁定 · ' + SITE_TAGS.length + ' 个标签在线', cls: 'ok' }
   ];
 
   function typeText(el, text) {

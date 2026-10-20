@@ -83,16 +83,7 @@
   </url>
   
   <url>
-    <loc>https://haclm.github.io/friends/index.html</loc>
-    
-    <lastmod>2022-01-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://haclm.github.io/friends/friends.json</loc>
+    <loc>https://haclm.github.io/contact/index.html</loc>
     
     <lastmod>2022-01-01</lastmod>
     
@@ -110,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://haclm.github.io/contact/index.html</loc>
+    <loc>https://haclm.github.io/friends/index.html</loc>
     
     <lastmod>2022-01-01</lastmod>
     
@@ -120,6 +111,15 @@
   
   <url>
     <loc>https://haclm.github.io/index.html</loc>
+    
+    <lastmod>2022-01-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://haclm.github.io/friends/friends.json</loc>
     
     <lastmod>2022-01-01</lastmod>
     
