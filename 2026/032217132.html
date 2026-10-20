@@ -20,16 +20,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"haclm.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":300,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="GNURadio 采样率变换：通过插值提高采样率、扩展可用带宽，结合 Rational Resampler 等模块完成重采样。">
+    <meta name="description" content="GNURadio 采样率变换实操：用 Interpolating FIR Filter 做插值升采样，讲清抗镜像滤波器的截止频率为什么必须跟着插值倍数走。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sample Rate Change by GNURadio">
 <meta property="og:url" content="https://haclm.github.io/2026/032217132.html">
 <meta property="og:site_name" content="D.riven">
-<meta property="og:description" content="GNURadio 采样率变换：通过插值提高采样率、扩展可用带宽，结合 Rational Resampler 等模块完成重采样。">
+<meta property="og:description" content="GNURadio 采样率变换实操：用 Interpolating FIR Filter 做插值升采样，讲清抗镜像滤波器的截止频率为什么必须跟着插值倍数走。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://haclm.github.io/images/SRC/SRC.png">
 <meta property="article:published_time" content="2026-03-22T04:43:00.000Z">
-<meta property="article:modified_time" content="2026-08-21T09:47:15.132Z">
+<meta property="article:modified_time" content="2026-10-09T01:11:13.132Z">
 <meta property="article:author" content="D.riven">
 <meta property="article:tag" content="SDR">
 <meta property="article:tag" content="gnuradio">
@@ -67,12 +67,6 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-
-
-  
-
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","display_overflow":"scroll","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-mml-chtml.js","integrity":"sha256-ihPtDDm7pTmSF9ViEsItlvsrBTsNkz0MOXMchzOwCQw="}}</script>
-<script src="/js/third-party/math/mathjax.js" defer></script>
 
 
 <meta name="theme-color" content="#050807">
@@ -262,7 +256,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1"><span class="nav-text">设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93"><span class="nav-text">具体</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-text">分析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%94%B9%E5%8F%98%E9%87%87%E6%A0%B7%E7%8E%87"><span class="nav-text">一、背景：为什么要改变采样率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%8E%9F%E7%90%86%EF%BC%9A%E6%8F%92%E5%80%BC-%E5%8D%87%E9%87%87%E6%A0%B7-%E4%BD%8E%E9%80%9A%E6%BB%A4%E9%95%9C%E5%83%8F"><span class="nav-text">二、原理：插值 &#x3D; 升采样 + 低通滤镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%8A%A8%E6%89%8B%EF%BC%9A%E5%A4%8D%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-text">三、动手：复现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%9C%80%E8%A6%81%E7%9A%84-block"><span class="nav-text">1. 需要的 block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE"><span class="nav-text">2. 变量设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E7%BD%AE%EF%BC%88%E5%85%B3%E9%94%AE%EF%BC%89"><span class="nav-text">3. 滤波器设置（关键）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%BF%90%E8%A1%8C%E9%AA%8C%E8%AF%81"><span class="nav-text">4. 运行验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B8%B8%E8%A7%81%E5%9D%91%E4%B8%8E%E8%BE%B9%E7%95%8C"><span class="nav-text">四、常见坑与边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BB%93%E8%AE%BA"><span class="nav-text">五、结论</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -277,18 +271,18 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -340,7 +334,7 @@ mjx-container[display="true"] + br {
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="Sample Rate Change by GNURadio | D.riven">
-      <meta itemprop="description" content="GNURadio 采样率变换：通过插值提高采样率、扩展可用带宽，结合 Rational Resampler 等模块完成重采样。">
+      <meta itemprop="description" content="GNURadio 采样率变换实操：用 Interpolating FIR Filter 做插值升采样，讲清抗镜像滤波器的截止频率为什么必须跟着插值倍数走。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -381,79 +375,106 @@ mjx-container[display="true"] + br {
 
 </div>
 
-            <div class="post-description">GNURadio 采样率变换：通过插值提高采样率、扩展可用带宽，结合 Rational Resampler 等模块完成重采样。</div>
+            <div class="post-description">GNURadio 采样率变换实操：用 Interpolating FIR Filter 做插值升采样，讲清抗镜像滤波器的截止频率为什么必须跟着插值倍数走。</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>插值可以提高采样率，人话：原来 1 秒只有 100 个点 → 插值后变成 1 秒 400 个点<br>这样可以不太准确的推理，从奈奎斯特来说可用带宽≈采样率的一半。现在通过插值采样率高了，能表示的最高频率自然也就大了。看起来可用带宽就变多了。</p>
-<h2 id="具体"><a href="#具体" class="headerlink" title="具体"></a>具体</h2><p>我们需要以下block:</p>
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p><strong>一句话</strong>：插值把采样率抬高、可用带宽变大，但代价是会产生频谱镜像——必须配一个低通滤波器把它滤掉。</p>
+</blockquote>
+<h2 id="一、背景：为什么要改变采样率"><a href="#一、背景：为什么要改变采样率" class="headerlink" title="一、背景：为什么要改变采样率"></a>一、背景：为什么要改变采样率</h2><p>奈奎斯特告诉我们：<strong>采样率决定了能表示的最高频率</strong>（约等于采样率的一半）。所以当你需要”看到”更宽的频谱、或者让后续模块能处理更高频的信号时，最直接的办法就是<strong>把采样率抬上去</strong>。</p>
+<p>抬采样率的操作叫<strong>插值（Interpolation）</strong>。但天下没有免费的午餐——插值会在频谱里引入一堆”镜像”，不处理的话波形会失真。这篇文章就做两件事：<strong>插值升采样</strong>，以及<strong>把镜像滤掉</strong>。</p>
+<h2 id="二、原理：插值-升采样-低通滤镜像"><a href="#二、原理：插值-升采样-低通滤镜像" class="headerlink" title="二、原理：插值 = 升采样 + 低通滤镜像"></a>二、原理：插值 = 升采样 + 低通滤镜像</h2><p>用大白话说：原来 1 秒只有 100 个采样点，插值后变成 1 秒 400 个点（插值倍数 = 4）。</p>
+<p>数学上插值的步骤是：</p>
+<ol>
+<li><strong>补零升采样</strong>：在每两个原始点之间插 3 个 0，采样率变成 4 倍；</li>
+<li><strong>低通滤波</strong>：补零会在频域产生周期性的<strong>镜像</strong>，用一个低通滤波器把镜像滤掉，只保留基带。</li>
+</ol>
+<p>所以”插值”和”低通滤波”是天生绑定的——GNURadio 里的 <code>Interpolating FIR Filter</code> 就把这两件事一起做了。</p>
+<p>对应地，另外两个概念：</p>
 <ul>
-<li>Two Variable bocks</li>
-<li>Low-Pass Filter Taps</li>
-<li>QT GUI Range</li>
-<li>Signal Source</li>
-<li>Interpolating FIR Filter</li>
-<li>Throttle</li>
-<li>QT GUI Frequency Sink</li>
+<li><strong>抽取（Decimation）= 低通防混叠 + 降采样</strong></li>
+<li><strong>重采样（Resampling）= 插值 + 抽取</strong>，实现任意速率变换</li>
 </ul>
-<p>按照以下进行连接：<br><img src="../images/SRC/SRC.png" alt=""><br>将两个变量分别设置为</p>
+<h2 id="三、动手：复现步骤"><a href="#三、动手：复现步骤" class="headerlink" title="三、动手：复现步骤"></a>三、动手：复现步骤</h2><h3 id="1-需要的-block"><a href="#1-需要的-block" class="headerlink" title="1. 需要的 block"></a>1. 需要的 block</h3><ul>
+<li>Two Variable blocks（两个变量）</li>
+<li>Low-Pass Filter Taps（生成滤波器抽头）</li>
+<li>QT GUI Range（频率滑块）</li>
+<li>Signal Source（信号源）</li>
+<li>Interpolating FIR Filter（插值 + 滤波）</li>
+<li>Throttle（限速）</li>
+<li>QT GUI Frequency Sink（看频谱）</li>
+</ul>
+<p>按下面的方式连接：</p>
+<p><img src="/../images/SRC/SRC.png"></p>
+<h3 id="2-变量设置"><a href="#2-变量设置" class="headerlink" title="2. 变量设置"></a>2. 变量设置</h3><p><strong>变量一</strong></p>
 <ul>
-<li>The First<ul>
-<li>Id:interpolation_rate</li>
-<li>Value:4</li>
+<li>Id：<code>interpolation_rate</code></li>
+<li>Value：<code>4</code></li>
 </ul>
-</li>
-<li>The Second<ul>
-<li>Id: samp_rate_interpolated</li>
-<li>value: samp_rate*interpolations_rate</li>
-</ul>
-</li>
-</ul>
-<p>编辑Low-Pass Filter Tpas</p>
+<p><strong>变量二</strong></p>
 <ul>
-<li>Id : lowPassTaps</li>
-<li>Sample Rate: samp_rate_interpolated</li>
-<li>Cutoff Freq: samp_rate_interpolated/(interpolation_rate*2)</li>
-<li>Transition Width: samp_rate_interpolated/(interpolation_rate*4)</li>
+<li>Id：<code>samp_rate_interpolated</code></li>
+<li>Value：<code>samp_rate * interpolation_rate</code></li>
 </ul>
-<p>设置QT GUI Range</p>
+<blockquote>
+<p>注意变量名要和引用一致，写错一个字母 GNURadio 会直接报 “Variable not defined”。这里 <code>samp_rate</code> 是内置变量。</p>
+</blockquote>
+<h3 id="3-滤波器设置（关键）"><a href="#3-滤波器设置（关键）" class="headerlink" title="3. 滤波器设置（关键）"></a>3. 滤波器设置（关键）</h3><p><strong>Low-Pass Filter Taps</strong></p>
 <ul>
-<li>Id: frequency</li>
-<li>Default Value: 0</li>
-<li>Start: -samp_rate/2</li>
-<li>Stop: samp_rate/2</li>
+<li>Id：<code>lowPassTaps</code></li>
+<li>Sample Rate：<code>samp_rate_interpolated</code></li>
+<li>Cutoff Freq：<code>samp_rate_interpolated / (interpolation_rate * 2)</code></li>
+<li>Transition Width：<code>samp_rate_interpolated / (interpolation_rate * 4)</code></li>
 </ul>
-<p>将Signal Source的Frequency设置为frequency</p>
-<p>设置Interpolating FIR Filter block</p>
+<blockquote>
+<p><strong>为什么截止频率要这么算？</strong> 插值后采样率变成了原来的 4 倍，镜像出现在原始带宽的边界之外。截止频率取”插值后采样率 ÷ (2×插值倍数)”，正好落在原始奈奎斯特边界上，能把镜像挡在外面又不伤基带。这里所有频率都按<strong>插值后的采样率</strong>计算，这是最容易算错的地方。</p>
+</blockquote>
+<p><strong>QT GUI Range</strong></p>
 <ul>
-<li>Interpolation: interpolation_rate</li>
-<li>Taps: lowPassTaps</li>
+<li>Id：<code>frequency</code></li>
+<li>Default Value：<code>0</code></li>
+<li>Start：<code>-samp_rate/2</code></li>
+<li>Stop：<code>samp_rate/2</code></li>
 </ul>
-<p>设置Throttle</p>
+<p><strong>Signal Source</strong></p>
 <ul>
-<li>Sample Rate: samp_rate_interpolated</li>
+<li>Frequency：<code>frequency</code></li>
 </ul>
-<p>设置QT GUI Frequency Sink </p>
+<p><strong>Interpolating FIR Filter</strong></p>
 <ul>
-<li>BandWidth : samp_rate_interpolated<br>然后就可以运行了<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1></li>
-<li>插值 = 升采样 + 低通滤镜像</li>
-<li>抽取 = 低通防混叠 + 降采样</li>
-<li>重采样 = 插值 + 抽取，任意换速率</li>
+<li>Interpolation：<code>interpolation_rate</code></li>
+<li>Taps：<code>lowPassTaps</code></li>
 </ul>
-<p>Interpolation</p>
+<p><strong>Throttle</strong></p>
 <ul>
-<li>提高采样率—-&gt; 扩大可用带宽</li>
-<li>使用Interpolating FIR Filter模块进行实现。</li>
+<li>Sample Rate：<code>samp_rate_interpolated</code></li>
 </ul>
-<p>关键步骤：</p>
+<blockquote>
+<p>Throttle 的采样率必须跟着插值后的速率走，否则限速逻辑和实际数据流对不上。</p>
+</blockquote>
+<p><strong>QT GUI Frequency Sink</strong></p>
 <ul>
-<li>使用Low-Pass Filter Taps生成匹配插值倍数的抗镜像滤波器</li>
-<li>插值后的采样率= 源采样率 * 插值倍数</li>
-<li>滤波器的作用： 滤除插值产生的频谱镜像<br>效果：采样率变高，波形更平滑，频谱展示范围更大。<br>Interpolating它把插值与低通滤波的活都干了，它是天生绑定的。</li>
+<li>Bandwidth：<code>samp_rate_interpolated</code></li>
 </ul>
+<h3 id="4-运行验证"><a href="#4-运行验证" class="headerlink" title="4. 运行验证"></a>4. 运行验证</h3><p>运行后观察频谱：插值后采样率变高，频谱展示范围明显变宽，波形也更平滑。</p>
+<h2 id="四、常见坑与边界"><a href="#四、常见坑与边界" class="headerlink" title="四、常见坑与边界"></a>四、常见坑与边界</h2><ul>
+<li><strong>滤波器截止频率必须按插值后的采样率算</strong>。很多人习惯性沿用原始 <code>samp_rate</code>，结果滤波器通带被压得太窄或镜像没滤干净。</li>
+<li><strong>插值倍数越高，滤波器阶数越高</strong>。过渡带宽越小，需要的 FIR 抽头越多，计算量越大；倍数开太大会明显吃 CPU。</li>
+<li><strong>Throttle 的采样率要和数据流一致</strong>，否则要么限速失效要么报错。</li>
+<li><strong>不滤波直接插值 = 频谱全是镜像</strong>，波形看起来”毛刺”，这就是漏掉低通滤波的典型症状。</li>
+<li><strong>变量引用要成对检查</strong>：<code>samp_rate_interpolated</code> 依赖 <code>samp_rate</code>，变量定义顺序和拼写都要对。</li>
+</ul>
+<h2 id="五、结论"><a href="#五、结论" class="headerlink" title="五、结论"></a>五、结论</h2><p>一句话记住三者关系：</p>
+<ul>
+<li><strong>插值</strong> = 升采样 + 低通滤镜像（抬高采样率、扩大可用带宽）</li>
+<li><strong>抽取</strong> = 低通防混叠 + 降采样</li>
+<li><strong>重采样</strong> = 插值 + 抽取</li>
+</ul>
+<p><code>Interpolating FIR Filter</code> 把”插值”和”滤波”打包在一起，所以只要用它，就必须同时想清楚抽头（Taps）是怎么来的——而抽头的截止频率，永远跟着<strong>插值后的采样率</strong>走。</p>
 
     </div>
 
@@ -493,7 +514,7 @@ mjx-container[display="true"] + br {
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/032217132.html" rel="next" title="Designing Filter Taps by GNURadio">
+                <a href="/2026/032251376.html" rel="next" title="Designing Filter Taps by GNURadio">
                   Designing Filter Taps by GNURadio <i class="fa fa-angle-right"></i>
                 </a>
             </div>

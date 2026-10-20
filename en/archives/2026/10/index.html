@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
@@ -18,29 +18,28 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"haclm.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":300,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"haclm.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":300,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="ARM 数据处理指令汇编基础：A32&#x2F;T32 与 A64 指令集的目标寄存器、输入寄存器差异，结合汇编代码示例逐条讲解。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ARM数据处理指令汇编">
-<meta property="og:url" content="https://haclm.github.io/2026/08129472.html">
+    <meta name="description" content="Hello">
+<meta property="og:type" content="website">
+<meta property="og:title" content="D.riven">
+<meta property="og:url" content="https://haclm.github.io/en/archives/2026/10/index.html">
 <meta property="og:site_name" content="D.riven">
-<meta property="og:description" content="ARM 数据处理指令汇编基础：A32&#x2F;T32 与 A64 指令集的目标寄存器、输入寄存器差异，结合汇编代码示例逐条讲解。">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-08-12T04:16:00.000Z">
-<meta property="article:modified_time" content="2026-08-21T08:25:33.721Z">
+<meta property="og:description" content="Hello">
+<meta property="og:locale" content="en_US">
 <meta property="article:author" content="D.riven">
-<meta property="article:tag" content="ARM">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="D.riven">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://haclm.github.io/2026/08129472.html">
+<link rel="canonical" href="https://haclm.github.io/en/archives/2026/10/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://haclm.github.io/2026/08129472.html","path":"2026/08129472.html","title":"ARM数据处理指令汇编"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"en","comments":"","permalink":"","path":"en/archives/2026/10/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>ARM数据处理指令汇编 | D.riven</title>
+<title>Archive | D.riven</title>
   
 
 
@@ -66,12 +65,6 @@
 
 
 
-  
-
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","display_overflow":"scroll","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-mml-chtml.js","integrity":"sha256-ihPtDDm7pTmSF9ViEsItlvsrBTsNkz0MOXMchzOwCQw="}}</script>
-<script src="/js/third-party/math/mathjax.js" defer></script>
-
-
 <meta name="theme-color" content="#050807">
 <meta name="color-scheme" content="dark">
 
@@ -83,119 +76,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="D.riven" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -205,7 +86,7 @@ mjx-container[display="true"] + br {
     <div class="column">
       <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -216,14 +97,14 @@ mjx-container[display="true"] + br {
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">D.riven</p>
+      <h1 class="site-title">D.riven</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">D.riven</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
     </div>
   </div>
 </div>
@@ -231,7 +112,7 @@ mjx-container[display="true"] + br {
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
   </ul>
 </nav>
 
@@ -243,20 +124,19 @@ mjx-container[display="true"] + br {
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
-          文章目录
+          Table of Contents
         </li>
         <li class="sidebar-nav-overview">
-          站点概览
+          Overview
         </li>
       </ul>
 
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E5%85%A5"><span class="nav-text">引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D%E5%92%8C%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D"><span class="nav-text">移位和循环移位</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -271,19 +151,19 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
-          <span class="site-state-item-name">日志</span>
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span></a>
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">标签</span></a>
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
@@ -309,148 +189,49 @@ mjx-container[display="true"] + br {
 
     </div>
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner archive posts-collapse">
 
 
   
-
-
-<div class="post-block">
   
   
+  <div class="post-block">
+    <div class="post-content">
+      <div class="collection-title">
+        <span class="collection-header">Um..! 6 posts in total. Keep on posting.</span>
+      </div>
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://haclm.github.io/2026/08129472.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/medias/avatar1.jpg">
-      <meta itemprop="name" content="D.riven">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D.riven">
-      <meta itemprop="description" content="Hello ">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="ARM数据处理指令汇编 | D.riven">
-      <meta itemprop="description" content="ARM 数据处理指令汇编基础：A32&#x2F;T32 与 A64 指令集的目标寄存器、输入寄存器差异，结合汇编代码示例逐条讲解。">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          ARM数据处理指令汇编
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2026-08-12 12:16:00" itemprop="dateCreated datePublished" datetime="2026-08-12T12:16:00+08:00">2026-08-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ARM/" itemprop="url" rel="index"><span itemprop="name">ARM</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
-
-</div>
-
-            <div class="post-description">ARM 数据处理指令汇编基础：A32/T32 与 A64 指令集的目标寄存器、输入寄存器差异，结合汇编代码示例逐条讲解。</div>
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>任何给定指令的操作数都是取决于正在执行的指令类型，数据处理指令总是先列出目标寄存器然后再列出指令的输入.</p>
-<p>在A32/T32中目标寄存器为Rd,而在A64目标寄存器为Xd或Wd.<br>同样的在A32/T32中输入寄存器为Rm、Rn或Ra,而在A64则为Xn或Xm.</p>
-<p>先看这汇编代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add x0, x1, x2; x0=x1+x2</span><br></pre></td></tr></table></figure>
-<p>指令将ADD将两个64位源寄存器值x1和X2相加，并将64位结果存储在寄存器x0中。</p>
-<p>在A64中有种指令角算术指令这些指令通常带有一个s后缀，它可以根据结果设置算术标志位。它对基本语法没有影响.<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adds x0, x1, x2; x0=x1+x2 and set flags</span><br></pre></td></tr></table></figure></p>
-<p>有时候两条不同的指令可能具有相同的指令编码，其中一个会被视作另一个别名.</p>
-<p>任何给定的指令都可以被编码位以不同的方式处理其寄存器.<br>例如A32指令使用以下源操作数形式：</p>
-<ul>
-<li>寄存器形式</li>
-<li>常量立即数形式</li>
-<li>移位寄存器形式</li>
-<li>寄存器-移位寄存器形式</li>
-<li>拓展寄存器形式</li>
-</ul>
-<p>使用寄存器、常量立即数、移位寄存器的A64 ADD 三个指令寄存器<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add x0, x0, x1</span><br><span class="line">add x0, x0, #100</span><br><span class="line">add x0, x1, x1, LSL #1</span><br></pre></td></tr></table></figure><br>对于任何给定的指令，了解其不同的指令形式式非常重要的.</p>
-<h1 id="移位和循环移位"><a href="#移位和循环移位" class="headerlink" title="移位和循环移位"></a>移位和循环移位</h1><p>许多指令可以包含移位和循环移位(rotate)操作，也可以作为单独指令存在.<br>A64指令集支持四种基本类型的移位操作：</p>
-<ul>
-<li>逻辑左移(Logical Shift Left, LSL)</li>
-<li>逻辑右移(Logical Shift right, LSR)</li>
-<li>算术右移(Arithmetic Shift Right, ASR)</li>
-<li>循环右移(Rotate Right, ROR)</li>
-</ul>
-<p>A32/T32指令集提供了第五种位移类型:待拓展的循环右移(Roate Right with Extend, RRX)</p>
-
+      
+    <div class="collection-year">
+      <span class="collection-header">2026<span class="collection-year-count">6</span></span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2026-10-13T12:43:00+08:00"
+              content="2026-10-13">
+          10-13
+        </time>
+      </div>
 
-    <footer class="post-footer">
-          
+      <div class="post-title">
+          <a class="post-title-link" href="/2026/101341204.html" itemprop="url">
+            <span itemprop="name">Hann Window and hamming window</span>
+          </a>
+      </div>
 
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>原作者： </strong>D.riven
-  </li>
-  <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="https://haclm.github.io/2026/08129472.html" title="ARM数据处理指令汇编">https://haclm.github.io/2026/08129472.html</a>
-  </li>
-  <li class="post-copyright-license">
-      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-          <div class="post-tags">
-              <a href="/tags/ARM/" rel="tag"># ARM</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2026/032217132.html" rel="prev" title="Designing Filter Taps by GNURadio">
-                  <i class="fa fa-angle-left"></i> Designing Filter Taps by GNURadio
-                </a>
-            </div>
-            <div class="post-nav-item">
-            </div>
-          </div>
-    </footer>
+      
+    </header>
   </article>
-</div>
 
 
-
-
-
+    </div>
+  </div>
+  
+  
+  
 
 </div>
   </main>
@@ -460,16 +241,16 @@ mjx-container[display="true"] + br {
   <div class="languages">
     <label class="lang-select-label">
       <i class="fa fa-language"></i>
-      <span>简体中文</span>
+      <span>English</span>
       <i class="fa fa-angle-up" aria-hidden="true"></i>
     </label>
-    <select class="lang-select" data-canonical="" aria-label="选择语言">
+    <select class="lang-select" data-canonical="" aria-label="Select language">
       
-        <option value="zh-CN" data-href="/2026/08129472.html" selected="">
+        <option value="zh-CN" data-href="/archives/2026/10/index.html" selected="">
           简体中文
         </option>
       
-        <option value="en" data-href="/en/2026/08129472.html" selected="">
+        <option value="en" data-href="/en/archives/2026/10/index.html" selected="">
           English
         </option>
       
@@ -489,7 +270,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
-      <span class="site-uv" title="总访客量">
+      <span class="site-uv" title="Total Visitors">
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
@@ -497,12 +278,12 @@ mjx-container[display="true"] + br {
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
-      <span class="site-pv" title="总访问量">
+      <span class="site-pv" title="Total Views">
         <span id="busuanzi_value_site_pv"></span>
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
     </div>
@@ -515,7 +296,7 @@ mjx-container[display="true"] + br {
     <span class="toggle-line"></span>
   </div>
   <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="返回顶部">
+  <div class="back-to-top" role="button" aria-label="Back to top">
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
   </div>

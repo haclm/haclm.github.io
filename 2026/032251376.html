@@ -20,26 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"haclm.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":300,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="Hello">
-<meta property="og:type" content="website">
-<meta property="og:title" content="D.riven">
-<meta property="og:url" content="https://haclm.github.io/archives/2026/08/index.html">
+    <meta name="description" content="理清 GNURadio 里 Low Pass Filter 与 Low-Pass Filter Taps 的区别：前者是完整滤波器，后者只负责算系数，需要配合 Frequency Xlating FIR Filter 才能工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Designing Filter Taps by GNURadio">
+<meta property="og:url" content="https://haclm.github.io/2026/032251376.html">
 <meta property="og:site_name" content="D.riven">
-<meta property="og:description" content="Hello">
+<meta property="og:description" content="理清 GNURadio 里 Low Pass Filter 与 Low-Pass Filter Taps 的区别：前者是完整滤波器，后者只负责算系数，需要配合 Frequency Xlating FIR Filter 才能工作。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-22T04:43:00.000Z">
+<meta property="article:modified_time" content="2026-10-09T01:11:39.715Z">
 <meta property="article:author" content="D.riven">
-<meta property="article:tag" content="blog">
-<meta property="article:tag" content="D.riven">
+<meta property="article:tag" content="SDR">
+<meta property="article:tag" content="gnuradio">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://haclm.github.io/archives/2026/08/">
+<link rel="canonical" href="https://haclm.github.io/2026/032251376.html">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2026/08/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://haclm.github.io/2026/032251376.html","path":"2026/032251376.html","title":"Designing Filter Taps by GNURadio"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | D.riven</title>
+<title>Designing Filter Taps by GNURadio | D.riven</title>
   
 
 
@@ -65,15 +67,12 @@
 
 
 
-  
-
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","display_overflow":"scroll","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-mml-chtml.js","integrity":"sha256-ihPtDDm7pTmSF9ViEsItlvsrBTsNkz0MOXMchzOwCQw="}}</script>
-<script src="/js/third-party/math/mathjax.js" defer></script>
-
-
 <meta name="theme-color" content="#050807">
 <meta name="color-scheme" content="dark">
 
+    <meta property="og:image" content="https://haclm.github.io/images/Covers/GNURadio.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://haclm.github.io/images/Covers/GNURadio.png">
 
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
@@ -103,7 +102,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">D.riven</h1>
+      <p class="site-title">D.riven</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">D.riven</p>
@@ -130,7 +129,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,6 +142,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89%E2%80%9DTaps%E2%80%9D%E8%BF%99%E7%A7%8D%E4%B8%9C%E8%A5%BF"><span class="nav-text">一、背景：为什么会有”Taps”这种东西</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%8E%9F%E7%90%86%EF%BC%9A%E7%AE%97%E7%B3%BB%E6%95%B0-vs-%E5%81%9A%E6%BB%A4%E6%B3%A2"><span class="nav-text">二、原理：算系数 vs 做滤波</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%8A%A8%E6%89%8B%EF%BC%9A%E5%A4%8D%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-text">三、动手：复现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9B%BF%E6%8D%A2%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-text">1. 替换滤波器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE-Low-Pass-Filter-Taps"><span class="nav-text">2. 配置 Low-Pass Filter Taps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8A%8A-Taps-%E6%8E%A5%E5%88%B0%E6%BB%A4%E6%B3%A2%E5%99%A8%E4%B8%8A"><span class="nav-text">3. 把 Taps 接到滤波器上</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B8%B8%E8%A7%81%E5%9D%91%E4%B8%8E%E8%BE%B9%E7%95%8C"><span class="nav-text">四、常见坑与边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BB%93%E8%AE%BA"><span class="nav-text">五、结论</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -157,18 +157,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,49 +195,164 @@
 
     </div>
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 7 篇日志。 继续努力。</span>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2026<span class="collection-year-count">7</span></span>
-    </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://haclm.github.io/2026/032251376.html">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2026-08-12T12:16:00+08:00"
-              content="2026-08-12">
-          08-12
-        </time>
-      </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/medias/avatar1.jpg">
+      <meta itemprop="name" content="D.riven">
+    </span>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/08129472.html" itemprop="url">
-            <span itemprop="name">ARM数据处理指令汇编</span>
-          </a>
-      </div>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D.riven">
+      <meta itemprop="description" content="Hello ">
+    </span>
 
-      
-    </header>
-  </article>
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Designing Filter Taps by GNURadio | D.riven">
+      <meta itemprop="description" content="理清 GNURadio 里 Low Pass Filter 与 Low-Pass Filter Taps 的区别：前者是完整滤波器，后者只负责算系数，需要配合 Frequency Xlating FIR Filter 才能工作。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Designing Filter Taps by GNURadio
+        </h1>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-    </div>
+      <time title="创建时间：2026-03-22 12:43:00" itemprop="dateCreated datePublished" datetime="2026-03-22T12:43:00+08:00">2026-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SDR/" itemprop="url" rel="index"><span itemprop="name">SDR</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  <div class="post-cover">
+    <img src="/images/Covers/GNURadio.png" alt="Designing Filter Taps by GNURadio" loading="lazy">
   </div>
-  
-  
-  
+
+</div>
+
+            <div class="post-description">理清 GNURadio 里 Low Pass Filter 与 Low-Pass Filter Taps 的区别：前者是完整滤波器，后者只负责算系数，需要配合 Frequency Xlating FIR Filter 才能工作。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p><strong>一句话</strong>：<code>Low-Pass Filter Taps</code> 只算”系数”，不处理信号；要真正滤波，还得把它塞进一个 FIR 滤波器 block 里。</p>
+</blockquote>
+<h2 id="一、背景：为什么会有”Taps”这种东西"><a href="#一、背景：为什么会有”Taps”这种东西" class="headerlink" title="一、背景：为什么会有”Taps”这种东西"></a>一、背景：为什么会有”Taps”这种东西</h2><p>上一篇文章用了 <code>Low Pass Filter</code>，它开箱即用——填好截止频率就能输出信号。</p>
+<p>但有时候我们想<strong>复用同一组滤波系数</strong>（比如把它用在别的滤波器结构里），或者想<strong>同时做频移和滤波</strong>。这时候 <code>Low Pass Filter</code> 就不够灵活了，于是 GNURadio 把”算系数”这一步单独拆了出来，就是 <code>Low-Pass Filter Taps</code>。</p>
+<h2 id="二、原理：算系数-vs-做滤波"><a href="#二、原理：算系数-vs-做滤波" class="headerlink" title="二、原理：算系数 vs 做滤波"></a>二、原理：算系数 vs 做滤波</h2><p>这是本文的核心，也是新手最容易混淆的地方：</p>
+<ul>
+<li><strong><code>Low Pass Filter</code></strong>：一个<strong>完整的 FIR 滤波器</strong>。内部自己算系数、自己做信号处理，输出端直接就能拿到滤波后的信号。</li>
+<li><strong><code>Low-Pass Filter Taps</code></strong>：只做一件事——根据采样率、截止频率、过渡带宽、窗函数等参数，<strong>计算并输出一组 FIR 抽头系数（Taps）</strong>。它<strong>不做任何信号处理</strong>。</li>
+</ul>
+<p>所以：<code>Low-Pass Filter Taps</code> 不能单独工作，它必须借助一个真正的滤波 block 才能发挥作用。本文用的就是 <code>Frequency Xlating FIR Filter</code>。</p>
+<h2 id="三、动手：复现步骤"><a href="#三、动手：复现步骤" class="headerlink" title="三、动手：复现步骤"></a>三、动手：复现步骤</h2><blockquote>
+<p>本节依赖低通滤波器设计的基础，可回看上一篇《Low pass filter example》。</p>
+</blockquote>
+<h3 id="1-替换滤波器"><a href="#1-替换滤波器" class="headerlink" title="1. 替换滤波器"></a>1. 替换滤波器</h3><p>把上一篇的 <code>Low Pass Filter</code> 换成 <strong>Frequency Xlating FIR Filter</strong>，再拖出一个 <strong>Low-Pass Filter Taps</strong> block。</p>
+<h3 id="2-配置-Low-Pass-Filter-Taps"><a href="#2-配置-Low-Pass-Filter-Taps" class="headerlink" title="2. 配置 Low-Pass Filter Taps"></a>2. 配置 Low-Pass Filter Taps</h3><p>双击打开设置：</p>
+<ul>
+<li>ID：<code>lowPassTaps</code></li>
+<li>Cutoff Freq：<code>samp_rate/4</code></li>
+<li>Transition Width：<code>samp_rate/8</code></li>
+</ul>
+<h3 id="3-把-Taps-接到滤波器上"><a href="#3-把-Taps-接到滤波器上" class="headerlink" title="3. 把 Taps 接到滤波器上"></a>3. 把 Taps 接到滤波器上</h3><p>双击 <strong>Frequency Xlating FIR Filter</strong>，把它的 <strong>Taps</strong> 设置为 <code>lowPassTaps</code>。</p>
+<blockquote>
+<p>这就是”算系数”和”用系数”的对接点：Taps block 算出系数，滤波器 block 拿系数去做实际的卷积运算。</p>
+</blockquote>
+<p>配置完成后即可运行。</p>
+<h2 id="四、常见坑与边界"><a href="#四、常见坑与边界" class="headerlink" title="四、常见坑与边界"></a>四、常见坑与边界</h2><ul>
+<li><strong>Taps 不能单独运行</strong>。它没有输出信号，只有一个”系数输出端口”，必须接到滤波器 block 的 Taps 参数上。</li>
+<li><strong><code>Frequency Xlating FIR Filter</code> 不只是滤波器</strong>。它还能在滤波的同时做频移（通过 Center Frequency 参数），所以它的能力比单纯的 <code>Low Pass Filter</code> 更强。</li>
+<li><strong>参数含义要看清楚</strong>：Taps block 里的 Cutoff Freq、Transition Width 都是按<strong>采样率</strong>换算的，和上一篇一致，填错会导致滤波效果不对。</li>
+<li><strong>改采样率时要同步改 Taps 参数</strong>。系数是按当前采样率算的，采样率一变，同一组系数对应的实际截止频率也就变了。</li>
+</ul>
+<h2 id="五、结论"><a href="#五、结论" class="headerlink" title="五、结论"></a>五、结论</h2><p>记住一句话：<strong><code>Low-Pass Filter Taps</code> 是”造系数”的，<code>Frequency Xlating FIR Filter</code> 是”用系数”的。</strong> 前者输出的是 FIR 抽头，后者拿抽头做真正的滤波（还顺便能频移）。理解了这一层，GNURadio 里所有 <code>xxx Taps</code> 类 block 你都能一眼看穿它的角色。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>D.riven
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://haclm.github.io/2026/032251376.html" title="Designing Filter Taps by GNURadio">https://haclm.github.io/2026/032251376.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/SDR/" rel="tag"># SDR</a>
+              <a href="/tags/gnuradio/" rel="tag"># gnuradio</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/032217132.html" rel="prev" title="Sample Rate Change by GNURadio">
+                  <i class="fa fa-angle-left"></i> Sample Rate Change by GNURadio
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/101341204.html" rel="next" title="Hann Window and hamming window">
+                  Hann Window and hamming window <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
 
 </div>
   </main>
@@ -252,11 +367,11 @@
     </label>
     <select class="lang-select" data-canonical="" aria-label="选择语言">
       
-        <option value="zh-CN" data-href="/archives/2026/08/index.html" selected="">
+        <option value="zh-CN" data-href="/2026/032251376.html" selected="">
           简体中文
         </option>
       
-        <option value="en" data-href="/en/archives/2026/08/index.html" selected="">
+        <option value="en" data-href="/en/2026/032251376.html" selected="">
           English
         </option>
       
